@@ -4,6 +4,7 @@ date: 2013-09-23 16:43:56
 category : blog
 ---
 
+
 *April 2nd, 2014: the post has been edited to fix some errors that were present in the original article. Thanks to @steve for having pointed that out*.
 
 [Promises](http://en.wikipedia.org/wiki/Futures_and_promises) are significantly taking ground as a programming construct for asynchronous systems such as web applications. In its simplest form, a *promise* represents the state of the result of some future computation.

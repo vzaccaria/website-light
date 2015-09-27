@@ -1,12 +1,7 @@
 ---
 title: A dumb easy model for promises
 date: 2013-09-23 16:43:56
-
-layout: post
-category : blog 
-tags : ["promises", "concurrent", "asynchronous", "javascript"] 
-description : Update - Promises are significantly taking ground as a programming construct for asynchronous systems such as web applications. In this post I'll describe how Petri Nets can be used to efficiently model them.
-og_image : deposit/returned_promise1.png
+category : blog
 ---
 
 *April 2nd, 2014: the post has been edited to fix some errors that were present in the original article. Thanks to @steve for having pointed that out*.
@@ -16,7 +11,7 @@ og_image : deposit/returned_promise1.png
 I was introduced recently to this construct when studying [jQuery](http://api.jquery.com/promise/) and [AngularJS](http://angularjs.org/). At the beginning, I was not able to wrap my head around it. While I understood the basic callback mechanism — allowing to be notified when the computation is finished — I struggled a lot capturing the efficiency with which promises allow to easily *compose* asynchronous programs.
 
 ## Enter Petri nets
-[Petri nets](http://en.wikipedia.org/wiki/Petri_net) have helped me a lot while creating an easy mental/visual model of promises (and their composition patterns). 
+[Petri nets](http://en.wikipedia.org/wiki/Petri_net) have helped me a lot while creating an easy mental/visual model of promises (and their composition patterns).
 
 In this post, I will refer to the ["Promises/A+"](http://promises-aplus.github.io/promises-spec/) specification. I assume you have already some basic knowledge of it — especially of the special cases. Besides, I will not indulge in any mathematical notation of Petri Nets here. If you are interested, I've put some suggested reading link at the end of this post.
 
@@ -68,7 +63,7 @@ Petri nets allow to model these synchronization points very easily. This is done
 
 ## Cheat sheet
 
-I am astonished about how Petri nets allow us to think in a very clear way about how we structure our promise chain. I hope this can be useful for you as it was for me. 
+I am astonished about how Petri nets allow us to think in a very clear way about how we structure our promise chain. I hope this can be useful for you as it was for me.
 
 You can download the visual cheat sheet for Petri Nets for promises [from this address](http://www.vittoriozaccaria.net/deposit/promises_cheat_sheet1.pdf) [pdf].
 
@@ -78,5 +73,5 @@ You can download the visual cheat sheet for Petri Nets for promises [from this a
 
 * T. Murata — Petri Nets: Properties, Analysis and Applications - 1989, [Available at this address](http://embedded.eecs.berkeley.edu/Respep/Research/hsc/class.F03/ee249/discussionpapers/PetriNets.pdf).
 
- 
-[^1]: We are not going to deal with how this object is generated. We assume that some computation has started and an object representing its future value has been created.  
+
+[^1]: We are not going to deal with how this object is generated. We assume that some computation has started and an object representing its future value has been created.

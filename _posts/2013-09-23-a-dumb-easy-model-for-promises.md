@@ -5,6 +5,30 @@ category : blog
 ---
 
 
+``` c
+#define N 100
+typedef char Stringa[N];
+typedef enum {falso, vero} bool;
+
+typedef struct // descrizione della transazione
+{
+    float importo;
+    Stringa nazione;
+    int timestamp;
+    // tempo dell'acquisto espresso in secondi dal 1/1/1970.
+    // Ad es. le 9:00:00 del il 2015.06.29 = 1435561200 secondo
+    //        le 9:01:00 del il 2015.06.29 = 1435561260 secondo
+    bool usato_pin; // determina se la transazione è avvenuta richiedendo il pin all'utente
+} Acquisto;
+
+typedef struct
+{
+    int card_number; // numero della carta
+    Acquisto trans[N];
+    int n_trans; // numero delle transazioni eseguite
+} Carta;
+```
+
 *April 2nd, 2014: the post has been edited to fix some errors that were present in the original article. Thanks to @steve for having pointed that out*.
 
 [Promises](http://en.wikipedia.org/wiki/Futures_and_promises) are significantly taking ground as a programming construct for asynchronous systems such as web applications. In its simplest form, a *promise* represents the state of the result of some future computation.

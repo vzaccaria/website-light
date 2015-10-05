@@ -30,9 +30,9 @@ module.exports = {
     entry: './src/js/index.jsx',
     devtool: "source-map",
     output: {
-        path: __dirname + '/',
+        path: __dirname + '/assets',
         filename: 'client.js',
-        publicPath: 'http://localhost:8080/'
+        publicPath: 'http://localhost:8080/assets'
     },
     module: {
         loaders: [{

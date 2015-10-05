@@ -1,15 +1,24 @@
-import React from 'react'
-import _debug from 'debug'
-import { createSidebarComponentHTML } from './sidebar'
+import React from 'react';
+import { createSidebarComponentHTML } from './sidebar';
+import { Routes } from './routes';
+import Router from 'react-router'
 
+// Debug..
+import _debug from 'debug';
 _debug.enable('app:*');
-//const debug = _debug('app:index.jsx');
+const debug = _debug('app:index.jsx');
 
-// Import styles
-require("style!../css/fonts.css")
-require("!style!css!less!../less/main.less")
-
-
-document.getElementById('sidebar').innerHTML = createSidebarComponentHTML()
 
 // Main ideas taken from: http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-router-and-webpack/
+
+
+// Import styles
+require("style!../css/fonts.css");
+require("!style!css!less!../less/main.less");
+
+// Render sidebar
+document.getElementById('sidebar').innerHTML = createSidebarComponentHTML();
+
+Router.run(Routes, (Handler) => {
+    React.render(<Handler/>, document.getElementById('content'))
+})

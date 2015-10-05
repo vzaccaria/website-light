@@ -1,22 +1,68 @@
-.sidebar
-   img.sidebar__picture
-   .sidebar__name Vittorio Zaccaria
-   .sidebar__address Politecnico di Milano
+mixin detail(nome, valore)
+  div(elem='detail')
+    div(elem='key')= nome
+    div(elem='value')= valore
 
-   ul.sidebar__link_list
-     +sidebar__link_item('fa-home'           , 'Home'     , baseUrl + "/")
-     +sidebar__link_item('fa-flask'          , 'Research' , baseUrl + "/research.html")
-     +sidebar__link_item('fa-quote-left'     , 'Blog'     , baseUrl + "/blog.html")
-     +sidebar__link_item('fa-floppy-o'       , 'Projects' , baseUrl + "/projects.html")
-     +sidebar__link_item('fa-graduation-cap' , 'Teaching' , baseUrl + "/teaching.html")
-     +sidebar__link_item('fa-user'           , 'CV'       , baseUrl + "/deposit/cv.pdf")
-     +sidebar__link_item('fa-youtube-play'   , 'Videos'   , baseUrl + "/videos.html")
-     +sidebar__link_item('fa-map-marker'     , 'Address'  , baseUrl + "/address.html")
+mixin position(from, to, title, institution, department)
+  div(block='position')
+    div(elem='column1')
+      div(elem='date')= to
+      div(elem='date')= from
+    div(elem='column2')
+      div(elem='name')= title
+      div(elem='institution') #{institution},
+      div(elem='department')= department
 
-   .sidebar__bottom
-     .sidebar__bottom__button(onclick="location.href='http://www.linkedin.com/in/vzaccaria'", style="cursor: pointer")
-       i.fa.fa-linkedin-square
-     .sidebar__bottom__button(onclick="location.href='http://twitter.com/_vzaccaria_'", style="cursor: pointer")
-       i.fa.fa-twitter-square
-     .sidebar__bottom__button(onclick="location.href='https://plus.google.com/116322227495215922957/about'", style="cursor: pointer")
-       i.fa.fa-google-plus-square
+div(block='bio-container')
+    div(block='bio')
+      div(elem='title') Bio
+      img(elem='picture')
+      div(block='bio-text', mod='size:medium')
+        div(elem='title') Vittorio Zaccaria
+        div(elem='position') Assistant professor
+        div(elem='description')
+          :markdown
+            I am an assistant professor at Politecnico di Milano and I have worked in processor architecture
+            research and development for one of the top semiconductor companies in the world.
+
+            Although my background is rooted in modeling and simulation of digital systems,
+            I've expanded my interests to **parallel** and **asynchronous programming**,
+            **domain specific languages** and automatic tools for the web. I also have a thing
+            for **data visualization**, **infographics** and **javascript**. If you are inclined to work on these topics
+            feel free to get in touch for a possible collaboration or a thesis.
+
+            Troughout the years, I discovered that I love teaching by making students
+            passionate about computer engineering. I like matching conventional methods for teaching with
+            novel technology such as live-coding and program simulation.
+
+    div(block='career', mod='size:small')
+      div(elem='title') Career
+      div(block='career-list')
+
+        +position('2011' , 'now'  , 'Assistant professor'               , 'Politecnico di Milano' , 'DEIB')
+        +position('2009' , '2011' , 'Assistant professor - no tenure'   , 'Politecnico di Milano' , 'DEIB')
+        +position('2007' , '2009' , 'Research associate'                , 'Politecnico di Milano' , 'DEI')
+        +position('2004' , '2007' , 'Research and development Engineer' , 'STMicroelectronics'    , 'Switzerland')
+        +position('2003' , '2004' , 'Research consultant'               , 'STMicroelectronics'    , 'Italy')
+        +position('2001' , '2002' , 'Postdoc researcher'                , 'Politecnico di Milano' , 'DEI')
+
+    div(block='education', mod='size:small')
+      div(elem='title') Education
+      div(block='diploma-list')
+        div(block='diploma')
+          div(elem='column1')
+            div(elem='name') Ph.D
+            div(elem='date') 2001
+          div(elem='column2')
+            div(elem='topic') Computer Engineering
+            div(elem='institution') Politecnico di Milano,
+            div(elem='department') DEI
+
+        div(block='diploma')
+          div(elem='column1')
+            div(elem='name') Master
+            div(elem='date') 1998
+          div(elem='column2')
+            div(elem='topic') Computer Engineering
+            div(elem='institution') Politecnico di Milano,
+            div(elem='department') DEI

@@ -1,24 +1,25 @@
 .bio-container {
-	.border-box();
-	display     : block;
-	.center-within-container();
+  .border-box();
+  display     : block;
+  .center-within-container();
 };
 
 .bio {
-	
+
 }
 
 .bio__title,
 .career__title,
 .education__title,
-.address__title {
+.address__title,
+.grants__title {
 
-	padding-top: 1em;
-	font-family: @display-family;
-	.smallcapfont(@display-family);
-	border-bottom: 1px fade(darken(@cloud, 50%), 20%) solid;
-	padding-bottom: .2em;
-	font-size: 2em;
+  padding-top: 1em;
+  font-family: @display-family;
+  .smallcapfont(@display-family);
+  border-bottom: 1px fade(darken(@cloud, 50%), 20%) solid;
+  padding-bottom: .2em;
+  font-size: 2em;
 }
 
 
@@ -30,160 +31,170 @@
 @bio-width     : @bio-size - 2*@bio-padding;
 
 .bio__picture {
-	.show-desktop-inline-block();
-	padding-right: @bio-padding;
-	padding-top: @bio-padding;
-	max-width: @picture-width;
-	display: inline-block;
+  .show-desktop-inline-block();
+  padding-right: @bio-padding;
+  padding-top: @bio-padding;
+  max-width: @picture-width;
+  display: inline-block;
 }
 
 .bio-text {
-	.border-box();
-	padding: @bio-padding;
-	display: inline-block;
-	.on-desktop({
-		max-width: @bio-width;
-		});
-	.on-mobile({
-		max-width: 100%;
-		});
-	font-family: @font-family;
+  .border-box();
+  padding: @bio-padding;
+  display: inline-block;
+  .on-desktop({
+    max-width: @bio-width;
+    });
+  .on-mobile({
+    max-width: 100%;
+    });
+  font-family: @font-family;
 }
 
 .bio-text__title {
-	.smallcapfont(@display-family);
-	font-size: 2em;
-	line-height: .9em;
+  .smallcapfont(@display-family);
+  font-size: 2em;
+  line-height: .9em;
 }
 
 .bio-text__position {
-	.smallcapfont(@display-family);
-	font-size: 1.3em;
-	letter-spacing: 2.1px;
-	color: @pumpkin; 
+  .smallcapfont(@display-family);
+  font-size: 1.3em;
+  letter-spacing: 2.1px;
+  color: @pumpkin;
 }
 
 .bio-text__description {
-	font-size: .95em;
-	// font-weight: 300;
-	line-height: 1.3em;
-	color: lighten(black, 20%);
-	& strong {
-		color: black;
-	}
+  font-size: .95em;
+  // font-weight: 300;
+  line-height: 1.3em;
+  color: lighten(black, 20%);
+  & strong {
+    color: black;
+  }
 }
 
 .career,
-.education {
-	.border-box();
-	display: inline-block;
-	vertical-align: top;
+.education,
+.grants {
+  .border-box();
+  display: inline-block;
+  vertical-align: top;
+  width: 99%;
 }
 
 .career_size_small,
 .education_size_small {
-	.on-mobile({
-		width: 99%;
-		});
-	.on-desktop({
-		width: 49%;
-		});
-	padding-right: 1%;
+  .on-mobile({
+    width: 99%;
+    });
+  .on-desktop({
+    width: 49%;
+    });
+  padding-right: 1%;
 }
 
 .career-list,
-.diploma-list {
-	padding-top: 4%;
-	width: 100%;
+.diploma-list,
+.grants-list {
+  padding-top: 4%;
+  width: 100%;
 }
 
 
 .position,
-.diploma {
-	// box-shadow: rgba(0,0,0,0.06) 0 0 10px;
-	// background: #fbfbfb;
-	// border: 1px solid #d8d8d8;
-	font-family: @font-family;
-	margin-bottom: 1em;
-	margin-top: 1em;
+.diploma,
+.grant {
+  font-family: @font-family;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .position__column1,
-.diploma__column1 {
-	.border-box();
-	padding: 2%;
-	display: inline-block;
-	width: 20%;
-	vertical-align: middle;
-	text-align: center;
+.diploma__column1,
+.grant__column1 {
+  .border-box();
+  padding: 2%;
+  display: inline-block;
+  width: 20%;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .position__column2,
-.diploma__column2 {
-	.border-box();
-	display: inline-block;
-	width:78%;
-	padding: 2%;
-	vertical-align: middle;
+.diploma__column2,
+.grant__column2 {
+  .border-box();
+  display: inline-block;
+  width:78%;
+  padding: 2%;
+  vertical-align: middle;
 }
 
-.position__date {
-	background-color: @belize;
-	color: white;
-	padding: 5px;
-	margin-bottom: 2px;
+.grant__role {
+  .tag(@belize);
+  margin-left: 0px !important;
+}
+
+.position__date,
+.grant__date
+{
+  background-color: @belize;
+  color: white;
+  padding: 5px;
+  margin-bottom: 2px;
 }
 
 .diploma__date,
 .diploma__name {
-	background-color: @pumpkin;
-	color: white;
-	padding: 5px;
-	margin-bottom: 2px;
+  background-color: @pumpkin;
+  color: white;
+  padding: 5px;
+  margin-bottom: 2px;
 }
 
 .position__name,
+.grant__name,
 .diploma__topic
  {
-	font-family: @display-family;
-	.smallcapfont(@display-family);
-	font-size: 1.2em;
+  font-family: @display-family;
+  .smallcapfont(@display-family);
+  font-size: 1.2em;
 }
 
 .position__institution,
 .position__department,
 .diploma__department,
 .diploma__institution,
+.grant__institution,
  {
-	display: inline-block;
-	padding-right: 5px;
-	font-size: .85em;
+  display: inline-block;
+  padding-right: 5px;
+  font-size: .85em;
 }
 
 .position__institution,
-.diploma__institution {
-	font-style: italic;
+.diploma__institution,
+.grant_institution {
+  font-style: italic;
 }
 
 .position__department,
-.diploma__department
+.diploma__department,
+.grant__department
  {
-	color: lighten(black, 10%);
+  color: lighten(black, 10%);
 }
 
 @w: 40em;
 
 .address__map {
-	.show-desktop-block();
-	width: 100%;
-	height: 25em;
-	.nice-card();
+  .show-desktop-block();
+  width: 100%;
+  height: 25em;
+  .nice-card();
 }
 
 .address {
-	margin-bottom: 8em;
+  margin-bottom: 8em;
 }
-
-
-
-

@@ -31,6 +31,9 @@
     "file-loader": "^0.8.4",
     "jade": "^1.11.0",
     "jade-loader": "^0.7.1",
+    "lodash": "^3.10.1",
+    "mdtable2json": "^0.1.0",
+    "react-markdown": "^1.0.3",
     "react-router": "^0.13.3"
   }
 }

@@ -19,6 +19,7 @@ require("!style!css!less!../less/main.less");
 // Render sidebar
 document.getElementById('sidebar').innerHTML = createSidebarComponentHTML();
 
+// Render content through routes
 Router.run(Routes, (Handler) => {
     React.render(<Handler/>, document.getElementById('content'))
 })

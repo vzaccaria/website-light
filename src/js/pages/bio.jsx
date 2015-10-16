@@ -140,6 +140,7 @@ function renderCareerBlock() {
 
 let bioPage = React.createClass({
     render() {
+        debug("Render biopage");
         return (
             <div className="bio-container">
                 <div className="bio">

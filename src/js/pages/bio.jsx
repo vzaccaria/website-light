@@ -33,7 +33,7 @@ function renderPosition(p) {
             </div>
             <div className="position__column2" >
                 <div className="position__name">
-                    {p.title}
+{p.title}
                 </div>
                 <div className="position__institution">
                     {p.institution}

@@ -29,6 +29,11 @@ function getPlugins() {
 module.exports = {
     entry: './src/js/index.jsx',
     devtool: "source-map",
+    devServer: {
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
+    },
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',

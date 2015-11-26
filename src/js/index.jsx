@@ -15,6 +15,7 @@ const debug = _debug('app:index.jsx');
 // Import styles
 require("style!../css/fonts.css");
 require("!style!css!less!../less/main.less");
+require("!style!css!less!highlight.js/styles/solarized_light.css");
 
 // Render sidebar
 document.getElementById('sidebar').innerHTML = createSidebarComponentHTML();

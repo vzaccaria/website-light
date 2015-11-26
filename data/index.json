@@ -11,7 +11,7 @@
           "category": "{{ post.category }}",
           "tags": {{ post.tags | jsonify }},
           "formattedDate": "{{ post.date | date: "%B %d, %Y" }}",
-          "smallDate": "{{ post.date | date: "%m/%d" }}"
+          "smallDate": "{{ post.date | date: "%m/%d" }}",
           "link": "{{ post.url }}",
         } {% if forloop.last %}{% else %},{% endif %}
     {% endfor %}

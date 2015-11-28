@@ -1,7 +1,7 @@
 ---
 category: blog
 date: '2013-09-23 16:43:56'
-description: 'pippo pluti woppo qopwe eow;elk q''welk l popwoer\[pwoe\[rpwoe'
+description: 'pippo pluti woppo qopwe eow;elk cippa'
 title: A dumb easy model for promises
 ...
 

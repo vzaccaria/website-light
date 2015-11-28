@@ -15,7 +15,7 @@ const debug = _debug('app:routes.jsx');
 let Routes = (
     <Route path="/" >
         <DefaultRoute handler={bioPage} />
-        <Route path="/research.html" handler={researchPage}> </Route>
+        <Route path="/research" handler={researchPage}> </Route>
         <Route path="/:category" handler={BlogIndex}> </Route>
         <Route path="/:category/:year/:month/:day/:title" handler={BlogPage}>
         </Route>

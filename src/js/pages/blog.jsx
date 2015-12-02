@@ -53,7 +53,7 @@ let subTitle = (postData) => {
             <div className={c('tags')}>
                 <i className="fa fa-tags" />
                 <div className={c('category_value')}>
-                    {_.map(postData.tags, (t) => <div className={c('tag')}> {t} </div>)} </div>
+                    {_.map(postData.tags, (t, i) => <div key={i} className={c('tag')}> {t} </div>)} </div>
             </div>
         </div>
     );
@@ -97,7 +97,6 @@ export default class BlogPage extends React.Component {
         if(this.state.valid) {
             let c = _.partial(_b, 'post_container');
             return (
-                <div className="site_container">
                     <div className={c()} >
                         <div className={c('post__title')}> {this.state.postData.title} </div>
                         {subTitle(this.state.postData)}
@@ -105,7 +104,6 @@ export default class BlogPage extends React.Component {
                             <div dangerouslySetInnerHTML={{ __html: this.state.postData.markup}}/>
                         </div>
                     </div>
-                </div>
             );
         } else {
             return (

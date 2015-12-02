@@ -20,9 +20,9 @@ grants = getTables(grants)[0].json
 
 var intro = require('raw!../../../data/intro.md');
 
-function renderPosition(p) {
+function renderPosition(p, i) {
     return (
-        <div className="position">
+        <div key={i} className="position">
             <div className="position__column1" >
                 <div className="position__date">
                     {p.to}
@@ -46,9 +46,9 @@ function renderPosition(p) {
     );
 }
 
-function renderDiploma(p) {
+function renderDiploma(p, i) {
     return (
-        <div className="diploma">
+        <div key={i} className="diploma">
             <div className="diploma__column1" >
                 <div className="diploma__name">
                     {p.name}
@@ -72,9 +72,9 @@ function renderDiploma(p) {
     );
 }
 
-function renderGrant(p) {
+function renderGrant(p, i) {
     return (
-        <div className="grant">
+        <div key={i} className="grant">
             <div className="grant__column1" >
                 <div className="grant__date">
                     {p.to}

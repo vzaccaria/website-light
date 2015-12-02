@@ -43,10 +43,10 @@ let filter = (list, props) => {
 }
 let c = _.partial(_b, 'post-preview');
 
-function renderPostTitle(p) {
+function renderPostTitle(p, i) {
     console.log("Rendering, ", p);
     return (
-        <a href={`#${p.link}`} style={{cursor: 'pointer'}} className={c()}>
+        <a key={i} href={`#${p.link}`} style={{cursor: 'pointer'}} className={c()}>
             <div className={c('desc-column')}>
                 <div className={c('title')}> {p.title} </div>
                 <div className={c('subtitle')}>
@@ -92,9 +92,7 @@ export default class BlogIndex extends React.Component {
         if(this.state.valid) {
             console.log(this.state.index);
             return (
-                <div className="site_container">
                     <div className="posts"> {_.map(this.state.index, renderPostTitle)} </div>
-                </div>
             );
         } else {
             return (

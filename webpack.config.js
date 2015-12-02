@@ -47,6 +47,9 @@ module.exports = {
         }, {
             test: /\.css$/, // Only .css files
             loader: 'style!css' // Run both loaders
+        }, {
+            test: /\.json/,
+            loader: 'json-loader'
         }]
     },
     resolve: {

@@ -45,7 +45,7 @@ var current_research = require('raw!../../../data/current_research.md');
 
 var research_achievements = require('raw!../../../data/research_achievements.md');
 
-var biblioJson = _.map(JSON.parse(require('raw!../../../data/biblio.json')), processData);
+var biblioJson = _.map(require('../../../data/biblio.json'), processData);
 
 debug(current_research)
     let researchPage = React.createClass({
@@ -56,33 +56,31 @@ debug(current_research)
             let s = _.partial(_b, 'statement');
 
             return (
-                <div className="site_container" >
-                    <div className={p()}>
+                <div className={p()}>
 
-                        <div className={s()}>
-                            <div className={s('title')}>
-                                Current research
-                            </div>
-                            <div className={s('summary')}>
-                                <ReactMarkdown source={current_research}> </ReactMarkdown>
-                            </div>
+                    <div className={s()}>
+                        <div className={s('title')}>
+                            Current research
                         </div>
-
-                        <div className={s()}>
-                            <div className={s('title')}>
-                                Past research and achievements
-                            </div>
-                            <div className={s('summary')}>
-                                <ReactMarkdown source={research_achievements}>
-                                </ReactMarkdown>
-                            </div>
+                        <div className={s('summary')}>
+                            <ReactMarkdown source={current_research}> </ReactMarkdown>
                         </div>
-
-                        <div className={p('header')}>
-                            Publications
-                        </div>
-                        <div className={p('container')}> {_.map(biblioJson, (it) => {return (<Publication data={it}> </Publication>);})} </div>
                     </div>
+
+                    <div className={s()}>
+                        <div className={s('title')}>
+                            Past research and achievements
+                        </div>
+                        <div className={s('summary')}>
+                            <ReactMarkdown source={research_achievements}>
+                            </ReactMarkdown>
+                        </div>
+                    </div>
+
+                    <div className={p('header')}>
+                        Publications
+                    </div>
+                    <div className={p('container')}> {_.map(biblioJson, (it) => {return (<Publication data={it}> </Publication>);})} </div>
                 </div>
             );
         }});

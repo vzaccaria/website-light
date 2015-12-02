@@ -1,7 +1,7 @@
 import React from 'react';
+import { render } from 'react-dom';
 import { createSidebarComponentHTML } from './sidebar';
 import { Routes } from './routes';
-import Router from 'react-router'
 
 // Debug..
 import _debug from 'debug';
@@ -20,7 +20,4 @@ require("!style!css!less!highlight.js/styles/solarized_light.css");
 // Render sidebar
 document.getElementById('sidebar').innerHTML = createSidebarComponentHTML();
 
-// Render content through routes
-Router.run(Routes, (Handler) => {
-    React.render(<Handler/>, document.getElementById('content'))
-})
+render(<Routes />, document.getElementById('content'))

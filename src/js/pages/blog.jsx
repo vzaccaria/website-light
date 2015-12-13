@@ -34,9 +34,7 @@ import hjs from 'highlight.js'
 import jq from 'jquery'
 
 // debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/blogpage.jsx');
+const debug = require('../react-utils/debug')(__filename);
 
 let subTitle = (postData) => {
     let c = _.partial(_b, 'post_container__post');

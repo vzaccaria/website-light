@@ -4,9 +4,7 @@ import _ from 'lodash';
 import { _b } from '../../react-utils/react-bem'
 
 // Debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/components/publication');
+const debug = require('../../react-utils/debug')(__filename);
 
 
 var Publication = React.createClass({

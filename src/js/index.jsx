@@ -4,9 +4,7 @@ import { createSidebarComponentHTML } from './sidebar';
 import { Routes } from './routes';
 
 // Debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:index.jsx');
+const debug = require('./react-utils/debug')(__filename);
 
 
 // Main ideas taken from: http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-router-and-webpack/

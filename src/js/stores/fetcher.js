@@ -1,14 +1,12 @@
 import agent from '../react-utils/agent'
 import $b from 'bluebird'
 import _ from 'lodash'
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:stores/fetcher.jsx');
+const debug = require('../react-utils/debug')(__filename);
 
 
+let siteData = require('../../../data/site.json')
+let { indexurl, baseurl } = siteData
 
-let baseurl  = 'http://www.vittoriozaccaria.net/website-light'
-let indexurl = `${baseurl}/data/index.json`
 
 let fetcher = () => {
     function fetchIndex() {
@@ -36,8 +34,12 @@ let fetcher = () => {
         })
     }
 
+    let tmpl = function(string) {
+        return _.template(string)(siteData)
+    }
+
     return {
-        fetchPost, fetchIndex
+        fetchPost, fetchIndex, tmpl
     }
 
 }

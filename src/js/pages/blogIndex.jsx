@@ -34,9 +34,7 @@ import hjs from 'highlight.js'
 import jq from 'jquery'
 
 // debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/blogIndex.jsx');
+const debug = require('../react-utils/debug')(__filename);
 
 let filter = (list, props) => {
     return _.filter(list, (e) => e.category === props.params.category);
@@ -44,7 +42,6 @@ let filter = (list, props) => {
 let c = _.partial(_b, 'post-preview');
 
 function renderPostTitle(p, i) {
-    console.log("Rendering, ", p);
     return (
         <a key={i} href={`#${p.link}`} style={{cursor: 'pointer'}} className={c()}>
             <div className={c('desc-column')}>
@@ -76,7 +73,6 @@ export default class BlogIndex extends React.Component {
             let valid = true
             index = filter(index, this.props);
             this.setState({index, valid});
-            console.log(index);
         });
     }
 
@@ -90,7 +86,6 @@ export default class BlogIndex extends React.Component {
 
     render() {
         if(this.state.valid) {
-            console.log(this.state.index);
             return (
                     <div className="posts"> {_.map(this.state.index, renderPostTitle)} </div>
             );

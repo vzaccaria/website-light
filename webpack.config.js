@@ -39,6 +39,9 @@ module.exports = {
         filename: 'client.js',
         publicPath: 'http://localhost:8080/assets'
     },
+    node: {
+        __filename: true
+    },
     module: {
         loaders: [{
             test: /\.js[x]?$/,

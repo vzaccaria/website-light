@@ -8,9 +8,7 @@ import '../../../css/tooltip.css';
 
 
 // Debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/components/calendar');
+const debug = require('../../react-utils/debug')(__filename);
 
 
 

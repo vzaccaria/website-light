@@ -28,18 +28,15 @@
 
 import React from 'react';
 import _ from 'lodash';
-import { _b } from '../react-utils/react-bem'
 import Calendar from './components/calendar'
-let YAML = require('js-yaml');
 
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/blogIndex.jsx');
+let YAML = require('js-yaml');
+const debug = require('../react-utils/debug')(__filename);
+
+let { tmpl } = require('../stores/fetcher')
 
 let data = require('raw!../../../data/infob.yaml');
 data = YAML.safeLoad(data);
-
-console.log(data);
 
 function renderContacts(contacts) {
     let c = _.map(contacts, (it, key) => {
@@ -47,7 +44,7 @@ function renderContacts(contacts) {
             return (
                 <div key={key} className="contacts__detail">
                     <div className="contacts__key"> {it.key} </div>
-                    <div className="contacts__value"> <a href={it.link}>{it.value}</a> </div>
+                    <div className="contacts__value"> <a href={tmpl(it.link)}>{it.value}</a> </div>
                 </div>)
         } else {
             return (
@@ -66,7 +63,7 @@ function renderContacts(contacts) {
 function renderMessages(name, messages) {
     let _content = (x) => {
         if(x.link)
-            return <a href={x.link}> {x.text} </a>;
+            return <a href={tmpl(x.link)}> {x.text} </a>;
         else
             return x.text
     }

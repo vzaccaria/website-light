@@ -6,10 +6,9 @@ import { researchPage } from './pages/research';
 import BlogPage from './pages/blog'
 import BlogIndex from './pages/blogIndex';
 import TeachingPage from './pages/teaching';
+import { projectsPage } from './pages/projects';
 
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:routes.jsx');
+const debug = require('./react-utils/debug')(__filename);
 
 
 let Routes = React.createClass({
@@ -21,6 +20,7 @@ let Routes = React.createClass({
                         <IndexRoute component={bioPage} />
                         <Route path="/research" component={researchPage}> </Route>
                         <Route path="/teaching" component={TeachingPage}> </Route>
+                        <Route path="/projects" component={projectsPage}> </Route>
                         <Route path="/:category" component={BlogIndex}> </Route>
                         <Route path="/:category/:year/:month/:day/:title" component={BlogPage}>
                         </Route>

@@ -4,9 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { getTables } from 'mdtable2json';
 
 // Debug..
-import _debug from 'debug';
-_debug.enable('app:*');
-const debug = _debug('app:pages/bio.jsx');
+const debug = require('../react-utils/debug')(__filename);
 
 
 var positions = require('raw!../../../data/career.md');

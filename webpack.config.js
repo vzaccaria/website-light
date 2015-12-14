@@ -1,39 +1,61 @@
 var webpack = require('webpack')
+var _ = require('lodash')
 var CompressionPlugin = require("compression-webpack-plugin");
-module.exports = {
-    plugins: []
+
+
+var uglifier = new webpack.optimize.UglifyJsPlugin({
+    compress: {
+        warnings: false
+    },
+    sourceMap: true
+})
+
+var compressor = new CompressionPlugin({
+    asset: "{file}.gz",
+    algorithm: "gzip",
+    regExp: /\.js$|\.html$/,
+    threshold: 10240,
+    minRatio: 0.8
+})
+
+function getLoaders() {
+    return [{
+        test: /\.js[x]?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel'
+    }, {
+        test: /\.css$/, // Only .css files
+        loader: 'style!css' // Run both loaders
+    }, {
+        test: /\.json/,
+        loader: 'json-loader'
+    }]
 }
 
-function getPlugins() {
-    if (process.env.PROD == "1") {
-        return [
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                sourceMap: true
-            }),
-            new CompressionPlugin({
-                asset: "{file}.gz",
-                algorithm: "gzip",
-                regExp: /\.js$|\.html$/,
-                threshold: 10240,
-                minRatio: 0.8
-            })
-        ]
-    } else {
-        return []
-    }
-}
-
-module.exports = {
-    entry: './src/js/index.jsx',
+var devConfig = {
+    output: {
+        path: __dirname + '/assets',
+        filename: 'client.js',
+        publicPath: 'http://localhost:8080/assets'
+    },
     devtool: "source-map",
     devServer: {
         headers: {
             "Access-Control-Allow-Origin": "*"
         }
     },
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            "site-config": __dirname + "/data/site-dev.json"
+        }
+    },
+    plugins: []
+
+}
+
+var mainConfig = {
+    entry: './src/js/index.jsx',
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',
@@ -43,20 +65,24 @@ module.exports = {
         __filename: true
     },
     module: {
-        loaders: [{
-            test: /\.js[x]?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel'
-        }, {
-            test: /\.css$/, // Only .css files
-            loader: 'style!css' // Run both loaders
-        }, {
-            test: /\.json/,
-            loader: 'json-loader'
-        }]
+        loaders: getLoaders()
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            "site-config": __dirname + "/data/site.json"
+        }
     },
-    plugins: getPlugins()
+    plugins: [uglifier, compressor]
+}
+
+
+if (_.isUndefined(process.env.PROD)) {
+    module.exports = _.assign(mainConfig, devConfig);
+    console.log("**DEVELOPMENT BUILD**");
+    console.log(JSON.stringify(module.exports, 0, 4));
+} else {
+    module.exports = mainConfig
+    console.log("**PRODUCTION BUILD**");
+    console.log(JSON.stringify(module.exports, 0, 4));
 }

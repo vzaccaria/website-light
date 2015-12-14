@@ -4,7 +4,7 @@ import _ from 'lodash'
 const debug = require('../react-utils/debug')(__filename);
 
 
-let siteData = require('../../../data/site.json')
+let siteData = require('site-config')
 let { indexurl, baseurl } = siteData
 
 

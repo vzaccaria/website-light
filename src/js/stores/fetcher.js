@@ -2,32 +2,52 @@ import agent from '../react-utils/agent'
 import $b from 'bluebird'
 import _ from 'lodash'
 const debug = require('../react-utils/debug')(__filename);
+let YAML = require('js-yaml');
 
 
 let siteData = require('site-config')
-let { indexurl, baseurl } = siteData
+let {
+    indexurl, baseurl
+} = siteData
 
 
 let fetcher = () => {
+
+    function fetchAsset(name, opts) {
+        return agent('GET', `${baseurl}/${name}`).end().then((r) => {
+            if (_.get(opts, "yaml", false)) {
+                return YAML.safeLoad(r.text);
+            } else {
+                return r.text
+            }
+        })
+    }
+
     function fetchIndex() {
         return agent('GET', indexurl).set('Accept', 'application/json').end().then((r) => {
             return r.body
         })
     }
 
-    function fetchPostMarkup(category, {year,month,day,title}) {
-        return agent('GET',`${baseurl}/${category}/${year}/${month}/${day}/${title}`).end().then((r) => { return r.text })
+    function fetchPostMarkup(category, {
+        year, month, day, title
+    }) {
+        return fetchAsset(`${category}/${year}/${month}/${day}/${title}`)
     }
 
-    function fetchPost(category, {year,month,day,title}) {
+    function fetchPost(category, {
+        year, month, day, title
+    }) {
         return fetchIndex().then((postList) => {
-            let link =  `/${category}/${year}/${month}/${day}/${title}`;
+            let link = `/${category}/${year}/${month}/${day}/${title}`;
             debug(link)
             let postData = _.head(_.filter(postList, (it) => {
                 return it.link === link
             }));
             debug(postData)
-            return fetchPostMarkup(category, {year, month, day, title}).then( (postMarkup) => {
+            return fetchPostMarkup(category, {
+                year, month, day, title
+            }).then((postMarkup) => {
                 postData.markup = postMarkup;
                 return postData
             })
@@ -39,7 +59,7 @@ let fetcher = () => {
     }
 
     return {
-        fetchPost, fetchIndex, tmpl
+        fetchPost, fetchIndex, tmpl, fetchAsset
     }
 
 }

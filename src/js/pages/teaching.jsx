@@ -33,32 +33,29 @@ import Calendar from './components/calendar'
 let YAML = require('js-yaml');
 const debug = require('../react-utils/debug')(__filename);
 
-let { tmpl } = require('../stores/fetcher')
+let { tmpl, fetchAsset } = require('../stores/fetcher')
 
-let data = require('raw!../../../data/infob.yaml');
-data = YAML.safeLoad(data);
-
-function renderContacts(contacts) {
-    let c = _.map(contacts, (it, key) => {
-        if(it.link) {
-            return (
-                <div key={key} className="contacts__detail">
-                    <div className="contacts__key"> {it.key} </div>
-                    <div className="contacts__value"> <a href={tmpl(it.link)}>{it.value}</a> </div>
-                </div>)
-        } else {
-            return (
-                <div key={key} className="contacts__detail">
-                    <div className="contacts__key"> {it.key} </div>
-                    <div className="contacts__value"> {it.value} </div>
-                </div>);
-        }
-    });
-    return (
-        <div className="contacts">
-            {c}
-        </div>);
-}
+    function renderContacts(contacts) {
+        let c = _.map(contacts, (it, key) => {
+            if(it.link) {
+                return (
+                    <div key={key} className="contacts__detail">
+                        <div className="contacts__key"> {it.key} </div>
+                        <div className="contacts__value"> <a href={tmpl(it.link)}>{it.value}</a> </div>
+                    </div>)
+            } else {
+                return (
+                    <div key={key} className="contacts__detail">
+                        <div className="contacts__key"> {it.key} </div>
+                        <div className="contacts__value"> {it.value} </div>
+                    </div>);
+            }
+        });
+        return (
+            <div className="contacts">
+                {c}
+            </div>);
+    }
 
 function renderMessages(name, messages) {
     let _content = (x) => {
@@ -118,25 +115,40 @@ function renderInfo(name, data) {
 
 export default class Teaching extends React.Component {
 
-    render() {
-        return (
-            <div className="teaching-page">
-                <div className="teaching-page__title">Informatica B</div>
-                <div className="teaching-page__year">Anno accademico 2015 - 2016</div>
-                {renderContacts(data.contacts)}
-                {renderMessages('Avvisi importanti', data.avvisi)}
-                {renderInfo("Informazioni su esame e prove in itinere", data)}
-                <div className="lecture-material">
-                    <div className="lecture-material__title">
-                        Calendario e materiale
-                    </div>
-                    <div className="lecture-material__description">
-                        <p> Cliccare sui giorni evidenziati in arancione per accedere al materiale corrispondente. </p>
-                        </div>
-                    <Calendar />
-                </div>
+    constructor() {
+        super();
+        this.state = { valid: false };
+    }
 
-            </div>
-        );
+    componentDidMount() {
+        fetchAsset('data/infob.yaml', { yaml: true }).then((dta) => {
+            let valid = true;
+            let data = dta;
+            this.setState({valid, data});
+        })
+    }
+
+    render() {
+        if(this.state.valid) {
+            return (
+                <div className="teaching-page">
+                    <div className="teaching-page__title">Informatica B</div>
+                    <div className="teaching-page__year">Anno accademico 2015 - 2016</div>
+                    {renderContacts(this.state.data.contacts)}
+                    {renderMessages('Avvisi importanti', this.state.data.avvisi)}
+                    {renderInfo("Informazioni su esame e prove in itinere", this.state.data)}
+                    <div className="lecture-material">
+                        <div className="lecture-material__title">
+                            Calendario e materiale
+                        </div>
+                        <div className="lecture-material__description">
+                            <p> Cliccare sui giorni evidenziati in arancione per accedere al materiale corrispondente. </p>
+                        </div>
+                        <Calendar />
+                    </div>
+                </div>)
+        } else {
+            return (<div />);
+        }
     }
 }

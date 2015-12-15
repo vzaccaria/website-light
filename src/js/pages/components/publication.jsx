@@ -14,11 +14,11 @@ var Publication = React.createClass({
         let b = _.partial(_b, 'publication');
         let h = _.partial(_b, 'publication__href');
 
-        let renderAuthor = (a) => {
+        let renderAuthor = (a, i) => {
                 if(a.name  === 'V. Zaccaria') {
-                    return <div className={b('authors__myname')}>{a.name}</div>
+                    return <div key={i} className={b('authors__myname')}>{a.name}</div>
                 } else {
-                    return <div className={b('authors__name')}>{a.name}</div>
+                    return <div key={i} className={b('authors__name')}>{a.name}</div>
                 }
         };
 

@@ -74,7 +74,7 @@ let researchPage = React.createClass({
                 <div className={p('header')}>
                     Publications
                 </div>
-                <div className={p('container')}> {_.map(biblioJson, (it) => {return (<Publication data={it}> </Publication>);})} </div>
+                <div className={p('container')}> {_.map(biblioJson, (it, k) => {return (<Publication data={it} key={k}> </Publication>);})} </div>
             </div>
         );
     }});

@@ -105,7 +105,7 @@ export default class BlogPage extends React.Component {
             );
         } else {
             return (
-                <div> just nothing yet </div>
+                <div></div>
             );
         }
     }

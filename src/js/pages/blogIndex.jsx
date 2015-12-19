@@ -91,7 +91,7 @@ export default class BlogIndex extends React.Component {
             );
         } else {
             return (
-                <div> just nothing yet </div>
+                <div></div>
             );
         }
     }

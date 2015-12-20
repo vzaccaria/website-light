@@ -6,6 +6,7 @@ import { researchPage } from './pages/research';
 import BlogPage from './pages/blog'
 import BlogIndex from './pages/blogIndex';
 import TeachingPage from './pages/teaching';
+import AddressPage from './pages/address';
 import { projectsPage } from './pages/projects';
 import { videosPage } from './pages/videos';
 
@@ -23,6 +24,7 @@ let Routes = React.createClass({
                         <Route path="/teaching" component={TeachingPage}> </Route>
                         <Route path="/projects" component={projectsPage}> </Route>
                         <Route path="/videos" component={videosPage}> </Route>
+                        <Route path="/address" component={AddressPage}> </Route>
 
                         <Route path="/:category" component={BlogIndex}> </Route>
                         <Route path="/:category/:year/:month/:day/:title" component={BlogPage}>

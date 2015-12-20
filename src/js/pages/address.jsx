@@ -1,34 +1,8 @@
-// teaching.jsx ---
-
-// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the "Software"),
-// to deal in the Software without restriction, including without limitation
-// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-// and/or sell copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-
-// Except as contained in this notice, the name(s) of the above copyright
-// holders shall not be used in advertising or otherwise to promote the sale,
-// use or other dealings in this Software without prior written authorization.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-// DEALINGS IN THE SOFTWARE.
-
 import React from 'react';
 import _ from 'lodash';
-import Calendar from './components/calendar'
+
+import { _bem } from '../react-utils/react-bem'
+import MapThis from './components/mapthis'
 
 const debug = require('../react-utils/debug')(__filename);
 
@@ -127,23 +101,28 @@ export default class Teaching extends React.Component {
         })
     }
 
+    renderContacts(address) {
+        let bem = _.partial(_bem, 'contacts');
+        let renderKeyValue = (e, k) => {
+            return (
+                <div key={k} {...bem('detail')}>
+                    <div {...bem('key')}> {e.key} </div>
+                    <div {...bem('value')}> {e.value} </div>
+                </div>);
+            }
+        return (
+            <div {...bem()} > {_.map(address,renderKeyValue)} </div>
+            );
+        }
+
     render() {
         if(this.state.valid) {
             return (
-                <div className="teaching-page">
-                    <div className="teaching-page__title">Informatica B</div>
-                    <div className="teaching-page__year">Anno accademico 2015 - 2016</div>
-                    {renderContacts(this.state.data.contacts)}
-                    {renderMessages('Avvisi importanti', this.state.data.avvisi)}
-                    {renderInfo("Informazioni su esame e prove in itinere", this.state.data)}
-                    <div className="lecture-material">
-                        <div className="lecture-material__title">
-                            Calendario e materiale
-                        </div>
-                        <div className="lecture-material__description">
-                            <p> Cliccare sui giorni evidenziati in arancione per accedere al materiale corrispondente. </p>
-                        </div>
-                        <Calendar />
+                <div className="bio-container">
+                    <div className="address">
+                        <div className="address__title"> Address </div>
+                        {renderContacts(this.state.data.address)}
+                    <MapThis className="address__map" lat={45.478828} long={9.232421} />
                     </div>
                 </div>)
         } else {

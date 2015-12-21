@@ -54,6 +54,27 @@ var devConfig = {
 
 }
 
+var stageConfig = {
+    entry: './src/js/index.jsx',
+    output: {
+        path: __dirname + '/assets',
+        filename: 'client.js'
+    },
+    node: {
+        __filename: true
+    },
+    module: {
+        loaders: getLoaders()
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            "site-config": __dirname + "/data/site-stage.json"
+        }
+    },
+    plugins: [uglifier, compressor]
+}
+
 var mainConfig = {
     entry: './src/js/index.jsx',
     output: {
@@ -76,13 +97,21 @@ var mainConfig = {
     plugins: [uglifier, compressor]
 }
 
+var production = _.get(process.env, "PROD", false);
+var stage = _.get(process.env, "STAGE", false);
 
-if (_.isUndefined(process.env.PROD)) {
+if (!production && !stage) {
     module.exports = _.assign(mainConfig, devConfig);
     console.log("**DEVELOPMENT BUILD**");
     console.log(JSON.stringify(module.exports, 0, 4));
 } else {
-    module.exports = mainConfig
-    console.log("**PRODUCTION BUILD**");
-    console.log(JSON.stringify(module.exports, 0, 4));
+    if (production) {
+        module.exports = mainConfig
+        console.log("**PRODUCTION BUILD**");
+        console.log(JSON.stringify(module.exports, 0, 4));
+    } else {
+        module.exports = _.assign(mainConfig, stageConfig);
+        console.log("**STAGE BUILD**");
+        console.log(JSON.stringify(module.exports, 0, 4));
+    }
 }

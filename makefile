@@ -1,3 +1,5 @@
+all: stage-build
+
 start-server:
 	./node_modules/.bin/webpack-dev-server --progress --colors
 
@@ -9,3 +11,6 @@ production-build:
 
 stage-build:
 	STAGE=1 ./node_modules/.bin/webpack --progress --colors
+	ga .
+	gc -m "new stage build"
+	hub push --all

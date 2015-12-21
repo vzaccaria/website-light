@@ -30,8 +30,6 @@ import React from 'react';
 import _ from 'lodash';
 import { _b } from '../react-utils/react-bem'
 import { fetchIndex } from '../stores/fetcher'
-import hjs from 'highlight.js'
-import jq from 'jquery'
 
 // debug..
 const debug = require('../react-utils/debug')(__filename);
@@ -39,7 +37,21 @@ const debug = require('../react-utils/debug')(__filename);
 let filter = (list, props) => {
     return _.filter(list, (e) => e.category === props.params.category);
 }
+
 let c = _.partial(_b, 'post-preview');
+let m = _.partial(_b, 'post-preview-mobile');
+
+function renderPostTitleMobile(p, i) {
+    return (
+        <a key={i} href={`#${p.link}`} style={{cursor: 'pointer'}} className={m()}>
+            <div className={m('description')}>
+                <div className={m('title')}> {p.title} </div>
+                <div className={m('small-date')}> {p.smallDate} </div>
+                <div className={m('small-description')}> {p.smallDescription} </div>
+            </div>
+        </a>)
+}
+
 
 function renderPostTitle(p, i) {
     return (
@@ -87,7 +99,10 @@ export default class BlogIndex extends React.Component {
     render() {
         if(this.state.valid) {
             return (
-                    <div className="posts"> {_.map(this.state.index, renderPostTitle)} </div>
+                <div className="posts">
+                    {_.map(this.state.index, renderPostTitleMobile)}
+                    {_.map(this.state.index, renderPostTitle)}
+                </div>
             );
         } else {
             return (

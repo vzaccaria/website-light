@@ -58,7 +58,8 @@ var stageConfig = {
     entry: './src/js/index.jsx',
     output: {
         path: __dirname + '/assets',
-        filename: 'client.js'
+        filename: 'client.js',
+        publicPath: 'http://www.vittoriozaccaria.net/website-light/assets'
     },
     node: {
         __filename: true
@@ -80,7 +81,7 @@ var mainConfig = {
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',
-        publicPath: 'http://localhost:8080/assets'
+        publicPath: 'http://www.vittoriozaccaria.net/assets'
     },
     node: {
         __filename: true

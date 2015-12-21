@@ -11,6 +11,6 @@ production-build:
 
 stage-build:
 	STAGE=1 ./node_modules/.bin/webpack --progress --colors
-	ga .
-	gc -m "new stage build"
+	git add .
+	git commit -m "new stage build"
 	hub push --all

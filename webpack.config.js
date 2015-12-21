@@ -59,7 +59,7 @@ var stageConfig = {
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',
-        publicPath: 'http://www.vittoriozaccaria.net/website-light/assets'
+        publicPath: 'http://www.vittoriozaccaria.net/website-light/assets/'
     },
     node: {
         __filename: true
@@ -81,7 +81,7 @@ var mainConfig = {
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',
-        publicPath: 'http://www.vittoriozaccaria.net/assets'
+        publicPath: 'http://www.vittoriozaccaria.net/assets/'
     },
     node: {
         __filename: true

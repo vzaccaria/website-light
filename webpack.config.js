@@ -36,7 +36,7 @@ var devConfig = {
     output: {
         path: __dirname + '/assets',
         filename: 'client.js',
-        publicPath: 'http://localhost:8080/assets'
+        publicPath: 'assets'
     },
     devtool: "source-map",
     devServer: {

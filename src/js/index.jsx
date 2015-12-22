@@ -11,7 +11,7 @@ const debug = require('./react-utils/debug')(__filename);
 let siteData = require('site-config');
 
 if(_.get(siteData, "webPackDevServer", false)) {
-    $script("/webpack-dev-server.js", () => {
+    $script("http://localhost:8080/webpack-dev-server.js", () => {
         console.log("Using webpack-dev-server");
         });
 }

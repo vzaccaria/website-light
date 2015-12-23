@@ -110,7 +110,7 @@ Esecuzione:
 
 Scrivere un programma Matlab che stampa i primi 100 numeri di Fibonacci.
 
-![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_fibonacci.png){:height="200px"}
+![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_fibonacci.png){:width="70%"}
 
 ```octave
 fib(1) = 1;

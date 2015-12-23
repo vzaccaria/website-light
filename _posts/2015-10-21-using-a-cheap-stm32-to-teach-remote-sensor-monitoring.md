@@ -119,7 +119,7 @@ After that, you'll find both a header and a function definition file to
 be included in your project. The
 following generated macros and functions are the one that we will use the most:
 
-``` c++
+``` c
 /* Default initialization literal for our packets */
 #define PCT__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&pct__descriptor) \
@@ -188,7 +188,7 @@ The firmware running on the STM32 is very simple; the main loop samples
 the sensors every 200ms through `getSensorValues` and sends the values
 to the stm32-proxy through the serial line (`sendData`):
 
-``` c++
+``` c
 while (true) {
     led1 = !led1;
     Pct m = PCT__INIT;
@@ -202,15 +202,15 @@ Before that, however, we have to initialize the sensors shield through
 the appropriate API. Here I am using the one exported by the
 'x\_cube\_mems' library, which I have downloaded from the STM website.:
 
-``` c++
+``` c
 mems_expansion_board->hts221.Power_ON();
 mems_expansion_board->hts221.HTS221_Calibration();
 ```
 
 Getting sensor values into a `Pct` packet is as simple as (forgive me
-for the use of lambdas in C++, but they are so nice):
+for the use of lambdas in , but they are so nice):
 
-``` c++
+``` c
 auto getSensorValues = [&](Pct &m) {
     mems_expansion_board->hts221.GetTemperature((float *)&m.temp_value_c);
     mems_expansion_board->hts221.GetHumidity((float *)&m.hum_value);
@@ -230,7 +230,7 @@ followed by the length of the packet and by the payload itself.
 
 We encode the length of the payload `m` by using a 4 byte integer:
 
-``` c++
+``` c
 union { unsigned char bytes[4]; uint32_t value; } o32_to_bytes;
 ...
 auto len = pct__get_packed_size(m);
@@ -245,7 +245,7 @@ for(uint i=0; i<4; i++) {
 and then we send the payload `m` by first serializing it through the
 `pct__pack` function provided by protobuf:
 
-``` c++
+``` c
 uint8_t buf[PCT_BUF_SIZE];
 pct__pack(m, buf);
 for(uint i=0; i<len; i++) {

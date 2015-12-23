@@ -179,37 +179,40 @@ matrice `m`:
 
 $$
 m =
-\\left[
-\\begin{array}{cccccc}
-3 & 20 & 4 & 5 & 2 & 7 \\\\
-6 & 7 & 50 & 60 & 9 & 15 \\\\
-2 & 4 & 1 & 1 & 20 & 10 \\\\
-80 & 3 & 1 & 1 & 8 & 12 \\\\
-\\end{array}
-\\right]
+\left[
+\begin{array}{cccccc}
+3 & 20 & 4 & 5 & 2 & 7 \\
+6 & 7 & 50 & 60 & 9 & 15 \\
+2 & 4 & 1 & 1 & 20 & 10 \\
+80 & 3 & 1 & 1 & 8 & 12 \\
+\end{array}
+\right]
 $$
+
 Questa matrice ha 4 righe e 6 colonne, ed è di fatto composta da 6
 sotto-matrici 2x2
 
 $$
-\\left[
-\\begin{array}{ccc}
-M_1 & M_2 & M_3 \\\\
-M_4 & M_5 & M_6 \\\\
-\\end{array}
-\\right]
+\left[
+\begin{array}{ccc}
+M_1 & M_2 & M_3 \\
+M_4 & M_5 & M_6 \\
+\end{array}
+\right]
 $$
+
 ove, ad esempio, la prima matrice:
 
 $$
 M_1 =
-\\left[
-\\begin{array}{cc}
-3 & 20  \\\\
-6 & 7 \\\\
-\\end{array}
-\\right]
+\left[
+\begin{array}{cc}
+3 & 20  \\
+6 & 7 \\
+\end{array}
+\right]
 $$
+
 ha media pari a 9. La seconda matrice ($M_2$) ha media 29.75, la
 terza 8.25, la quarta 22.25, la quinta 1 e la sesta 12.5.
 

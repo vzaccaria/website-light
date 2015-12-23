@@ -1,6 +1,8 @@
 var webpack = require('webpack')
 var _ = require('lodash')
 var CompressionPlugin = require("compression-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 
 
 var uglifier = new webpack.optimize.UglifyJsPlugin({
@@ -32,56 +34,20 @@ function getLoaders() {
     }]
 }
 
-var devConfig = {
-    output: {
-        path: __dirname + '/assets',
-        filename: 'client.js',
-        publicPath: 'assets'
-    },
-    devtool: "source-map",
-    devServer: {
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        }
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx'],
-        alias: {
-            "site-config": __dirname + "/data/site-dev.json"
-        }
-    },
-    plugins: []
+var htmlPlugin = new HtmlWebpackPlugin({
+    title: "Vittorio Zaccaria - Home page",
+    filename: "index.html",
+    template: __dirname + "/src/html/index.html",
+    favicon: __dirname + "/src/sketch/favicon.png"
+});
 
-}
-
-var stageConfig = {
-    entry: './src/js/index.jsx',
-    output: {
-        path: __dirname + '/assets',
-        filename: 'client.js',
-        publicPath: 'http://www.vittoriozaccaria.net/website-light/assets/'
-    },
-    node: {
-        __filename: true
-    },
-    module: {
-        loaders: getLoaders()
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx'],
-        alias: {
-            "site-config": __dirname + "/data/site-stage.json"
-        }
-    },
-    plugins: [uglifier, compressor]
-}
 
 var mainConfig = {
     entry: './src/js/index.jsx',
     output: {
-        path: __dirname + '/assets',
-        filename: 'client.js',
-        publicPath: 'http://www.vittoriozaccaria.net/assets/'
+        path: __dirname + '/dist',
+        filename: 'assets/client.js',
+        publicPath: 'http://www.vittoriozaccaria.net/'
     },
     node: {
         __filename: true
@@ -95,14 +61,33 @@ var mainConfig = {
             "site-config": __dirname + "/data/site.json"
         }
     },
-    plugins: [uglifier, compressor]
+    plugins: [uglifier, compressor, htmlPlugin]
 }
+
+function getStageConfig(stageConfig) {
+    _.set(stageConfig, "path", __dirname);
+    _.set(stageConfig, "output.publicPath", 'http://www.vittoriozaccaria.net/website-light');
+    _.set(stageConfig, "resolve.alias.site-config", __dirname + "/data/site-stage.json");
+    _.set(stageConfig, "plugins", [htmlPlugin]);
+    return stageConfig
+}
+
+
+function getDevConfig(devConfig) {
+    _.set(devConfig, "output.publicPath", '');
+    _.set(devConfig, "resolve.alias.site-config", __dirname + "/data/site-dev.json");
+    _.set(devConfig, "devtool", "source-map");
+    _.set(devConfig, "devServer.headers.Access-Control-Allow-Origin", "*");
+    _.set(devConfig, "plugins", [htmlPlugin]);
+    return devConfig
+}
+
 
 var production = _.get(process.env, "PROD", false);
 var stage = _.get(process.env, "STAGE", false);
 
 if (!production && !stage) {
-    module.exports = _.assign(mainConfig, devConfig);
+    module.exports = getDevConfig(mainConfig);
     console.log("**DEVELOPMENT BUILD**");
     console.log(JSON.stringify(module.exports, 0, 4));
 } else {
@@ -111,7 +96,7 @@ if (!production && !stage) {
         console.log("**PRODUCTION BUILD**");
         console.log(JSON.stringify(module.exports, 0, 4));
     } else {
-        module.exports = _.assign(mainConfig, stageConfig);
+        module.exports = getStageConfig(mainConfig);
         console.log("**STAGE BUILD**");
         console.log(JSON.stringify(module.exports, 0, 4));
     }

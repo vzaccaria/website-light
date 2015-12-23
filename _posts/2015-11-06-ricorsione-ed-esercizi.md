@@ -248,31 +248,31 @@ Ad esempio, se:
 
 $$
 A =
-\\left[
-\\begin{array}{ll}
- 9 & 2 \\\\
- 3 & 4 \\\\
-\\end{array}
-\\right],
+\left[
+\begin{array}{ll}
+ 9 & 2 \\
+ 3 & 4 \\
+\end{array}
+\right],
 B =
-\\left[
-\\begin{array}{ll}
- 10 & 8 \\\\
- 1 & 7 \\\\
-\\end{array}
-\\right]
+\left[
+\begin{array}{ll}
+ 10 & 8 \\
+ 1 & 7 \\
+\end{array}
+\right]
 $$
 
 allora:
 
 $$
 C =
-\\left[
-\\begin{array}{ll}
- 10 & 8 \\\\
- 3 & 7 \\\\
-\\end{array}
-\\right]
+\left[
+\begin{array}{ll}
+ 10 & 8 \\
+ 3 & 7 \\
+\end{array}
+\right]
 $$
 
 Poiché solo \\(B(2,1)\\) è minore del minimo di \\(A\\) che è 2.
@@ -282,7 +282,7 @@ usare cicli `for`**.
 
 **Spazio soluzione:**
 
-``` pascal
+``` matlab
 function C = funz(A, B)
     C = B;
     C(min(min(A)) > B)=A(min(min(A)) > B)

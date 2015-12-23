@@ -13,7 +13,8 @@
           "formattedDate": "{{ post.date | date: "%B %d, %Y" }}",
           "smallDate": "{{ post.date | date: "%m/%d" }}",
           "description": "{{ post.description }}",
-          "link": "{{ post.url }}"
+          "link": "{{ post.url }}",
+          "jk_json": "{{ post | jsonify }}"
         } {% if forloop.last %}{% else %},{% endif %}
     {% endfor %}
 ]

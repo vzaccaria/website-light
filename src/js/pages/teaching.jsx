@@ -124,6 +124,7 @@ export default class Teaching extends React.Component {
             let valid = true;
             let data = dta;
             this.setState({valid, data});
+            return null;
         })
     }
 

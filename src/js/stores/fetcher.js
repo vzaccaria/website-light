@@ -14,7 +14,7 @@ let {
 let fetcher = () => {
 
     function fetchAsset(name, opts) {
-        return agent('GET', `${baseurl}/${name}`).end().then((r) => {
+        return agent('GET', `${baseurl}/${name}`).then((r) => {
             if (_.get(opts, "yaml", false)) {
                 return YAML.safeLoad(r.text);
             } else {
@@ -24,7 +24,7 @@ let fetcher = () => {
     }
 
     function fetchIndex() {
-        return agent('GET', indexurl).set('Accept', 'application/json').end().then((r) => {
+        return agent('GET', indexurl).then((r) => {
             return r.body
         })
     }

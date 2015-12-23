@@ -1,4 +1,6 @@
 import React from 'react';
+import { createHashHistory} from 'history'
+
 import { Router, Route, Link, IndexRoute } from 'react-router'
 
 import { bioPage } from './pages/bio';
@@ -12,12 +14,15 @@ import { videosPage } from './pages/videos';
 
 const debug = require('./react-utils/debug')(__filename);
 
+let history = createHashHistory ({
+    queryKey: false
+});
 
 let Routes = React.createClass({
     render() {
         return (
-            <div className="site_container">
-                <Router>
+            <div className="site_container" >
+                <Router history={history}>
                     <Route path="/" >
                         <IndexRoute component={bioPage} />
                         <Route path="/research" component={researchPage}> </Route>

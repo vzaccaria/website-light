@@ -19994,7 +19994,7 @@
 /* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "assets/sidebar_picture.jpg"
+	module.exports = __webpack_require__.p + "/assets/sidebar_picture.jpg"
 
 /***/ },
 /* 178 */
@@ -53706,7 +53706,7 @@
 /* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "assets/profile_pic_1_res.jpg"
+	module.exports = __webpack_require__.p + "/assets/profile_pic_1_res.jpg"
 
 /***/ },
 /* 296 */

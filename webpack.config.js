@@ -45,9 +45,9 @@ var htmlPlugin = new HtmlWebpackPlugin({
 var mainConfig = {
     entry: './src/js/index.jsx',
     output: {
-        path: __dirname + '/dist',
-        filename: 'assets/client.js',
-        publicPath: 'http://www.vittoriozaccaria.net/'
+        path: __dirname,
+        filename: '/assets/client.js',
+        publicPath: '/'
     },
     node: {
         __filename: true

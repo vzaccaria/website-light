@@ -25,9 +25,9 @@ di ordine superiore](https://dl.dropboxusercontent.com/u/5867765/1516-published-
 
 Si assuma di avere una matrice di 2 righe ed un numero arbitrario di colonne, ad esempio:
 
-<div> \begin{equation} M = \left[\begin{array}{ccc} 1 & 3 & 1  \\\\ 2 & 4 & 3  \\\\ \end{array} \right] \end{equation} </div>
+<div> \begin{equation} M = \left[\begin{array}{ccc} 1 & 3 & 1  \\ 2 & 4 & 3  \\ \end{array} \right] \end{equation} </div>
 
-Ogni colonna della matrice rappresenta una frazione (ad esempio, per `M`):
+Ogni colonna della matrice rappresenta una frazione (ad esempio, per $M$):
 
 <div> \begin{equation} \frac{1}{2}, \frac{3}{4}, \frac{1}{3} \end{equation} </div>
 

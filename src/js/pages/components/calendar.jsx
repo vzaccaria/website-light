@@ -37,7 +37,7 @@ export default class Calendar extends React.Component {
 
     getStartMonth() {
         let format = _.get(this.props, "format", "MMMM YYYY");
-        let startMonth = _.get(this.props, "startMonth", "June 2015");
+        let startMonth = _.get(this.props, "startMonth", "September 2015");
         return moment(startMonth, format)
     }
 

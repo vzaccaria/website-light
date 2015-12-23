@@ -100114,7 +100114,7 @@
 	        key: 'getStartMonth',
 	        value: function getStartMonth() {
 	            var format = _lodash2['default'].get(this.props, "format", "MMMM YYYY");
-	            var startMonth = _lodash2['default'].get(this.props, "startMonth", "June 2015");
+	            var startMonth = _lodash2['default'].get(this.props, "startMonth", "September 2015");
 	            return (0, _moment2['default'])(startMonth, format);
 	        }
 	    }, {

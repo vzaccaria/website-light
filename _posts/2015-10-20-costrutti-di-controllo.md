@@ -110,7 +110,7 @@ Esecuzione:
 
 Scrivere un programma Matlab che stampa i primi 100 numeri di Fibonacci.
 
-![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_fibonacci.png){:width="50%"}
+![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_fibonacci.png){:width="40%"}
 
 ```octave
 fib(1) = 1;
@@ -135,7 +135,7 @@ è divisibile per un altro e
 verificare se il resto della divisione tra il primo e
 il secondo numero è nullo; ovvero, \`n\` è divisibile per \`i\` se \`(n % i) == 0\`.
 
-![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_divisori.png)
+![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_divisori.png){:width="40%"}
 
 ```octave
 numero = 290
@@ -167,7 +167,7 @@ Esecuzione:
 
 10 e' divisore poiche' sia 2 che 5 lo sono. E' possibile scartarlo a priori? si:
 
-![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_divisori_non_ovvi.png)
+![img](https://dl.dropboxusercontent.com/u/5867765/1516-published-infob/post-images/df_divisori_non_ovvi.png){:width="40%"}
 
 ```octave
 numero = 2

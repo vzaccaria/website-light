@@ -87,8 +87,11 @@ Scrivere un programma C che stampa i primi 100 numeri di Fibonacci.
 Ricordiamo che la successione dei numeri di Fibonacci è definita come segue:
 
 $$F(0) = 0 $$
+
 $$F(1) = 1 $$
+
 $$F(n) = F(n-1) + F(n-2), n>1 $$
+
 
     #include <stdio.h>
     int main()

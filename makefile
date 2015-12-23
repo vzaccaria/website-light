@@ -1,7 +1,7 @@
 all: dev-static
 
 start-server:
-	./node_modules/.bin/webpack-dev-server --progress --colors
+	./node_modules/.bin/webpack-dev-server --progress --colors --watch-poll 1000 --watch-aggregate-timeout 300
 
 stop-server:
 	killall webpack-dev-server

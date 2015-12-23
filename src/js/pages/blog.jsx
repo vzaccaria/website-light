@@ -33,6 +33,7 @@ import { fetchPost } from '../stores/fetcher'
 import hjs from 'highlight.js'
 import jq from 'jquery'
 
+
 // debug..
 const debug = require('../react-utils/debug')(__filename);
 
@@ -64,7 +65,7 @@ export default class BlogPage extends React.Component {
         this.state = { valid: false };
     }
 
-    componentDidMount() {
+    componentDidMount(root) {
         hjs.configure({
             useBR: false,
             languages: ['c', 'matlab', 'cpp']
@@ -72,7 +73,11 @@ export default class BlogPage extends React.Component {
         fetchPost(this.props.params.category, this.props.params).then((postData) => {
             let valid = true
             this.setState({postData, valid});
-        });
+        }).then( () => {
+            debug("Updating Mathjax..");
+            MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']]}});
+                   MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+            })
     }
 
     componentWillReceiveProps(props) {
@@ -82,13 +87,14 @@ export default class BlogPage extends React.Component {
         });
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(props, state, root) {
         debug('component did update');
         jq('code.language-octave').removeClass('language-octave').addClass('matlab');
         jq('code.language-c').removeClass('language-c').addClass('c');
         jq('pre code').each((i, b) => {
             hjs.highlightBlock(b);
-            });
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     }
 
     render() {

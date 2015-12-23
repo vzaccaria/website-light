@@ -65,7 +65,7 @@ var mainConfig = {
 }
 
 function getStageConfig(stageConfig) {
-    _.set(stageConfig, "path", __dirname);
+    _.set(stageConfig, "output.path", __dirname);
     _.set(stageConfig, "output.publicPath", 'http://www.vittoriozaccaria.net/website-light');
     _.set(stageConfig, "resolve.alias.site-config", __dirname + "/data/site-stage.json");
     _.set(stageConfig, "plugins", [htmlPlugin]);

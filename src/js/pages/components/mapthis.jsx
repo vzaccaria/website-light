@@ -16,7 +16,6 @@ export default class MapThis extends React.Component {
 
     componentDidMount() {
         $script("https://maps.googleapis.com/maps/api/js", () => {
-            console.log("Script loaded")
             let	map_canvas = document.getElementById(this.state.id);
             let center = new google.maps.LatLng(this.props.lat, this.props.long);
             let map_options = {

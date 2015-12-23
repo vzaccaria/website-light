@@ -145,7 +145,7 @@ export default class Calendar extends React.Component {
                 return this.renderMonth(this.getStartMonth().add(it, "months"), index);
             });
             return (
-                <div className="calendar">
+                <div style={this.props.style} className="calendar">
                     {renderedMonths}
                 </div>
             );

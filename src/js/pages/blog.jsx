@@ -6,6 +6,7 @@ import hjs from 'highlight.js'
 import jq from 'jquery'
 import moment from 'moment'
 import ShareButton from './components/ShareButton'
+import ReactDisqusThread from 'react-disqus-thread';
 
 import { sourceurl } from 'site-config';
 
@@ -25,12 +26,12 @@ let subTitle = (postData) => {
     debug(postData.tags.length);
     let show = _.any(postData.tags, (t) => t !== "");
     let tags = (show) ?  (
-            <div className={c('tags')}>
-                <i className="fa fa-tags" />
-                <div className={c('category_value')}>
-                    {_.map(postData.tags, (t, i) => <div key={i} className={c('tag')}> {t} </div>)} </div>
-            </div>
-        ) : null;
+        <div className={c('tags')}>
+            <i className="fa fa-tags" />
+            <div className={c('category_value')}>
+                {_.map(postData.tags, (t, i) => <div key={i} className={c('tag')}> {t} </div>)} </div>
+        </div>
+    ) : null;
     return (
         <div className={'post_container__post__subtitle'}>
             <div className={c('date')}>
@@ -99,13 +100,15 @@ export default class BlogPage extends React.Component {
     render() {
         if(this.state.valid) {
             let c = _.partial(_b, 'post_container');
-            console.log(this.state.postData)
             return (
                 <div className={c()} >
                     <div className={c('post__title')}> {this.state.postData.title} </div>
                     {subTitle(this.state.postData)}
                     <div className="post_text">
                         <div dangerouslySetInnerHTML={{ __html: this.state.postData.markup}}/>
+                    </div>
+                    <div className={c('comments')}>
+                        <ReactDisqusThread shortname="vittoriozaccaria" />
                     </div>
                 </div>
             );

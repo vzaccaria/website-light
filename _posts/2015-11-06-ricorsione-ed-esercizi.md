@@ -233,12 +233,12 @@ Si implementi in MATLAB una funzione che svolga le seguenti operazioni:
 
 $$
 C(r,c) =
-\\left\\{
-\\begin{array}{ll}
- A(r,c), & \\textrm{se } B(r,c) < \\textrm{minimo valore di tutta la matrice A} \\\\
- B(r,c), & \\textrm{altrimenti} \\\\
-\\end{array}
-\\right.
+\left\{
+\begin{array}{ll}
+ A(r,c), & \textrm{se } B(r,c) < \textrm{minimo valore di tutta la matrice A} \\
+ B(r,c), & \textrm{altrimenti} \\
+\end{array}
+\right.
 $$
 
 Ove \\(r,c\\) sono, rispettivamente, la riga e la colonna dell'elemento

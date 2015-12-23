@@ -69,11 +69,10 @@
 
 	var siteData = __webpack_require__(345);
 
-	if (_lodash2['default'].get(siteData, "webPackDevServer", false)) {
-	    $script("http://localhost:8080/webpack-dev-server.js", function () {
-	        console.log("Using webpack-dev-server");
-	    });
-	}
+	if (_lodash2['default'].get(siteData, "webPackDevServer", false)) {}
+	//    $script("http://localhost:8080/webpack-dev-server.js", () => {
+	//        console.log("Using webpack-dev-server");
+	//        });
 
 	// Main ideas taken from: http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-router-and-webpack/
 
@@ -59092,7 +59091,7 @@
 
 	    _createClass(BlogPage, [{
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {
+	        value: function componentDidMount(root) {
 	            var _this = this;
 
 	            _highlightJs2['default'].configure({
@@ -59102,6 +59101,10 @@
 	            (0, _storesFetcher.fetchPost)(this.props.params.category, this.props.params).then(function (postData) {
 	                var valid = true;
 	                _this.setState({ postData: postData, valid: valid });
+	            }).then(function () {
+	                debug("Updating Mathjax..");
+	                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
+	                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 	            });
 	        }
 	    }, {
@@ -59116,13 +59119,14 @@
 	        }
 	    }, {
 	        key: 'componentDidUpdate',
-	        value: function componentDidUpdate() {
+	        value: function componentDidUpdate(props, state, root) {
 	            debug('component did update');
 	            (0, _jquery2['default'])('code.language-octave').removeClass('language-octave').addClass('matlab');
 	            (0, _jquery2['default'])('code.language-c').removeClass('language-c').addClass('c');
 	            (0, _jquery2['default'])('pre code').each(function (i, b) {
 	                _highlightJs2['default'].highlightBlock(b);
 	            });
+	            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 	        }
 	    }, {
 	        key: 'render',

@@ -62,7 +62,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var $script = __webpack_require__(633);
+	var $script = __webpack_require__(634);
 
 	// Debug..
 	var debug = __webpack_require__(287)(__filename);
@@ -77,9 +77,9 @@
 	// Main ideas taken from: http://jmfurlott.com/tutorial-setting-up-a-single-page-react-web-app-with-react-router-and-webpack/
 
 	// Import styles
-	__webpack_require__(638);
-	__webpack_require__(641);
-	__webpack_require__(643);
+	__webpack_require__(639);
+	__webpack_require__(642);
+	__webpack_require__(644);
 
 	// Render sidebar
 	document.getElementById('sidebar').innerHTML = (0, _sidebar.createSidebarComponentHTML)();
@@ -20017,21 +20017,21 @@
 
 	var _pagesBlog2 = _interopRequireDefault(_pagesBlog);
 
-	var _pagesBlogIndex = __webpack_require__(486);
+	var _pagesBlogIndex = __webpack_require__(574);
 
 	var _pagesBlogIndex2 = _interopRequireDefault(_pagesBlogIndex);
 
-	var _pagesTeaching = __webpack_require__(487);
+	var _pagesTeaching = __webpack_require__(575);
 
 	var _pagesTeaching2 = _interopRequireDefault(_pagesTeaching);
 
-	var _pagesAddress = __webpack_require__(630);
+	var _pagesAddress = __webpack_require__(631);
 
 	var _pagesAddress2 = _interopRequireDefault(_pagesAddress);
 
-	var _pagesProjects = __webpack_require__(634);
+	var _pagesProjects = __webpack_require__(635);
 
-	var _pagesVideos = __webpack_require__(636);
+	var _pagesVideos = __webpack_require__(637);
 
 	var debug = __webpack_require__(287)(__filename);
 
@@ -58961,35 +58961,7 @@
 /* 303 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__filename) {// research.jsx ---
-
-	// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the "Software"),
-	// to deal in the Software without restriction, including without limitation
-	// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-	// and/or sell copies of the Software, and to permit persons to whom the
-	// Software is furnished to do so, subject to the following conditions:
-
-	// The above copyright notice and this permission notice shall be included in
-	// all copies or substantial portions of the Software.
-
-	// Except as contained in this notice, the name(s) of the above copyright
-	// holders shall not be used in advertising or otherwise to promote the sale,
-	// use or other dealings in this Software without prior written authorization.
-
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-	// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-	// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-	// DEALINGS IN THE SOFTWARE.
-
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
@@ -59025,11 +58997,52 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _moment = __webpack_require__(486);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _componentsShareButton = __webpack_require__(573);
+
+	var _componentsShareButton2 = _interopRequireDefault(_componentsShareButton);
+
+	var _siteConfig = __webpack_require__(345);
+
+	function getGitHubUrl(postData, title) {
+	    var date = (0, _moment2['default'])(postData.date);
+	    date = date.format('YYYY-MM-DD');
+	    title = title.replace(/html$/, 'md');
+	    postData.origurl = _siteConfig.sourceurl + '/' + date + '-' + title;
+	    return postData;
+	}
+
 	// debug..
 	var debug = __webpack_require__(287)(__filename);
 
 	var subTitle = function subTitle(postData) {
 	    var c = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post_container__post');
+	    debug(postData.tags.length);
+	    var show = _lodash2['default'].any(postData.tags, function (t) {
+	        return t !== "";
+	    });
+	    var tags = show ? _react2['default'].createElement(
+	        'div',
+	        { className: c('tags') },
+	        _react2['default'].createElement('i', { className: 'fa fa-tags' }),
+	        _react2['default'].createElement(
+	            'div',
+	            { className: c('category_value') },
+	            _lodash2['default'].map(postData.tags, function (t, i) {
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { key: i, className: c('tag') },
+	                    ' ',
+	                    t,
+	                    ' '
+	                );
+	            }),
+	            ' '
+	        )
+	    ) : null;
 	    return _react2['default'].createElement(
 	        'div',
 	        { className: 'post_container__post__subtitle' },
@@ -59057,24 +59070,13 @@
 	                ' '
 	            )
 	        ),
+	        tags,
 	        _react2['default'].createElement(
 	            'div',
-	            { className: c('tags') },
-	            _react2['default'].createElement('i', { className: 'fa fa-tags' }),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: c('category_value') },
-	                _lodash2['default'].map(postData.tags, function (t, i) {
-	                    return _react2['default'].createElement(
-	                        'div',
-	                        { key: i, className: c('tag') },
-	                        ' ',
-	                        t,
-	                        ' '
-	                    );
-	                }),
-	                ' '
-	            )
+	            { className: 'share_buttons' },
+	            _react2['default'].createElement(_componentsShareButton2['default'], { social: 'twitter' }),
+	            _react2['default'].createElement(_componentsShareButton2['default'], { social: 'reddit' }),
+	            _react2['default'].createElement(_componentsShareButton2['default'], { social: 'github', origLink: postData.origurl })
 	        )
 	    );
 	};
@@ -59100,6 +59102,7 @@
 	            });
 	            (0, _storesFetcher.fetchPost)(this.props.params.category, this.props.params).then(function (postData) {
 	                var valid = true;
+	                postData = getGitHubUrl(postData, _this.props.params.title);
 	                _this.setState({ postData: postData, valid: valid });
 	            }).then(function () {
 	                debug("Updating Mathjax..");
@@ -59114,7 +59117,12 @@
 
 	            (0, _storesFetcher.fetchPost)(props.params.category, props.params).then(function (postData) {
 	                var valid = true;
+	                postData = getGitHubUrl(postData, props.params.title);
 	                _this2.setState({ postData: postData, valid: valid });
+	            }).then(function () {
+	                debug("Updating Mathjax..");
+	                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\\(', '\\)']] } });
+	                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 	            });
 	        }
 	    }, {
@@ -59133,6 +59141,7 @@
 	        value: function render() {
 	            if (this.state.valid) {
 	                var c = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post_container');
+	                console.log(this.state.postData);
 	                return _react2['default'].createElement(
 	                    'div',
 	                    { className: c() },
@@ -76070,6 +76079,7 @@
 		"baseurl": "http://www.vittoriozaccaria.net/website-light",
 		"indexurl": "http://www.vittoriozaccaria.net/website-light/data/index.json",
 		"imageurl": "http://www.vittoriozaccaria.net/img",
+		"sourceurl": "https://github.com/vzaccaria/website-light/tree/gh-pages/_posts",
 		"dropbox": "https://dl.dropboxusercontent.com/u/5867765"
 	};
 
@@ -99560,716 +99570,6 @@
 /* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__filename) {// research.jsx ---
-
-	// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the "Software"),
-	// to deal in the Software without restriction, including without limitation
-	// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-	// and/or sell copies of the Software, and to permit persons to whom the
-	// Software is furnished to do so, subject to the following conditions:
-
-	// The above copyright notice and this permission notice shall be included in
-	// all copies or substantial portions of the Software.
-
-	// Except as contained in this notice, the name(s) of the above copyright
-	// holders shall not be used in advertising or otherwise to promote the sale,
-	// use or other dealings in this Software without prior written authorization.
-
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-	// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-	// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-	// DEALINGS IN THE SOFTWARE.
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(15);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lodash = __webpack_require__(231);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _reactUtilsReactBem = __webpack_require__(298);
-
-	var _storesFetcher = __webpack_require__(304);
-
-	// debug..
-	var debug = __webpack_require__(287)(__filename);
-
-	var filter = function filter(list, props) {
-	    return _lodash2['default'].filter(list, function (e) {
-	        return e.category === props.params.category;
-	    });
-	};
-
-	var c = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post-preview');
-	var m = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post-preview-mobile');
-
-	function renderPostTitleMobile(p, i) {
-	    return _react2['default'].createElement(
-	        'a',
-	        { key: i, href: '#' + p.link, style: { cursor: 'pointer' }, className: m() },
-	        _react2['default'].createElement(
-	            'div',
-	            { className: m('description') },
-	            _react2['default'].createElement(
-	                'div',
-	                { className: m('title') },
-	                ' ',
-	                p.title,
-	                ' '
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: m('small-date') },
-	                ' ',
-	                p.smallDate,
-	                ' '
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: m('small-description') },
-	                ' ',
-	                p.smallDescription,
-	                ' '
-	            )
-	        )
-	    );
-	}
-
-	function renderPostTitle(p, i) {
-	    return _react2['default'].createElement(
-	        'a',
-	        { key: i, href: '#' + p.link, style: { cursor: 'pointer' }, className: c() },
-	        _react2['default'].createElement(
-	            'div',
-	            { className: c('desc-column') },
-	            _react2['default'].createElement(
-	                'div',
-	                { className: c('title') },
-	                ' ',
-	                p.title,
-	                ' '
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: c('subtitle') },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: c('date') },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: c('date-value') },
-	                        ' ',
-	                        p.formattedDate,
-	                        ' '
-	                    )
-	                )
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: c('description') },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: c('description-text') },
-	                    p.description ? p.description : 'no description'
-	                )
-	            )
-	        )
-	    );
-	}
-
-	var BlogIndex = (function (_React$Component) {
-	    _inherits(BlogIndex, _React$Component);
-
-	    function BlogIndex() {
-	        _classCallCheck(this, BlogIndex);
-
-	        _get(Object.getPrototypeOf(BlogIndex.prototype), 'constructor', this).call(this);
-	        this.state = { valid: false };
-	    }
-
-	    _createClass(BlogIndex, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this = this;
-
-	            (0, _storesFetcher.fetchIndex)().then(function (index) {
-	                var valid = true;
-	                index = filter(index, _this.props);
-	                _this.setState({ index: index, valid: valid });
-	            });
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(props) {
-	            var _this2 = this;
-
-	            (0, _storesFetcher.fetchIndex)().then(function (index) {
-	                index = filter(index, props);
-	                _this2.setState({ index: index });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (this.state.valid) {
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { className: 'posts' },
-	                    _lodash2['default'].map(this.state.index, renderPostTitleMobile),
-	                    _lodash2['default'].map(this.state.index, renderPostTitle)
-	                );
-	            } else {
-	                return _react2['default'].createElement('div', null);
-	            }
-	        }
-	    }]);
-
-	    return BlogIndex;
-	})(_react2['default'].Component);
-
-	exports['default'] = BlogIndex;
-	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/blogIndex.jsx"))
-
-/***/ },
-/* 487 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__filename) {// teaching.jsx ---
-
-	// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
-
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the "Software"),
-	// to deal in the Software without restriction, including without limitation
-	// the rights to use, copy, modify, merge, publish, distribute, sublicense,
-	// and/or sell copies of the Software, and to permit persons to whom the
-	// Software is furnished to do so, subject to the following conditions:
-
-	// The above copyright notice and this permission notice shall be included in
-	// all copies or substantial portions of the Software.
-
-	// Except as contained in this notice, the name(s) of the above copyright
-	// holders shall not be used in advertising or otherwise to promote the sale,
-	// use or other dealings in this Software without prior written authorization.
-
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-	// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-	// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-	// DEALINGS IN THE SOFTWARE.
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(15);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lodash = __webpack_require__(231);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _componentsCalendar = __webpack_require__(488);
-
-	var _componentsCalendar2 = _interopRequireDefault(_componentsCalendar);
-
-	var debug = __webpack_require__(287)(__filename);
-
-	var _require = __webpack_require__(304);
-
-	var tmpl = _require.tmpl;
-	var fetchAsset = _require.fetchAsset;
-
-	function renderContacts(contacts) {
-	    var c = _lodash2['default'].map(contacts, function (it, key) {
-	        if (it.link) {
-	            return _react2['default'].createElement(
-	                'div',
-	                { key: key, className: 'contacts__detail' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'contacts__key' },
-	                    ' ',
-	                    it.key,
-	                    ' '
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'contacts__value' },
-	                    ' ',
-	                    _react2['default'].createElement(
-	                        'a',
-	                        { href: tmpl(it.link) },
-	                        it.value
-	                    ),
-	                    ' '
-	                )
-	            );
-	        } else {
-	            return _react2['default'].createElement(
-	                'div',
-	                { key: key, className: 'contacts__detail' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'contacts__key' },
-	                    ' ',
-	                    it.key,
-	                    ' '
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'contacts__value' },
-	                    ' ',
-	                    it.value,
-	                    ' '
-	                )
-	            );
-	        }
-	    });
-	    return _react2['default'].createElement(
-	        'div',
-	        { className: 'contacts' },
-	        c
-	    );
-	}
-
-	function renderMessages(name, messages) {
-	    var _content = function _content(x) {
-	        if (x.link) return _react2['default'].createElement(
-	            'a',
-	            { href: tmpl(x.link) },
-	            ' ',
-	            x.text,
-	            ' '
-	        );else return x.text;
-	    };
-	    function renderMessage(it, key) {
-	        return _react2['default'].createElement(
-	            'div',
-	            { key: key, className: 'lecture-messages__message' },
-	            _react2['default'].createElement(
-	                'div',
-	                { className: 'lecture-messages__date' },
-	                it.title
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: 'lecture-messages__text' },
-	                _content(it)
-	            )
-	        );
-	    }
-	    return _react2['default'].createElement(
-	        'div',
-	        { className: 'lecture-messages' },
-	        _react2['default'].createElement(
-	            'div',
-	            { className: 'lecture-messages__title' },
-	            name
-	        ),
-	        _react2['default'].createElement(
-	            'div',
-	            { className: 'lecture-messages__message' },
-	            _lodash2['default'].map(messages, renderMessage)
-	        )
-	    );
-	}
-
-	function renderTemi(temi) {
-	    function renderTema(it, key) {
-	        return _react2['default'].createElement(
-	            'li',
-	            { key: key },
-	            _react2['default'].createElement(
-	                'a',
-	                { href: it.value },
-	                ' ',
-	                it.key,
-	                ' '
-	            )
-	        );
-	    }
-	    return _react2['default'].createElement(
-	        'ul',
-	        null,
-	        ' ',
-	        _lodash2['default'].map(temi, renderTema),
-	        ' '
-	    );
-	}
-
-	function renderInfo(name, data) {
-	    return _react2['default'].createElement(
-	        'div',
-	        { className: 'lecture-messages' },
-	        _react2['default'].createElement(
-	            'div',
-	            { className: 'lecture-messages__title' },
-	            name
-	        ),
-	        _react2['default'].createElement(
-	            'div',
-	            { className: 'lecture-messages__message' },
-	            _react2['default'].createElement(
-	                'div',
-	                { className: 'lecture-messages__date' },
-	                'Raccolta temi d\'esame'
-	            ),
-	            _react2['default'].createElement(
-	                'div',
-	                { className: 'lecture-messages__text' },
-	                renderTemi(data.temi)
-	            )
-	        )
-	    );
-	}
-
-	var Teaching = (function (_React$Component) {
-	    _inherits(Teaching, _React$Component);
-
-	    function Teaching() {
-	        _classCallCheck(this, Teaching);
-
-	        _get(Object.getPrototypeOf(Teaching.prototype), 'constructor', this).call(this);
-	        this.state = { valid: false };
-	    }
-
-	    _createClass(Teaching, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this = this;
-
-	            fetchAsset('data/infob.yaml', { yaml: true }).then(function (dta) {
-	                var valid = true;
-	                var data = dta;
-	                _this.setState({ valid: valid, data: data });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (this.state.valid) {
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { className: 'teaching-page' },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'teaching-page__title' },
-	                        'Informatica B'
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'teaching-page__year' },
-	                        'Anno accademico 2015 - 2016'
-	                    ),
-	                    renderContacts(this.state.data.contacts),
-	                    renderMessages('Avvisi importanti', this.state.data.avvisi),
-	                    renderInfo("Informazioni su esame e prove in itinere", this.state.data),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'lecture-material' },
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'lecture-material__title' },
-	                            'Calendario e materiale'
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'lecture-material__description' },
-	                            _react2['default'].createElement(
-	                                'p',
-	                                null,
-	                                ' Cliccare sui giorni evidenziati in arancione per accedere al materiale corrispondente. '
-	                            )
-	                        ),
-	                        _react2['default'].createElement(_componentsCalendar2['default'], null)
-	                    )
-	                );
-	            } else {
-	                return _react2['default'].createElement('div', null);
-	            }
-	        }
-	    }]);
-
-	    return Teaching;
-	})(_react2['default'].Component);
-
-	exports['default'] = Teaching;
-	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/teaching.jsx"))
-
-/***/ },
-/* 488 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(15);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _lodash = __webpack_require__(231);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _moment = __webpack_require__(489);
-
-	var _moment2 = _interopRequireDefault(_moment);
-
-	var _storesFetcher = __webpack_require__(304);
-
-	var _rcTooltip = __webpack_require__(576);
-
-	var _rcTooltip2 = _interopRequireDefault(_rcTooltip);
-
-	__webpack_require__(626);
-
-	// Debug..
-	var debug = __webpack_require__(287)(__filename);
-
-	/* Uniform date constructor for comparisons */
-	var _d = function _d(d) {
-	    return d.format('DD-MM-YYYY');
-	};
-
-	var Calendar = (function (_React$Component) {
-	    _inherits(Calendar, _React$Component);
-
-	    function Calendar() {
-	        _classCallCheck(this, Calendar);
-
-	        _get(Object.getPrototypeOf(Calendar.prototype), 'constructor', this).call(this);
-	        this.state = { valid: false };
-	    }
-
-	    _createClass(Calendar, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this = this;
-
-	            (0, _storesFetcher.fetchIndex)().then(function (index) {
-	                var valid = true;
-	                var data = _lodash2['default'].indexBy(index, function (it) {
-	                    // can create a moment from an ISO date (xmlschema)
-	                    return _d((0, _moment2['default'])(it.date));
-	                });
-	                var today = (0, _moment2['default'])();
-	                _this.setState({ valid: valid, data: data, today: today });
-	            });
-	        }
-	    }, {
-	        key: 'getStartMonth',
-	        value: function getStartMonth() {
-	            var format = _lodash2['default'].get(this.props, "format", "MMMM YYYY");
-	            var startMonth = _lodash2['default'].get(this.props, "startMonth", "September 2015");
-	            return (0, _moment2['default'])(startMonth, format);
-	        }
-	    }, {
-	        key: 'getNumberOfMonths',
-	        value: function getNumberOfMonths() {
-	            var numberOfMonths = parseInt(_lodash2['default'].get(this.props, "numberOfMonths", 3));
-	            return numberOfMonths;
-	        }
-	    }, {
-	        key: 'renderMonth',
-	        value: function renderMonth(month, index) {
-	            return _react2['default'].createElement(
-	                'div',
-	                { key: index, className: 'calendar__month' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'calendar__month_name' },
-	                    ' ',
-	                    month.format('MMMM'),
-	                    ' '
-	                ),
-	                this.renderDaysInMonth(month)
-	            );
-	        }
-	    }, {
-	        key: 'getPost',
-	        value: function getPost(day) {
-	            var dta = this.state.data[_d(day.dateMoment)];
-	            if (!_lodash2['default'].isUndefined(dta)) {
-	                day.title = dta.title;
-	                day.tags = dta.tags;
-	                day.link = dta.link;
-	                day.classes = ['calendar__category_' + dta.category];
-	                day.style = { cursor: 'pointer' };
-	            }
-	            return day;
-	        }
-	    }, {
-	        key: 'renderDay',
-	        value: function renderDay(day) {
-	            var classes = ['calendar__day'];
-	            var number = 'NA';
-	            var style = {};
-
-	            if (!day.notInMonth) {
-	                day = this.getPost(day);
-	                style = day.style;
-
-	                classes = classes.concat(day.classes);
-
-	                if (_d(day.dateMoment) === _d(this.state.today)) {
-	                    classes = classes.concat('calendar__day_is_today');
-	                }
-	                if (day.dateMoment.day() == 0 || day.dateMoment.day() == 6) {
-	                    classes = classes.concat('calendar__day_not_working');
-	                } else {
-	                    classes = classes.concat('calendar__day_working');
-	                }
-	            } else {
-	                classes = classes.concat('calendar__day_not_in_month');
-	            }
-
-	            function gotoDay(d) {
-	                return function () {
-	                    if (d.link) {
-	                        window.location.href = '#' + d.link;
-	                    }
-	                };
-	            }
-
-	            if (day.dateMoment) {
-	                number = day.dateMoment.date();
-	            }
-
-	            if (day.title) {
-	                return _react2['default'].createElement(
-	                    _rcTooltip2['default'],
-	                    { key: day.index, placement: 'top', overlay: day.title },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { style: style, className: classes.join(' '), onClick: gotoDay(day) },
-	                        number
-	                    )
-	                );
-	            } else {
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { key: day.index, style: style, className: classes.join(' '), onClick: gotoDay(day) },
-	                    number
-	                );
-	            }
-	        }
-
-	        /* cm is the moment corresponding to the beginning of the month */
-	    }, {
-	        key: 'renderDaysInMonth',
-	        value: function renderDaysInMonth(cm) {
-	            var _this2 = this;
-
-	            var days = _lodash2['default'].range(0, cm.daysInMonth());
-	            var daysMup = [];
-	            var isSunday = function isSunday(cd) {
-	                return cd.day() == 0;
-	            };
-
-	            if (!isSunday(cm)) {
-	                daysMup = _lodash2['default'].map(_lodash2['default'].range(0, cm.day()), function (v, index) {
-	                    var notInMonth = true;
-	                    index = index + '-n';
-	                    return _this2.renderDay({ notInMonth: notInMonth, index: index });
-	                });
-	            }
-
-	            return daysMup.concat(_lodash2['default'].map(days, function (d, index) {
-	                var dateMoment = (0, _moment2['default'])(cm).add(d, 'days');
-	                var notInMonth = false;
-	                return _this2.renderDay({ dateMoment: dateMoment, notInMonth: notInMonth, index: index });
-	            }));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-
-	            if (this.state.valid) {
-	                var months = _lodash2['default'].range(0, this.getNumberOfMonths());
-	                var renderedMonths = _lodash2['default'].map(months, function (it, index) {
-	                    return _this3.renderMonth(_this3.getStartMonth().add(it, "months"), index);
-	                });
-	                return _react2['default'].createElement(
-	                    'div',
-	                    { className: 'calendar' },
-	                    renderedMonths
-	                );
-	            } else {
-	                return _react2['default'].createElement('div', null);
-	            }
-	        }
-	    }]);
-
-	    return Calendar;
-	})(_react2['default'].Component);
-
-	exports['default'] = Calendar;
-	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/components/calendar.jsx"))
-
-/***/ },
-/* 489 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
 	//! version : 2.10.6
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -100538,7 +99838,7 @@
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(490)("./" + name);
+	                __webpack_require__(487)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -103468,180 +102768,180 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(232)(module)))
 
 /***/ },
-/* 490 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 491,
-		"./af.js": 491,
-		"./ar": 492,
-		"./ar-ma": 493,
-		"./ar-ma.js": 493,
-		"./ar-sa": 494,
-		"./ar-sa.js": 494,
-		"./ar-tn": 495,
-		"./ar-tn.js": 495,
-		"./ar.js": 492,
-		"./az": 496,
-		"./az.js": 496,
-		"./be": 497,
-		"./be.js": 497,
-		"./bg": 498,
-		"./bg.js": 498,
-		"./bn": 499,
-		"./bn.js": 499,
-		"./bo": 500,
-		"./bo.js": 500,
-		"./br": 501,
-		"./br.js": 501,
-		"./bs": 502,
-		"./bs.js": 502,
-		"./ca": 503,
-		"./ca.js": 503,
-		"./cs": 504,
-		"./cs.js": 504,
-		"./cv": 505,
-		"./cv.js": 505,
-		"./cy": 506,
-		"./cy.js": 506,
-		"./da": 507,
-		"./da.js": 507,
-		"./de": 508,
-		"./de-at": 509,
-		"./de-at.js": 509,
-		"./de.js": 508,
-		"./el": 510,
-		"./el.js": 510,
-		"./en-au": 511,
-		"./en-au.js": 511,
-		"./en-ca": 512,
-		"./en-ca.js": 512,
-		"./en-gb": 513,
-		"./en-gb.js": 513,
-		"./eo": 514,
-		"./eo.js": 514,
-		"./es": 515,
-		"./es.js": 515,
-		"./et": 516,
-		"./et.js": 516,
-		"./eu": 517,
-		"./eu.js": 517,
-		"./fa": 518,
-		"./fa.js": 518,
-		"./fi": 519,
-		"./fi.js": 519,
-		"./fo": 520,
-		"./fo.js": 520,
-		"./fr": 521,
-		"./fr-ca": 522,
-		"./fr-ca.js": 522,
-		"./fr.js": 521,
-		"./fy": 523,
-		"./fy.js": 523,
-		"./gl": 524,
-		"./gl.js": 524,
-		"./he": 525,
-		"./he.js": 525,
-		"./hi": 526,
-		"./hi.js": 526,
-		"./hr": 527,
-		"./hr.js": 527,
-		"./hu": 528,
-		"./hu.js": 528,
-		"./hy-am": 529,
-		"./hy-am.js": 529,
-		"./id": 530,
-		"./id.js": 530,
-		"./is": 531,
-		"./is.js": 531,
-		"./it": 532,
-		"./it.js": 532,
-		"./ja": 533,
-		"./ja.js": 533,
-		"./jv": 534,
-		"./jv.js": 534,
-		"./ka": 535,
-		"./ka.js": 535,
-		"./km": 536,
-		"./km.js": 536,
-		"./ko": 537,
-		"./ko.js": 537,
-		"./lb": 538,
-		"./lb.js": 538,
-		"./lt": 539,
-		"./lt.js": 539,
-		"./lv": 540,
-		"./lv.js": 540,
-		"./me": 541,
-		"./me.js": 541,
-		"./mk": 542,
-		"./mk.js": 542,
-		"./ml": 543,
-		"./ml.js": 543,
-		"./mr": 544,
-		"./mr.js": 544,
-		"./ms": 545,
-		"./ms-my": 546,
-		"./ms-my.js": 546,
-		"./ms.js": 545,
-		"./my": 547,
-		"./my.js": 547,
-		"./nb": 548,
-		"./nb.js": 548,
-		"./ne": 549,
-		"./ne.js": 549,
-		"./nl": 550,
-		"./nl.js": 550,
-		"./nn": 551,
-		"./nn.js": 551,
-		"./pl": 552,
-		"./pl.js": 552,
-		"./pt": 553,
-		"./pt-br": 554,
-		"./pt-br.js": 554,
-		"./pt.js": 553,
-		"./ro": 555,
-		"./ro.js": 555,
-		"./ru": 556,
-		"./ru.js": 556,
-		"./si": 557,
-		"./si.js": 557,
-		"./sk": 558,
-		"./sk.js": 558,
-		"./sl": 559,
-		"./sl.js": 559,
-		"./sq": 560,
-		"./sq.js": 560,
-		"./sr": 561,
-		"./sr-cyrl": 562,
-		"./sr-cyrl.js": 562,
-		"./sr.js": 561,
-		"./sv": 563,
-		"./sv.js": 563,
-		"./ta": 564,
-		"./ta.js": 564,
-		"./th": 565,
-		"./th.js": 565,
-		"./tl-ph": 566,
-		"./tl-ph.js": 566,
-		"./tr": 567,
-		"./tr.js": 567,
-		"./tzl": 568,
-		"./tzl.js": 568,
-		"./tzm": 569,
-		"./tzm-latn": 570,
-		"./tzm-latn.js": 570,
-		"./tzm.js": 569,
-		"./uk": 571,
-		"./uk.js": 571,
-		"./uz": 572,
-		"./uz.js": 572,
-		"./vi": 573,
-		"./vi.js": 573,
-		"./zh-cn": 574,
-		"./zh-cn.js": 574,
-		"./zh-tw": 575,
-		"./zh-tw.js": 575
+		"./af": 488,
+		"./af.js": 488,
+		"./ar": 489,
+		"./ar-ma": 490,
+		"./ar-ma.js": 490,
+		"./ar-sa": 491,
+		"./ar-sa.js": 491,
+		"./ar-tn": 492,
+		"./ar-tn.js": 492,
+		"./ar.js": 489,
+		"./az": 493,
+		"./az.js": 493,
+		"./be": 494,
+		"./be.js": 494,
+		"./bg": 495,
+		"./bg.js": 495,
+		"./bn": 496,
+		"./bn.js": 496,
+		"./bo": 497,
+		"./bo.js": 497,
+		"./br": 498,
+		"./br.js": 498,
+		"./bs": 499,
+		"./bs.js": 499,
+		"./ca": 500,
+		"./ca.js": 500,
+		"./cs": 501,
+		"./cs.js": 501,
+		"./cv": 502,
+		"./cv.js": 502,
+		"./cy": 503,
+		"./cy.js": 503,
+		"./da": 504,
+		"./da.js": 504,
+		"./de": 505,
+		"./de-at": 506,
+		"./de-at.js": 506,
+		"./de.js": 505,
+		"./el": 507,
+		"./el.js": 507,
+		"./en-au": 508,
+		"./en-au.js": 508,
+		"./en-ca": 509,
+		"./en-ca.js": 509,
+		"./en-gb": 510,
+		"./en-gb.js": 510,
+		"./eo": 511,
+		"./eo.js": 511,
+		"./es": 512,
+		"./es.js": 512,
+		"./et": 513,
+		"./et.js": 513,
+		"./eu": 514,
+		"./eu.js": 514,
+		"./fa": 515,
+		"./fa.js": 515,
+		"./fi": 516,
+		"./fi.js": 516,
+		"./fo": 517,
+		"./fo.js": 517,
+		"./fr": 518,
+		"./fr-ca": 519,
+		"./fr-ca.js": 519,
+		"./fr.js": 518,
+		"./fy": 520,
+		"./fy.js": 520,
+		"./gl": 521,
+		"./gl.js": 521,
+		"./he": 522,
+		"./he.js": 522,
+		"./hi": 523,
+		"./hi.js": 523,
+		"./hr": 524,
+		"./hr.js": 524,
+		"./hu": 525,
+		"./hu.js": 525,
+		"./hy-am": 526,
+		"./hy-am.js": 526,
+		"./id": 527,
+		"./id.js": 527,
+		"./is": 528,
+		"./is.js": 528,
+		"./it": 529,
+		"./it.js": 529,
+		"./ja": 530,
+		"./ja.js": 530,
+		"./jv": 531,
+		"./jv.js": 531,
+		"./ka": 532,
+		"./ka.js": 532,
+		"./km": 533,
+		"./km.js": 533,
+		"./ko": 534,
+		"./ko.js": 534,
+		"./lb": 535,
+		"./lb.js": 535,
+		"./lt": 536,
+		"./lt.js": 536,
+		"./lv": 537,
+		"./lv.js": 537,
+		"./me": 538,
+		"./me.js": 538,
+		"./mk": 539,
+		"./mk.js": 539,
+		"./ml": 540,
+		"./ml.js": 540,
+		"./mr": 541,
+		"./mr.js": 541,
+		"./ms": 542,
+		"./ms-my": 543,
+		"./ms-my.js": 543,
+		"./ms.js": 542,
+		"./my": 544,
+		"./my.js": 544,
+		"./nb": 545,
+		"./nb.js": 545,
+		"./ne": 546,
+		"./ne.js": 546,
+		"./nl": 547,
+		"./nl.js": 547,
+		"./nn": 548,
+		"./nn.js": 548,
+		"./pl": 549,
+		"./pl.js": 549,
+		"./pt": 550,
+		"./pt-br": 551,
+		"./pt-br.js": 551,
+		"./pt.js": 550,
+		"./ro": 552,
+		"./ro.js": 552,
+		"./ru": 553,
+		"./ru.js": 553,
+		"./si": 554,
+		"./si.js": 554,
+		"./sk": 555,
+		"./sk.js": 555,
+		"./sl": 556,
+		"./sl.js": 556,
+		"./sq": 557,
+		"./sq.js": 557,
+		"./sr": 558,
+		"./sr-cyrl": 559,
+		"./sr-cyrl.js": 559,
+		"./sr.js": 558,
+		"./sv": 560,
+		"./sv.js": 560,
+		"./ta": 561,
+		"./ta.js": 561,
+		"./th": 562,
+		"./th.js": 562,
+		"./tl-ph": 563,
+		"./tl-ph.js": 563,
+		"./tr": 564,
+		"./tr.js": 564,
+		"./tzl": 565,
+		"./tzl.js": 565,
+		"./tzm": 566,
+		"./tzm-latn": 567,
+		"./tzm-latn.js": 567,
+		"./tzm.js": 566,
+		"./uk": 568,
+		"./uk.js": 568,
+		"./uz": 569,
+		"./uz.js": 569,
+		"./vi": 570,
+		"./vi.js": 570,
+		"./zh-cn": 571,
+		"./zh-cn.js": 571,
+		"./zh-tw": 572,
+		"./zh-tw.js": 572
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -103654,11 +102954,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 490;
+	webpackContext.id = 487;
 
 
 /***/ },
-/* 491 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -103666,7 +102966,7 @@
 	//! author : Werner Mollentze : https://github.com/wernerm
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -103735,7 +103035,7 @@
 	}));
 
 /***/ },
-/* 492 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -103745,7 +103045,7 @@
 	//! Native plural forms: forabi https://github.com/forabi
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -103875,7 +103175,7 @@
 	}));
 
 /***/ },
-/* 493 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -103884,7 +103184,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -103938,7 +103238,7 @@
 	}));
 
 /***/ },
-/* 494 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -103946,7 +103246,7 @@
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104045,14 +103345,14 @@
 	}));
 
 /***/ },
-/* 495 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale  : Tunisian Arabic (ar-tn)
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104106,7 +103406,7 @@
 	}));
 
 /***/ },
-/* 496 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104114,7 +103414,7 @@
 	//! author : topchiyev : https://github.com/topchiyev
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104214,7 +103514,7 @@
 	}));
 
 /***/ },
-/* 497 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104224,7 +103524,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104365,7 +103665,7 @@
 	}));
 
 /***/ },
-/* 498 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104373,7 +103673,7 @@
 	//! author : Krasen Borisov : https://github.com/kraz
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104459,7 +103759,7 @@
 	}));
 
 /***/ },
-/* 499 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104467,7 +103767,7 @@
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104576,7 +103876,7 @@
 	}));
 
 /***/ },
-/* 500 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104584,7 +103884,7 @@
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104690,7 +103990,7 @@
 	}));
 
 /***/ },
-/* 501 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104698,7 +103998,7 @@
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104801,7 +104101,7 @@
 	}));
 
 /***/ },
-/* 502 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104810,7 +104110,7 @@
 	//! based on (hr) translation by Bojan Marković
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -104946,7 +104246,7 @@
 	}));
 
 /***/ },
-/* 503 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -104954,7 +104254,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105029,7 +104329,7 @@
 	}));
 
 /***/ },
-/* 504 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105037,7 +104337,7 @@
 	//! author : petrbela : https://github.com/petrbela
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105190,7 +104490,7 @@
 	}));
 
 /***/ },
-/* 505 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105198,7 +104498,7 @@
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105257,7 +104557,7 @@
 	}));
 
 /***/ },
-/* 506 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105265,7 +104565,7 @@
 	//! author : Robert Allen
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105340,7 +104640,7 @@
 	}));
 
 /***/ },
-/* 507 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105348,7 +104648,7 @@
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105404,7 +104704,7 @@
 	}));
 
 /***/ },
-/* 508 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105413,7 +104713,7 @@
 	//! author: Menelion Elensúle: https://github.com/Oire
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105483,7 +104783,7 @@
 	}));
 
 /***/ },
-/* 509 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105493,7 +104793,7 @@
 	//! author : Martin Groller : https://github.com/MadMG
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105563,7 +104863,7 @@
 	}));
 
 /***/ },
-/* 510 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105571,7 +104871,7 @@
 	//! author : Aggelos Karalias : https://github.com/mehiel
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105661,14 +104961,14 @@
 	}));
 
 /***/ },
-/* 511 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : australian english (en-au)
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105731,7 +105031,7 @@
 	}));
 
 /***/ },
-/* 512 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105739,7 +105039,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105798,7 +105098,7 @@
 	}));
 
 /***/ },
-/* 513 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105806,7 +105106,7 @@
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105869,7 +105169,7 @@
 	}));
 
 /***/ },
-/* 514 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105879,7 +105179,7 @@
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -105946,7 +105246,7 @@
 	}));
 
 /***/ },
-/* 515 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -105954,7 +105254,7 @@
 	//! author : Julio Napurí : https://github.com/julionc
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106029,7 +105329,7 @@
 	}));
 
 /***/ },
-/* 516 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106038,7 +105338,7 @@
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106113,7 +105413,7 @@
 	}));
 
 /***/ },
-/* 517 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106121,7 +105421,7 @@
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106181,7 +105481,7 @@
 	}));
 
 /***/ },
-/* 518 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106189,7 +105489,7 @@
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106290,7 +105590,7 @@
 	}));
 
 /***/ },
-/* 519 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106298,7 +105598,7 @@
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106401,7 +105701,7 @@
 	}));
 
 /***/ },
-/* 520 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106409,7 +105709,7 @@
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106465,7 +105765,7 @@
 	}));
 
 /***/ },
-/* 521 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106473,7 +105773,7 @@
 	//! author : John Fischer : https://github.com/jfroffice
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106531,7 +105831,7 @@
 	}));
 
 /***/ },
-/* 522 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106539,7 +105839,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106593,7 +105893,7 @@
 	}));
 
 /***/ },
-/* 523 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106601,7 +105901,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106668,7 +105968,7 @@
 	}));
 
 /***/ },
-/* 524 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106676,7 +105976,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106747,7 +106047,7 @@
 	}));
 
 /***/ },
-/* 525 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106757,7 +106057,7 @@
 	//! author : Tal Ater : https://github.com/TalAter
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106833,7 +106133,7 @@
 	}));
 
 /***/ },
-/* 526 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106841,7 +106141,7 @@
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -106960,7 +106260,7 @@
 	}));
 
 /***/ },
-/* 527 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -106968,7 +106268,7 @@
 	//! author : Bojan Marković : https://github.com/bmarkovic
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107104,7 +106404,7 @@
 	}));
 
 /***/ },
-/* 528 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107112,7 +106412,7 @@
 	//! author : Adam Brunner : https://github.com/adambrunner
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107217,7 +106517,7 @@
 	}));
 
 /***/ },
-/* 529 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107225,7 +106525,7 @@
 	//! author : Armendarabyan : https://github.com/armendarabyan
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107332,7 +106632,7 @@
 	}));
 
 /***/ },
-/* 530 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107341,7 +106641,7 @@
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107419,7 +106719,7 @@
 	}));
 
 /***/ },
-/* 531 */
+/* 528 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107427,7 +106727,7 @@
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107550,7 +106850,7 @@
 	}));
 
 /***/ },
-/* 532 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107559,7 +106859,7 @@
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107624,7 +106924,7 @@
 	}));
 
 /***/ },
-/* 533 */
+/* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107632,7 +106932,7 @@
 	//! author : LI Long : https://github.com/baryon
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107693,7 +106993,7 @@
 	}));
 
 /***/ },
-/* 534 */
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107702,7 +107002,7 @@
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107780,7 +107080,7 @@
 	}));
 
 /***/ },
-/* 535 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107788,7 +107088,7 @@
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107887,7 +107187,7 @@
 	}));
 
 /***/ },
-/* 536 */
+/* 533 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107895,7 +107195,7 @@
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -107949,7 +107249,7 @@
 	}));
 
 /***/ },
-/* 537 */
+/* 534 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -107961,7 +107261,7 @@
 	//! - Jeeeyul Lee <jeeeyul@gmail.com>
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108021,7 +107321,7 @@
 	}));
 
 /***/ },
-/* 538 */
+/* 535 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108029,7 +107329,7 @@
 	//! author : mweimerskirch : https://github.com/mweimerskirch, David Raison : https://github.com/kwisatz
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108159,7 +107459,7 @@
 	}));
 
 /***/ },
-/* 539 */
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108167,7 +107467,7 @@
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108288,7 +107588,7 @@
 	}));
 
 /***/ },
-/* 540 */
+/* 537 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108297,7 +107597,7 @@
 	//! author : Jānis Elmeris : https://github.com/JanisE
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108388,7 +107688,7 @@
 	}));
 
 /***/ },
-/* 541 */
+/* 538 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108396,7 +107696,7 @@
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108501,7 +107801,7 @@
 	}));
 
 /***/ },
-/* 542 */
+/* 539 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108509,7 +107809,7 @@
 	//! author : Borislav Mickov : https://github.com/B0k0
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108595,7 +107895,7 @@
 	}));
 
 /***/ },
-/* 543 */
+/* 540 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108603,7 +107903,7 @@
 	//! author : Floyd Pink : https://github.com/floydpink
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108670,7 +107970,7 @@
 	}));
 
 /***/ },
-/* 544 */
+/* 541 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108678,7 +107978,7 @@
 	//! author : Harshad Kale : https://github.com/kalehv
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108795,7 +108095,7 @@
 	}));
 
 /***/ },
-/* 545 */
+/* 542 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108803,7 +108103,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108881,7 +108181,7 @@
 	}));
 
 /***/ },
-/* 546 */
+/* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108889,7 +108189,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -108967,7 +108267,7 @@
 	}));
 
 /***/ },
-/* 547 */
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -108975,7 +108275,7 @@
 	//! author : Squar team, mysquar.com
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109064,7 +108364,7 @@
 	}));
 
 /***/ },
-/* 548 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109073,7 +108373,7 @@
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109129,7 +108429,7 @@
 	}));
 
 /***/ },
-/* 549 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109137,7 +108437,7 @@
 	//! author : suvash : https://github.com/suvash
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109256,7 +108556,7 @@
 	}));
 
 /***/ },
-/* 550 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109264,7 +108564,7 @@
 	//! author : Joris Röling : https://github.com/jjupiter
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109331,7 +108631,7 @@
 	}));
 
 /***/ },
-/* 551 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109339,7 +108639,7 @@
 	//! author : https://github.com/mechuwind
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109395,7 +108695,7 @@
 	}));
 
 /***/ },
-/* 552 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109403,7 +108703,7 @@
 	//! author : Rafal Hirsz : https://github.com/evoL
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109504,7 +108804,7 @@
 	}));
 
 /***/ },
-/* 553 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109512,7 +108812,7 @@
 	//! author : Jefferson : https://github.com/jalex79
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109572,7 +108872,7 @@
 	}));
 
 /***/ },
-/* 554 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109580,7 +108880,7 @@
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109636,7 +108936,7 @@
 	}));
 
 /***/ },
-/* 555 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109645,7 +108945,7 @@
 	//! author : Valentin Agachi : https://github.com/avaly
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109714,7 +109014,7 @@
 	}));
 
 /***/ },
-/* 556 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109723,7 +109023,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109882,7 +109182,7 @@
 	}));
 
 /***/ },
-/* 557 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109890,7 +109190,7 @@
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -109951,7 +109251,7 @@
 	}));
 
 /***/ },
-/* 558 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -109960,7 +109260,7 @@
 	//! based on work of petrbela : https://github.com/petrbela
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110113,7 +109413,7 @@
 	}));
 
 /***/ },
-/* 559 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110121,7 +109421,7 @@
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110277,7 +109577,7 @@
 	}));
 
 /***/ },
-/* 560 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110287,7 +109587,7 @@
 	//! author : Oerd Cukalla : https://github.com/oerd (fixes)
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110350,7 +109650,7 @@
 	}));
 
 /***/ },
-/* 561 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110358,7 +109658,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110462,7 +109762,7 @@
 	}));
 
 /***/ },
-/* 562 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110470,7 +109770,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110574,7 +109874,7 @@
 	}));
 
 /***/ },
-/* 563 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110582,7 +109882,7 @@
 	//! author : Jens Alm : https://github.com/ulmus
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110645,7 +109945,7 @@
 	}));
 
 /***/ },
-/* 564 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110653,7 +109953,7 @@
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110744,7 +110044,7 @@
 	}));
 
 /***/ },
-/* 565 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110752,7 +110052,7 @@
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110813,7 +110113,7 @@
 	}));
 
 /***/ },
-/* 566 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110821,7 +110121,7 @@
 	//! author : Dan Hagman
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110879,7 +110179,7 @@
 	}));
 
 /***/ },
-/* 567 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110888,7 +110188,7 @@
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -110973,7 +110273,7 @@
 	}));
 
 /***/ },
-/* 568 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -110981,7 +110281,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v with the help of Iustì Canun
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111062,7 +110362,7 @@
 	}));
 
 /***/ },
-/* 569 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111070,7 +110370,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111124,7 +110424,7 @@
 	}));
 
 /***/ },
-/* 570 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111132,7 +110432,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111186,7 +110486,7 @@
 	}));
 
 /***/ },
-/* 571 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111195,7 +110495,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111343,7 +110643,7 @@
 	}));
 
 /***/ },
-/* 572 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111351,7 +110651,7 @@
 	//! author : Sardor Muminov : https://github.com/muminoff
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111405,7 +110705,7 @@
 	}));
 
 /***/ },
-/* 573 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111413,7 +110713,7 @@
 	//! author : Bang Nguyen : https://github.com/bangnk
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111475,7 +110775,7 @@
 	}));
 
 /***/ },
-/* 574 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111484,7 +110784,7 @@
 	//! author : Zeno Zeng : https://github.com/zenozeng
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111606,7 +110906,7 @@
 	}));
 
 /***/ },
-/* 575 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -111614,7 +110914,7 @@
 	//! author : Ben : https://github.com/ben-lin
 
 	(function (global, factory) {
-	    true ? factory(__webpack_require__(489)) :
+	    true ? factory(__webpack_require__(486)) :
 	   typeof define === 'function' && define.amd ? define(['moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -111711,15 +111011,819 @@
 	}));
 
 /***/ },
+/* 573 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(15);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(231);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	// Debug..
+	var debug = __webpack_require__(287)(__filename);
+
+	var ShareButton = (function (_React$Component) {
+	    _inherits(ShareButton, _React$Component);
+
+	    function ShareButton() {
+	        _classCallCheck(this, ShareButton);
+
+	        _get(Object.getPrototypeOf(ShareButton.prototype), 'constructor', this).apply(this, arguments);
+	    }
+
+	    _createClass(ShareButton, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this = this;
+
+	            var social = _lodash2['default'].get(this.props, "social", "twitter");
+	            var handler = function handler() {};
+	            if (social === "twitter") {
+	                (function () {
+	                    var thisurl = encodeURIComponent(window.location.href);
+	                    var via = encodeURIComponent('_vzaccaria_');
+	                    var text = encodeURIComponent('Hei! Check out this link: ');
+	                    handler = function () {
+	                        window.location = 'https://twitter.com/share?url=' + thisurl + '&via=' + via + '&text=' + text + '$';
+	                    };
+	                })();
+	            } else {
+	                if (social === "reddit") {
+	                    (function () {
+	                        var thisurl = encodeURIComponent(window.location.href);
+	                        var title = encodeURIComponent(document.title);
+	                        handler = function () {
+	                            window.location = 'http://www.reddit.com/submit?url=' + thisurl + '&title=' + title;
+	                        };
+	                    })();
+	                } else {
+	                    if (social === "github") {
+	                        (function () {
+	                            var origLink = _this.props.origLink;
+
+	                            handler = function () {
+	                                window.location = origLink;
+	                            };
+	                        })();
+	                    }
+	                }
+	            }
+	            var className = 'share_buttons__share_' + social;
+	            var iconName = 'fa fa-' + social;
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: className, style: { "cursor": "pointer" }, onClick: handler },
+	                _react2['default'].createElement('i', { className: iconName })
+	            );
+	        }
+	    }]);
+
+	    return ShareButton;
+	})(_react2['default'].Component);
+
+	exports['default'] = ShareButton;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/components/ShareButton.jsx"))
+
+/***/ },
+/* 574 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__filename) {// research.jsx ---
+
+	// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
+
+	// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
+
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the "Software"),
+	// to deal in the Software without restriction, including without limitation
+	// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+	// and/or sell copies of the Software, and to permit persons to whom the
+	// Software is furnished to do so, subject to the following conditions:
+
+	// The above copyright notice and this permission notice shall be included in
+	// all copies or substantial portions of the Software.
+
+	// Except as contained in this notice, the name(s) of the above copyright
+	// holders shall not be used in advertising or otherwise to promote the sale,
+	// use or other dealings in this Software without prior written authorization.
+
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+	// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+	// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+	// DEALINGS IN THE SOFTWARE.
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(15);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(231);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _reactUtilsReactBem = __webpack_require__(298);
+
+	var _storesFetcher = __webpack_require__(304);
+
+	// debug..
+	var debug = __webpack_require__(287)(__filename);
+
+	var filter = function filter(list, props) {
+	    return _lodash2['default'].filter(list, function (e) {
+	        return e.category === props.params.category;
+	    });
+	};
+
+	var c = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post-preview');
+	var m = _lodash2['default'].partial(_reactUtilsReactBem._b, 'post-preview-mobile');
+
+	function renderPostTitleMobile(p, i) {
+	    return _react2['default'].createElement(
+	        'a',
+	        { key: i, href: '#' + p.link, style: { cursor: 'pointer' }, className: m() },
+	        _react2['default'].createElement(
+	            'div',
+	            { className: m('description') },
+	            _react2['default'].createElement(
+	                'div',
+	                { className: m('title') },
+	                ' ',
+	                p.title,
+	                ' '
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: m('small-date') },
+	                ' ',
+	                p.smallDate,
+	                ' '
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: m('small-description') },
+	                ' ',
+	                p.smallDescription,
+	                ' '
+	            )
+	        )
+	    );
+	}
+
+	function renderPostTitle(p, i) {
+	    return _react2['default'].createElement(
+	        'a',
+	        { key: i, href: '#' + p.link, style: { cursor: 'pointer' }, className: c() },
+	        _react2['default'].createElement(
+	            'div',
+	            { className: c('desc-column') },
+	            _react2['default'].createElement(
+	                'div',
+	                { className: c('title') },
+	                ' ',
+	                p.title,
+	                ' '
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: c('subtitle') },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: c('date') },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: c('date-value') },
+	                        ' ',
+	                        p.formattedDate,
+	                        ' '
+	                    )
+	                )
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: c('description') },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: c('description-text') },
+	                    p.description ? p.description : 'no description'
+	                )
+	            )
+	        )
+	    );
+	}
+
+	var BlogIndex = (function (_React$Component) {
+	    _inherits(BlogIndex, _React$Component);
+
+	    function BlogIndex() {
+	        _classCallCheck(this, BlogIndex);
+
+	        _get(Object.getPrototypeOf(BlogIndex.prototype), 'constructor', this).call(this);
+	        this.state = { valid: false };
+	    }
+
+	    _createClass(BlogIndex, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this = this;
+
+	            (0, _storesFetcher.fetchIndex)().then(function (index) {
+	                var valid = true;
+	                index = filter(index, _this.props);
+	                _this.setState({ index: index, valid: valid });
+	            });
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(props) {
+	            var _this2 = this;
+
+	            (0, _storesFetcher.fetchIndex)().then(function (index) {
+	                index = filter(index, props);
+	                _this2.setState({ index: index });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (this.state.valid) {
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { className: 'posts' },
+	                    _lodash2['default'].map(this.state.index, renderPostTitleMobile),
+	                    _lodash2['default'].map(this.state.index, renderPostTitle)
+	                );
+	            } else {
+	                return _react2['default'].createElement('div', null);
+	            }
+	        }
+	    }]);
+
+	    return BlogIndex;
+	})(_react2['default'].Component);
+
+	exports['default'] = BlogIndex;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/blogIndex.jsx"))
+
+/***/ },
+/* 575 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__filename) {// teaching.jsx ---
+
+	// Copyright (C) 2015 Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
+
+	// Author: Vittorio Zaccaria <vittorio.zaccaria@gmail.com>
+
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the "Software"),
+	// to deal in the Software without restriction, including without limitation
+	// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+	// and/or sell copies of the Software, and to permit persons to whom the
+	// Software is furnished to do so, subject to the following conditions:
+
+	// The above copyright notice and this permission notice shall be included in
+	// all copies or substantial portions of the Software.
+
+	// Except as contained in this notice, the name(s) of the above copyright
+	// holders shall not be used in advertising or otherwise to promote the sale,
+	// use or other dealings in this Software without prior written authorization.
+
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+	// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+	// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+	// DEALINGS IN THE SOFTWARE.
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(15);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(231);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _componentsCalendar = __webpack_require__(576);
+
+	var _componentsCalendar2 = _interopRequireDefault(_componentsCalendar);
+
+	var debug = __webpack_require__(287)(__filename);
+
+	var _require = __webpack_require__(304);
+
+	var tmpl = _require.tmpl;
+	var fetchAsset = _require.fetchAsset;
+
+	function renderContacts(contacts) {
+	    var c = _lodash2['default'].map(contacts, function (it, key) {
+	        if (it.link) {
+	            return _react2['default'].createElement(
+	                'div',
+	                { key: key, className: 'contacts__detail' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'contacts__key' },
+	                    ' ',
+	                    it.key,
+	                    ' '
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'contacts__value' },
+	                    ' ',
+	                    _react2['default'].createElement(
+	                        'a',
+	                        { href: tmpl(it.link) },
+	                        it.value
+	                    ),
+	                    ' '
+	                )
+	            );
+	        } else {
+	            return _react2['default'].createElement(
+	                'div',
+	                { key: key, className: 'contacts__detail' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'contacts__key' },
+	                    ' ',
+	                    it.key,
+	                    ' '
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'contacts__value' },
+	                    ' ',
+	                    it.value,
+	                    ' '
+	                )
+	            );
+	        }
+	    });
+	    return _react2['default'].createElement(
+	        'div',
+	        { className: 'contacts' },
+	        c
+	    );
+	}
+
+	function renderMessages(name, messages) {
+	    var _content = function _content(x) {
+	        if (x.link) return _react2['default'].createElement(
+	            'a',
+	            { href: tmpl(x.link) },
+	            ' ',
+	            x.text,
+	            ' '
+	        );else return x.text;
+	    };
+	    function renderMessage(it, key) {
+	        return _react2['default'].createElement(
+	            'div',
+	            { key: key, className: 'lecture-messages__message' },
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'lecture-messages__date' },
+	                it.title
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'lecture-messages__text' },
+	                _content(it)
+	            )
+	        );
+	    }
+	    return _react2['default'].createElement(
+	        'div',
+	        { className: 'lecture-messages' },
+	        _react2['default'].createElement(
+	            'div',
+	            { className: 'lecture-messages__title' },
+	            name
+	        ),
+	        _react2['default'].createElement(
+	            'div',
+	            { className: 'lecture-messages__message' },
+	            _lodash2['default'].map(messages, renderMessage)
+	        )
+	    );
+	}
+
+	function renderTemi(temi) {
+	    function renderTema(it, key) {
+	        return _react2['default'].createElement(
+	            'li',
+	            { key: key },
+	            _react2['default'].createElement(
+	                'a',
+	                { href: it.value },
+	                ' ',
+	                it.key,
+	                ' '
+	            )
+	        );
+	    }
+	    return _react2['default'].createElement(
+	        'ul',
+	        null,
+	        ' ',
+	        _lodash2['default'].map(temi, renderTema),
+	        ' '
+	    );
+	}
+
+	function renderInfo(name, data) {
+	    return _react2['default'].createElement(
+	        'div',
+	        { className: 'lecture-messages' },
+	        _react2['default'].createElement(
+	            'div',
+	            { className: 'lecture-messages__title' },
+	            name
+	        ),
+	        _react2['default'].createElement(
+	            'div',
+	            { className: 'lecture-messages__message' },
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'lecture-messages__date' },
+	                'Raccolta temi d\'esame'
+	            ),
+	            _react2['default'].createElement(
+	                'div',
+	                { className: 'lecture-messages__text' },
+	                renderTemi(data.temi)
+	            )
+	        )
+	    );
+	}
+
+	var Teaching = (function (_React$Component) {
+	    _inherits(Teaching, _React$Component);
+
+	    function Teaching() {
+	        _classCallCheck(this, Teaching);
+
+	        _get(Object.getPrototypeOf(Teaching.prototype), 'constructor', this).call(this);
+	        this.state = { valid: false };
+	    }
+
+	    _createClass(Teaching, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this = this;
+
+	            fetchAsset('data/infob.yaml', { yaml: true }).then(function (dta) {
+	                var valid = true;
+	                var data = dta;
+	                _this.setState({ valid: valid, data: data });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            if (this.state.valid) {
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { className: 'teaching-page' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'teaching-page__title' },
+	                        'Informatica B'
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'teaching-page__year' },
+	                        'Anno accademico 2015 - 2016'
+	                    ),
+	                    renderContacts(this.state.data.contacts),
+	                    renderMessages('Avvisi importanti', this.state.data.avvisi),
+	                    renderInfo("Informazioni su esame e prove in itinere", this.state.data),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'lecture-material' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'lecture-material__title' },
+	                            'Calendario e materiale'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'lecture-material__description' },
+	                            _react2['default'].createElement(
+	                                'p',
+	                                null,
+	                                ' Cliccare sui giorni evidenziati in arancione per accedere al materiale corrispondente. '
+	                            )
+	                        ),
+	                        _react2['default'].createElement(_componentsCalendar2['default'], null)
+	                    )
+	                );
+	            } else {
+	                return _react2['default'].createElement('div', null);
+	            }
+	        }
+	    }]);
+
+	    return Teaching;
+	})(_react2['default'].Component);
+
+	exports['default'] = Teaching;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/teaching.jsx"))
+
+/***/ },
 /* 576 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(15);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(231);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _moment = __webpack_require__(486);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _storesFetcher = __webpack_require__(304);
+
+	var _rcTooltip = __webpack_require__(577);
+
+	var _rcTooltip2 = _interopRequireDefault(_rcTooltip);
+
+	__webpack_require__(627);
+
+	// Debug..
+	var debug = __webpack_require__(287)(__filename);
+
+	/* Uniform date constructor for comparisons */
+	var _d = function _d(d) {
+	    return d.format('DD-MM-YYYY');
+	};
+
+	var Calendar = (function (_React$Component) {
+	    _inherits(Calendar, _React$Component);
+
+	    function Calendar() {
+	        _classCallCheck(this, Calendar);
+
+	        _get(Object.getPrototypeOf(Calendar.prototype), 'constructor', this).call(this);
+	        this.state = { valid: false };
+	    }
+
+	    _createClass(Calendar, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this = this;
+
+	            (0, _storesFetcher.fetchIndex)().then(function (index) {
+	                var valid = true;
+	                var data = _lodash2['default'].indexBy(index, function (it) {
+	                    // can create a moment from an ISO date (xmlschema)
+	                    return _d((0, _moment2['default'])(it.date));
+	                });
+	                var today = (0, _moment2['default'])();
+	                _this.setState({ valid: valid, data: data, today: today });
+	            });
+	        }
+	    }, {
+	        key: 'getStartMonth',
+	        value: function getStartMonth() {
+	            var format = _lodash2['default'].get(this.props, "format", "MMMM YYYY");
+	            var startMonth = _lodash2['default'].get(this.props, "startMonth", "September 2015");
+	            return (0, _moment2['default'])(startMonth, format);
+	        }
+	    }, {
+	        key: 'getNumberOfMonths',
+	        value: function getNumberOfMonths() {
+	            var numberOfMonths = parseInt(_lodash2['default'].get(this.props, "numberOfMonths", 3));
+	            return numberOfMonths;
+	        }
+	    }, {
+	        key: 'renderMonth',
+	        value: function renderMonth(month, index) {
+	            return _react2['default'].createElement(
+	                'div',
+	                { key: index, className: 'calendar__month' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'calendar__month_name' },
+	                    ' ',
+	                    month.format('MMMM'),
+	                    ' '
+	                ),
+	                this.renderDaysInMonth(month)
+	            );
+	        }
+	    }, {
+	        key: 'getPost',
+	        value: function getPost(day) {
+	            var dta = this.state.data[_d(day.dateMoment)];
+	            if (!_lodash2['default'].isUndefined(dta)) {
+	                day.title = dta.title;
+	                day.tags = dta.tags;
+	                day.link = dta.link;
+	                day.classes = ['calendar__category_' + dta.category];
+	                day.style = { cursor: 'pointer' };
+	            }
+	            return day;
+	        }
+	    }, {
+	        key: 'renderDay',
+	        value: function renderDay(day) {
+	            var classes = ['calendar__day'];
+	            var number = 'NA';
+	            var style = {};
+
+	            if (!day.notInMonth) {
+	                day = this.getPost(day);
+	                style = day.style;
+
+	                classes = classes.concat(day.classes);
+
+	                if (_d(day.dateMoment) === _d(this.state.today)) {
+	                    classes = classes.concat('calendar__day_is_today');
+	                }
+	                if (day.dateMoment.day() == 0 || day.dateMoment.day() == 6) {
+	                    classes = classes.concat('calendar__day_not_working');
+	                } else {
+	                    classes = classes.concat('calendar__day_working');
+	                }
+	            } else {
+	                classes = classes.concat('calendar__day_not_in_month');
+	            }
+
+	            function gotoDay(d) {
+	                return function () {
+	                    if (d.link) {
+	                        window.location.href = '#' + d.link;
+	                    }
+	                };
+	            }
+
+	            if (day.dateMoment) {
+	                number = day.dateMoment.date();
+	            }
+
+	            if (day.title) {
+	                return _react2['default'].createElement(
+	                    _rcTooltip2['default'],
+	                    { key: day.index, placement: 'top', overlay: day.title },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { style: style, className: classes.join(' '), onClick: gotoDay(day) },
+	                        number
+	                    )
+	                );
+	            } else {
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { key: day.index, style: style, className: classes.join(' '), onClick: gotoDay(day) },
+	                    number
+	                );
+	            }
+	        }
+
+	        /* cm is the moment corresponding to the beginning of the month */
+	    }, {
+	        key: 'renderDaysInMonth',
+	        value: function renderDaysInMonth(cm) {
+	            var _this2 = this;
+
+	            var days = _lodash2['default'].range(0, cm.daysInMonth());
+	            var daysMup = [];
+	            var isSunday = function isSunday(cd) {
+	                return cd.day() == 0;
+	            };
+
+	            if (!isSunday(cm)) {
+	                daysMup = _lodash2['default'].map(_lodash2['default'].range(0, cm.day()), function (v, index) {
+	                    var notInMonth = true;
+	                    index = index + '-n';
+	                    return _this2.renderDay({ notInMonth: notInMonth, index: index });
+	                });
+	            }
+
+	            return daysMup.concat(_lodash2['default'].map(days, function (d, index) {
+	                var dateMoment = (0, _moment2['default'])(cm).add(d, 'days');
+	                var notInMonth = false;
+	                return _this2.renderDay({ dateMoment: dateMoment, notInMonth: notInMonth, index: index });
+	            }));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            if (this.state.valid) {
+	                var months = _lodash2['default'].range(0, this.getNumberOfMonths());
+	                var renderedMonths = _lodash2['default'].map(months, function (it, index) {
+	                    return _this3.renderMonth(_this3.getStartMonth().add(it, "months"), index);
+	                });
+	                return _react2['default'].createElement(
+	                    'div',
+	                    { className: 'calendar' },
+	                    renderedMonths
+	                );
+	            } else {
+	                return _react2['default'].createElement('div', null);
+	            }
+	        }
+	    }]);
+
+	    return Calendar;
+	})(_react2['default'].Component);
+
+	exports['default'] = Calendar;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/components/calendar.jsx"))
+
+/***/ },
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(577);
+	module.exports = __webpack_require__(578);
 
 /***/ },
-/* 577 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -111736,9 +111840,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _placements = __webpack_require__(578);
+	var _placements = __webpack_require__(579);
 
-	var _rcTrigger = __webpack_require__(579);
+	var _rcTrigger = __webpack_require__(580);
 
 	var _rcTrigger2 = _interopRequireDefault(_rcTrigger);
 
@@ -111848,7 +111952,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 578 */
+/* 579 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -111942,15 +112046,15 @@
 	exports['default'] = placements;
 
 /***/ },
-/* 579 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(580);
+	module.exports = __webpack_require__(581);
 
 /***/ },
-/* 580 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -111971,13 +112075,13 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _rcUtil = __webpack_require__(581);
+	var _rcUtil = __webpack_require__(582);
 
-	var _Popup = __webpack_require__(604);
+	var _Popup = __webpack_require__(605);
 
 	var _Popup2 = _interopRequireDefault(_Popup);
 
-	var _utils = __webpack_require__(625);
+	var _utils = __webpack_require__(626);
 
 	function noop() {}
 
@@ -112302,31 +112406,31 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 581 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  guid: __webpack_require__(582),
-	  classSet: __webpack_require__(583),
-	  joinClasses: __webpack_require__(586),
-	  KeyCode: __webpack_require__(587),
-	  PureRenderMixin: __webpack_require__(588),
-	  shallowEqual: __webpack_require__(589),
-	  createChainedFunction: __webpack_require__(595),
+	  guid: __webpack_require__(583),
+	  classSet: __webpack_require__(584),
+	  joinClasses: __webpack_require__(587),
+	  KeyCode: __webpack_require__(588),
+	  PureRenderMixin: __webpack_require__(589),
+	  shallowEqual: __webpack_require__(590),
+	  createChainedFunction: __webpack_require__(596),
 	  Dom: {
-	    addEventListener: __webpack_require__(596),
-	    contains: __webpack_require__(601)
+	    addEventListener: __webpack_require__(597),
+	    contains: __webpack_require__(602)
 	  },
 	  Children: {
-	    toArray: __webpack_require__(602),
-	    mapSelf: __webpack_require__(603)
+	    toArray: __webpack_require__(603),
+	    mapSelf: __webpack_require__(604)
 	  }
 	};
 
 /***/ },
-/* 582 */
+/* 583 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -112337,18 +112441,18 @@
 	};
 
 /***/ },
-/* 583 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deprecate = __webpack_require__(584);
-	var classNames = __webpack_require__(585);
+	var deprecate = __webpack_require__(585);
+	var classNames = __webpack_require__(586);
 
 	module.exports = deprecate(classNames, '`rcUtil.classSet()` is deprecated, use `classNames()` by `require(\'classnames\')` instead');
 
 /***/ },
-/* 584 */
+/* 585 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -112422,7 +112526,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 585 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -112476,18 +112580,18 @@
 
 
 /***/ },
-/* 586 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deprecate = __webpack_require__(584);
-	var classNames = __webpack_require__(585);
+	var deprecate = __webpack_require__(585);
+	var classNames = __webpack_require__(586);
 
 	module.exports = deprecate(classNames, '`rcUtil.joinClasses()` is deprecated, use `classNames()` by `require(\'classnames\')` instead');
 
 /***/ },
-/* 587 */
+/* 588 */
 /***/ function(module, exports) {
 
 	/**
@@ -113012,12 +113116,12 @@
 	module.exports = KeyCode;
 
 /***/ },
-/* 588 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var shallowEqual = __webpack_require__(589);
+	var shallowEqual = __webpack_require__(590);
 
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -113052,22 +113156,22 @@
 	module.exports = ReactComponentWithPureRenderMixin;
 
 /***/ },
-/* 589 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var shallowEqual = __webpack_require__(590);
-
-	module.exports = shallowEqual;
-
-/***/ },
 /* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var fetchKeys = __webpack_require__(591);
+	var shallowEqual = __webpack_require__(591);
+
+	module.exports = shallowEqual;
+
+/***/ },
+/* 591 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var fetchKeys = __webpack_require__(592);
 
 	module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 
@@ -113115,7 +113219,7 @@
 	};
 
 /***/ },
-/* 591 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -113126,9 +113230,9 @@
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(592),
-	    isArguments = __webpack_require__(593),
-	    isArray = __webpack_require__(594);
+	var getNative = __webpack_require__(593),
+	    isArguments = __webpack_require__(594),
+	    isArray = __webpack_require__(595);
 
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -113357,7 +113461,7 @@
 
 
 /***/ },
-/* 592 */
+/* 593 */
 /***/ function(module, exports) {
 
 	/**
@@ -113500,7 +113604,7 @@
 
 
 /***/ },
-/* 593 */
+/* 594 */
 /***/ function(module, exports) {
 
 	/**
@@ -113612,7 +113716,7 @@
 
 
 /***/ },
-/* 594 */
+/* 595 */
 /***/ function(module, exports) {
 
 	/**
@@ -113798,7 +113902,7 @@
 
 
 /***/ },
-/* 595 */
+/* 596 */
 /***/ function(module, exports) {
 
 	/**
@@ -113825,7 +113929,7 @@
 	module.exports = createChainedFunction;
 
 /***/ },
-/* 596 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -113837,7 +113941,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _addDomEventListener = __webpack_require__(597);
+	var _addDomEventListener = __webpack_require__(598);
 
 	var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
 
@@ -113856,7 +113960,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 597 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -113868,7 +113972,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _EventObject = __webpack_require__(598);
+	var _EventObject = __webpack_require__(599);
 
 	var _EventObject2 = _interopRequireDefault(_EventObject);
 
@@ -113898,7 +114002,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 598 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -113915,11 +114019,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _EventBaseObject = __webpack_require__(599);
+	var _EventBaseObject = __webpack_require__(600);
 
 	var _EventBaseObject2 = _interopRequireDefault(_EventBaseObject);
 
-	var _objectAssign = __webpack_require__(600);
+	var _objectAssign = __webpack_require__(601);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -114181,7 +114285,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 599 */
+/* 600 */
 /***/ function(module, exports) {
 
 	/**
@@ -114249,7 +114353,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 600 */
+/* 601 */
 /***/ function(module, exports) {
 
 	/* eslint-disable no-unused-vars */
@@ -114294,7 +114398,7 @@
 
 
 /***/ },
-/* 601 */
+/* 602 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -114312,7 +114416,7 @@
 	};
 
 /***/ },
-/* 602 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -114328,7 +114432,7 @@
 	};
 
 /***/ },
-/* 603 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -114345,7 +114449,7 @@
 	};
 
 /***/ },
-/* 604 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -114364,15 +114468,15 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _rcAlign = __webpack_require__(605);
+	var _rcAlign = __webpack_require__(606);
 
 	var _rcAlign2 = _interopRequireDefault(_rcAlign);
 
-	var _rcAnimate = __webpack_require__(616);
+	var _rcAnimate = __webpack_require__(617);
 
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 
-	var _PopupInner = __webpack_require__(624);
+	var _PopupInner = __webpack_require__(625);
 
 	var _PopupInner2 = _interopRequireDefault(_PopupInner);
 
@@ -114505,7 +114609,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 605 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
@@ -114517,7 +114621,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _Align = __webpack_require__(606);
+	var _Align = __webpack_require__(607);
 
 	var _Align2 = _interopRequireDefault(_Align);
 
@@ -114525,7 +114629,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 606 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -114544,13 +114648,13 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _domAlign = __webpack_require__(607);
+	var _domAlign = __webpack_require__(608);
 
 	var _domAlign2 = _interopRequireDefault(_domAlign);
 
-	var _rcUtil = __webpack_require__(581);
+	var _rcUtil = __webpack_require__(582);
 
-	var _isWindow = __webpack_require__(615);
+	var _isWindow = __webpack_require__(616);
 
 	var _isWindow2 = _interopRequireDefault(_isWindow);
 
@@ -114682,7 +114786,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 607 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -114698,27 +114802,27 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(608);
+	var _utils = __webpack_require__(609);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _getOffsetParent = __webpack_require__(609);
+	var _getOffsetParent = __webpack_require__(610);
 
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 
-	var _getVisibleRectForElement = __webpack_require__(610);
+	var _getVisibleRectForElement = __webpack_require__(611);
 
 	var _getVisibleRectForElement2 = _interopRequireDefault(_getVisibleRectForElement);
 
-	var _adjustForViewport = __webpack_require__(611);
+	var _adjustForViewport = __webpack_require__(612);
 
 	var _adjustForViewport2 = _interopRequireDefault(_adjustForViewport);
 
-	var _getRegion = __webpack_require__(612);
+	var _getRegion = __webpack_require__(613);
 
 	var _getRegion2 = _interopRequireDefault(_getRegion);
 
-	var _getElFuturePos = __webpack_require__(613);
+	var _getElFuturePos = __webpack_require__(614);
 
 	var _getElFuturePos2 = _interopRequireDefault(_getElFuturePos);
 
@@ -114885,7 +114989,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 608 */
+/* 609 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -115383,7 +115487,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 609 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115394,7 +115498,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(608);
+	var _utils = __webpack_require__(609);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -115441,7 +115545,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 610 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115452,11 +115556,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(608);
+	var _utils = __webpack_require__(609);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _getOffsetParent = __webpack_require__(609);
+	var _getOffsetParent = __webpack_require__(610);
 
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 
@@ -115522,7 +115626,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 611 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115533,7 +115637,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(608);
+	var _utils = __webpack_require__(609);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -115582,7 +115686,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 612 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115593,7 +115697,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _utils = __webpack_require__(608);
+	var _utils = __webpack_require__(609);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -115623,7 +115727,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 613 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115634,7 +115738,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _getAlignOffset = __webpack_require__(614);
+	var _getAlignOffset = __webpack_require__(615);
 
 	var _getAlignOffset2 = _interopRequireDefault(_getAlignOffset);
 
@@ -115664,7 +115768,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 614 */
+/* 615 */
 /***/ function(module, exports) {
 
 	/**
@@ -115709,7 +115813,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 615 */
+/* 616 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -115728,16 +115832,16 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 616 */
+/* 617 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 
-	module.exports = __webpack_require__(617);
+	module.exports = __webpack_require__(618);
 
 /***/ },
-/* 617 */
+/* 618 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -115754,13 +115858,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ChildrenUtils = __webpack_require__(618);
+	var _ChildrenUtils = __webpack_require__(619);
 
-	var _AnimateChild = __webpack_require__(619);
+	var _AnimateChild = __webpack_require__(620);
 
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 
-	var _util = __webpack_require__(623);
+	var _util = __webpack_require__(624);
 
 	var _util2 = _interopRequireDefault(_util);
 
@@ -116057,7 +116161,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 618 */
+/* 619 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -116175,7 +116279,7 @@
 	}
 
 /***/ },
-/* 619 */
+/* 620 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -116194,11 +116298,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _cssAnimation = __webpack_require__(620);
+	var _cssAnimation = __webpack_require__(621);
 
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 
-	var _util = __webpack_require__(623);
+	var _util = __webpack_require__(624);
 
 	var _util2 = _interopRequireDefault(_util);
 
@@ -116278,13 +116382,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 620 */
+/* 621 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Event = __webpack_require__(621);
-	var Css = __webpack_require__(622);
+	var Event = __webpack_require__(622);
+	var Css = __webpack_require__(623);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 
 	function getDuration(node, name) {
@@ -116436,7 +116540,7 @@
 	module.exports = cssAnimation;
 
 /***/ },
-/* 621 */
+/* 622 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -116524,7 +116628,7 @@
 	module.exports = TransitionEvents;
 
 /***/ },
-/* 622 */
+/* 623 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -116555,7 +116659,7 @@
 	};
 
 /***/ },
-/* 623 */
+/* 624 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -116588,7 +116692,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 624 */
+/* 625 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -116634,7 +116738,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 625 */
+/* 626 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -116647,7 +116751,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _objectAssign = __webpack_require__(600);
+	var _objectAssign = __webpack_require__(601);
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
@@ -116673,16 +116777,16 @@
 	}
 
 /***/ },
-/* 626 */
+/* 627 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(627);
+	var content = __webpack_require__(628);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(629)(content, {});
+	var update = __webpack_require__(630)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -116699,10 +116803,10 @@
 	}
 
 /***/ },
-/* 627 */
+/* 628 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(628)();
+	exports = module.exports = __webpack_require__(629)();
 	// imports
 
 
@@ -116713,7 +116817,7 @@
 
 
 /***/ },
-/* 628 */
+/* 629 */
 /***/ function(module, exports) {
 
 	/*
@@ -116769,7 +116873,7 @@
 
 
 /***/ },
-/* 629 */
+/* 630 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -116994,7 +117098,7 @@
 
 
 /***/ },
-/* 630 */
+/* 631 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
@@ -117025,7 +117129,7 @@
 
 	var _reactUtilsReactBem = __webpack_require__(298);
 
-	var _componentsMapthis = __webpack_require__(631);
+	var _componentsMapthis = __webpack_require__(632);
 
 	var _componentsMapthis2 = _interopRequireDefault(_componentsMapthis);
 
@@ -117266,7 +117370,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/address.jsx"))
 
 /***/ },
-/* 631 */
+/* 632 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
@@ -117295,14 +117399,14 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _uid = __webpack_require__(632);
+	var _uid = __webpack_require__(633);
 
 	var _uid2 = _interopRequireDefault(_uid);
 
 	// Debug..
 	var debug = __webpack_require__(287)(__filename);
 
-	var $script = __webpack_require__(633);
+	var $script = __webpack_require__(634);
 
 	var MapThis = (function (_React$Component) {
 	    _inherits(MapThis, _React$Component);
@@ -117350,7 +117454,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/components/mapthis.jsx"))
 
 /***/ },
-/* 632 */
+/* 633 */
 /***/ function(module, exports) {
 
 	/**
@@ -117373,7 +117477,7 @@
 
 
 /***/ },
-/* 633 */
+/* 634 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -117502,7 +117606,7 @@
 
 
 /***/ },
-/* 634 */
+/* 635 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__filename) {// research.jsx ---
@@ -117554,7 +117658,7 @@
 	// Debug..
 	var debug = __webpack_require__(287)(__filename);
 
-	var projectsData = __webpack_require__(635);
+	var projectsData = __webpack_require__(636);
 
 	var projectsPage = _react2['default'].createClass({
 	    displayName: 'projectsPage',
@@ -117608,7 +117712,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/projects.jsx"))
 
 /***/ },
-/* 635 */
+/* 636 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -117651,7 +117755,7 @@
 	];
 
 /***/ },
-/* 636 */
+/* 637 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__filename) {'use strict';
@@ -117677,7 +117781,7 @@
 	// Debug..
 	var debug = __webpack_require__(287)(__filename);
 
-	var videosData = __webpack_require__(637);
+	var videosData = __webpack_require__(638);
 
 	var videosPage = _react2['default'].createClass({
 	    displayName: 'videosPage',
@@ -117737,7 +117841,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "src/js/pages/videos.jsx"))
 
 /***/ },
-/* 637 */
+/* 638 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -117760,16 +117864,16 @@
 	];
 
 /***/ },
-/* 638 */
+/* 639 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(639);
+	var content = __webpack_require__(640);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(629)(content, {});
+	var update = __webpack_require__(630)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -117786,16 +117890,16 @@
 	}
 
 /***/ },
-/* 639 */
+/* 640 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(640);
+	var content = __webpack_require__(641);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(629)(content, {});
+	var update = __webpack_require__(630)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -117812,10 +117916,10 @@
 	}
 
 /***/ },
-/* 640 */
+/* 641 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(628)();
+	exports = module.exports = __webpack_require__(629)();
 	// imports
 	exports.push([module.id, "@import url(http://fonts.googleapis.com/css?family=Francois+One);", ""]);
 	exports.push([module.id, "@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);", ""]);
@@ -117828,16 +117932,16 @@
 
 
 /***/ },
-/* 641 */
+/* 642 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(642);
+	var content = __webpack_require__(643);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(629)(content, {});
+	var update = __webpack_require__(630)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -117854,30 +117958,30 @@
 	}
 
 /***/ },
-/* 642 */
+/* 643 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(628)();
+	exports = module.exports = __webpack_require__(629)();
 	// imports
 	exports.push([module.id, "@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);", ""]);
 
 	// module
-	exports.push([module.id, "/* Absolute measures */\nbody,\nhtml {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n}\n.site_wrapper {\n  min-height: 100%;\n}\n.site_container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: white;\n}\n@media (min-width: 961px) {\n  .site_container {\n    padding-left: 250px;\n  }\n}\n.sidebar {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #1e2222;\n  height: 100%;\n}\n@media (min-width: 961px) {\n  .sidebar {\n    width: 250px;\n    position: fixed;\n    top: 0px;\n    margin: 0px 0px;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar {\n    width: 100%;\n  }\n}\n.well {\n  padding-top: 10rem;\n  padding-bottom: 10rem;\n}\nhtml,\nbody {\n  height: 100%;\n  width: 100%;\n  margin: 0 0;\n}\n.cf:after,\n.cf:before,\n.lecture-messages__date:after,\n.lecture-messages__date:before,\n.lecture-messages__text:after,\n.lecture-messages__text:before {\n  content: '';\n  display: table;\n}\n.cf:after,\n.lecture-messages__date:after,\n.lecture-messages__text:after {\n  clear: both;\n}\n.cf,\n.sidebar,\n.sidebar__name,\n.sidebar__address,\n.sidebar__picture,\n.lecture-messages__date,\n.lecture-messages__text {\n  zoom: 1;\n}\n.sidebar__name {\n  font-family: 'Lato', 'Helvetica';\n  color: #ffffff;\n  font-size: 1.48em;\n  font-weight: 300;\n  line-height: 1.5em;\n}\n@media (max-width: 960px) {\n  .sidebar__name {\n    text-align: center;\n    padding-left: 0%;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__name {\n    text-align: center;\n    padding-left: 0%;\n  }\n}\n.sidebar__address {\n  font-family: 'Lato', 'Helvetica';\n  font-size: 1.15em;\n  line-height: 1.5em;\n  text-align: center;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  color: #bdc3c7;\n  letter-spacing: 1px;\n}\n.sidebar__picture {\n  margin-top: 1.3em;\n  margin-bottom: 1.3em;\n  margin-left: auto;\n  margin-right: auto;\n  width: 8em;\n  height: 8em;\n  border-radius: 4em;\n  background-size: 8em;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__picture {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__picture {\n    display: block;\n  }\n}\n.sidebar__link_list {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  list-style-type: none;\n}\n@media (min-width: 961px) {\n  .sidebar__link_list {\n    margin-top: 3em;\n    padding-left: 0;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__link_list {\n    margin-top: 1em;\n    padding-left: 0;\n    text-align: center;\n  }\n}\n.sidebar__link_item {\n  color: #ecf0f1;\n  padding-bottom: 0.45em;\n  padding-top: 0.45em;\n  background-color: #1e2222;\n}\n@media (min-width: 961px) {\n  .sidebar__link_item {\n    display: block;\n    padding-left: 5%;\n    width: 95%;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__link_item {\n    display: inline-block;\n    width: 36px;\n  }\n}\n.sidebar__link_item:hover {\n  color: #f5f7f7;\n  background-color: #2d3232;\n}\n.sidebar__link_item__icon__inner {\n  color: #1e2222 !important;\n}\n.sidebar__link_item__icon {\n  display: inline-block;\n  min-width: 1.2em;\n  padding-right: 5%;\n  vertical-align: middle;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__link_item__icon {\n    font-size: 1.08em;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__link_item__icon {\n    font-size: 1.2em;\n  }\n}\n.sidebar__link_item__name {\n  font-family: 'Lato', 'Helvetica';\n  margin-left: 5%;\n  font-size: .9em;\n  vertical-align: middle;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__link_item__name {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__link_item__name {\n    display: inline-block;\n  }\n}\n.sidebar__bottom {\n  bottom: 1em;\n  position: absolute;\n  width: 100%;\n}\n@media (min-width: 961px) {\n  .sidebar__bottom {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__bottom {\n    display: none;\n  }\n}\n.sidebar__bottom__button {\n  display: inline-block;\n  color: #94aab0;\n  width: 32%;\n  text-align: center;\n  font-size: 1.2em;\n}\n.sidebar__bottom__button:hover {\n  color: white;\n}\n.posts {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n@media (max-width: 960px) {\n  .posts {\n    padding-top: 0px;\n  }\n}\n@media (min-width: 961px) {\n  .posts {\n    padding-top: 3em;\n  }\n}\n@media (max-width: 960px) {\n  .posts {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .posts {\n    width: 90%;\n  }\n}\n.post-preview {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  color: inherit;\n  text-decoration: none;\n}\n@media (max-width: 960px) {\n  .post-preview {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview {\n    margin-bottom: 0em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    margin-bottom: 3em;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview {\n    height: 75px;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    height: auto;\n  }\n}\n.post-preview__image {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: auto;\n  width: 15%;\n  display: inline-block;\n  background-color: white;\n  vertical-align: top;\n}\n.post-preview__desc-column {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: auto;\n  display: inline-block;\n  background-color: white;\n  padding-left: 20px;\n  vertical-align: top;\n  margin-top: -14px;\n}\n.post-preview__title {\n  font-family: 'Francois One';\n  font-size: 2em;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  color: black;\n}\n@media (max-width: 960px) {\n  .post-preview__title {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__title {\n    display: block;\n  }\n}\n.post-preview__subtitle {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n@media (max-width: 960px) {\n  .post-preview__subtitle {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__subtitle {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview__subtitle {\n    font-size: 1em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__subtitle {\n    font-size: 0.95em;\n  }\n}\n.post-preview__description {\n  font-family: 'Lato', 'Helvetica';\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n@media (max-width: 960px) {\n  .post-preview__description {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__description {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview__description {\n    font-size: 1em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__description {\n    font-size: 0.95em;\n  }\n}\n.post-preview__date {\n  display: inline-block;\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post-preview__date {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__date {\n    display: inline-block;\n  }\n}\n.post-preview__category {\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post-preview__category {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__category {\n    display: inline-block;\n  }\n}\n.tags {\n  padding-left: 0.5em;\n}\n@media (max-width: 960px) {\n  .tags {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .tags {\n    display: inline-block;\n  }\n}\n.tags__tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n}\n.post-preview__date-value {\n  display: inline-block;\n}\n.post-preview__category-value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n.post-preview__description-text {\n  vertical-align: top;\n  display: inline-block;\n}\n/* This code is tested with latest version of Firefox and Chrome */\n.box,\n.post-preview__image {\n  background-color: #fff;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 0 50px rgba(0, 0, 0, 0.1) inset;\n  border-radius: 0% 0% 25% Infinity% 0% 3% 3%;\n}\n.post-preview-mobile {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  margin-top: 0px !important;\n  padding-top: 0px;\n  color: inherit;\n  text-decoration: none;\n}\n@media (max-width: 960px) {\n  .post-preview-mobile {\n    display: block;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview-mobile {\n    display: none;\n  }\n}\n.post-preview-mobile__description {\n  padding-top: 0.8rem;\n  padding-bottom: 0.8rem;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding-left: 20px;\n  padding-right: 20px;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  background-color: white;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n}\n.post-preview-mobile__title {\n  font-family: 'Francois One';\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: .2rem;\n}\n.post-preview-mobile__small-date {\n  font-family: 'Francois One';\n  font-size: .9em;\n  font-weight: 500;\n  border-radius: 5px;\n  color: #d35400;\n  text-align: left;\n  display: inline-block;\n  display: none;\n  vertical-align: top;\n}\n.post-preview-mobile__small-description {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  line-height: 1.2em;\n  vertical-align: top;\n  display: block;\n  overflow: hidden;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.post_container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n  padding-top: 3em;\n}\n.post_container__post__title {\n  font-family: 'Francois One';\n  font-weight: 300;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n}\n@media (max-width: 960px) {\n  .post_container__post__title {\n    font-size: 1.7em;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__title {\n    font-size: 2.2em;\n  }\n}\n.post_container__post__subtitle {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  font-size: 1em;\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n.post_container__post__date {\n  display: inline-block;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post_container__post__date {\n    font-size: 0.9rem;\n  }\n}\n.post_container__post__category {\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post_container__post__category {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__category {\n    display: inline-block;\n  }\n}\n.post_container__post__tags {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: 100%;\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n  vertical-align: bottom;\n}\n@media (max-width: 960px) {\n  .post_container__post__tags {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__tags {\n    display: inline-block;\n  }\n}\n.post_container__post__tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: bottom;\n}\n.post_container__post__date_value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n.post_container__post__category_value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .post_text ul {\n    padding-left: 1rem;\n  }\n}\n@media (max-width: 960px) {\n  .post_text ol {\n    padding-left: 1.5rem;\n  }\n}\n.post_text p code,\n.post_text ul code,\n.post_text ol code {\n  font-family: 'Ubuntu Mono' !important;\n  border-radius: 5px;\n  color: #334145;\n  background-color: #f3f3f3;\n  padding: .2em;\n  padding-left: .4em;\n  padding-right: .4em;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n}\n.post_text p code pre,\n.post_text ul code pre,\n.post_text ol code pre {\n  background: #f8f8f8;\n}\n.post_text pre code {\n  border-radius: 5px;\n  padding: 1em;\n  background-color: white;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  background: #f8f8f8;\n}\n.post_text pre > code {\n  line-height: 27px;\n  font-family: 'Ubuntu Mono';\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n}\n.post_text img {\n  display: block;\n  width: 80%;\n  height: auto;\n  margin-left: auto;\n  margin-right: auto;\n  border-radius: 5px;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n}\n.post_text table {\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  background-color: #fbfbfb;\n  font-size: .8em;\n  padding: .5em;\n  margin: auto;\n}\n.post_text table td,\n.post_text table th {\n  padding-left: 0.7em;\n  padding-right: 0.7em;\n  padding-top: 0.05em;\n  padding-bottom: 0.05em;\n  border: none;\n}\n.post_text table th {\n  line-height: 2em;\n  color: #2980b9;\n  text-align: left;\n}\n.post_text table tbody tr:hover {\n  background-color: #f3f3f3;\n}\n.post_text .footnote {\n  margin: 0;\n  font-size: .8em;\n  padding-top: 1em;\n}\n.post_text .footnote sup {\n  color: #d35400;\n  margin-right: .5em;\n}\n.post_text .footnote a {\n  margin-left: 1em;\n}\n.post_text hr {\n  width: 20%;\n  margin-top: 6em;\n  margin-left: 0;\n}\n.post_text blockquote {\n  background: #f2f2f2;\n  margin: 0;\n  padding: 20px;\n  border-radius: 5px;\n}\n.post_text blockquote p {\n  margin: 0;\n}\n.share_buttons__message {\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .share_buttons__message {\n    display: none;\n  }\n}\n.share_buttons__share_reddit,\n.share_buttons__share_twitter,\n.share_buttons {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  padding-left: 0.5em;\n}\n.share_buttons__share_reddit {\n  color: #d35400;\n}\n.share_buttons__share_twitter {\n  color: #2980b9;\n}\n.post_text {\n  font-family: 'Lato', 'Helvetica';\n  line-height: 1.6;\n  margin-top: 2em;\n  margin-bottom: 10em;\n}\n@media (max-width: 960px) {\n  .post_text {\n    font-size: 1rem;\n  }\n}\n@media (min-width: 961px) {\n  .post_text {\n    font-size: 1.2rem;\n  }\n}\n.publications {\n  background-color: white;\n  font-family: 'Lato', 'Helvetica';\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.publications__header {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.publications__container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 3em;\n}\n.publication {\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  margin-bottom: 3em;\n  padding: 1em;\n  line-height: 1.2em;\n}\n.publication__title {\n  font-weight: 300;\n  line-height: 1.2em;\n  font-size: 1.2em;\n}\n@media (max-width: 960px) {\n  .publication__title {\n    font-size: 0.8rem;\n    line-height: 1rem;\n  }\n}\n.publication__authors {\n  margin-top: 2em;\n  font-size: .8em;\n}\n@media (max-width: 960px) {\n  .publication__authors {\n    font-size: 0.6rem;\n    line-height: 1rem;\n  }\n}\n.publication__authors__myname {\n  font-weight: 700;\n}\n.publication__authors__myname,\n.publication__authors__name {\n  display: inline-block;\n  margin-right: 1em;\n}\n@media (max-width: 960px) {\n  .publication__authors__myname,\n  .publication__authors__name {\n    margin-right: 0.6em;\n  }\n}\n.publication__authors__name {\n  color: rgba(0, 0, 0, 0.5);\n}\n.publication__info {\n  font-size: 1em;\n}\n@media (max-width: 960px) {\n  .publication__category {\n    display: none !important;\n  }\n}\n.publication__category--conference {\n  margin-left: 0.5em;\n  background-color: #2ecc71;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--journal {\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--book {\n  margin-left: 0.5em;\n  background-color: #8e44ad;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--bookchapter {\n  margin-left: 0.5em;\n  background-color: #c0392b;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--workshop {\n  margin-left: 0.5em;\n  background-color: #7f8c8d;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--patent {\n  margin-left: 0.5em;\n  background-color: #f39c12;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__name {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  border-right: 1px rgba(0, 0, 0, 0.2) solid;\n}\n.publication__date {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  border-right: 1px rgba(0, 0, 0, 0.2) solid;\n}\n.publication__pages {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  color: #808080 !important;\n}\n.publication__href {\n  text-align: right;\n}\n.publication__href__doi {\n  display: inline-block;\n}\n.publication__href__doi__icon {\n  color: #b3b3b3;\n  display: inline-block;\n  min-width: 1.2em;\n  font-size: 1.2em;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.publication__href__doi__icon-dl {\n  color: #2ecc71;\n  display: inline-block;\n  min-width: 1.2em;\n  font-size: 1.2em;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.statement__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.statement__summary {\n  line-height: 1.5em;\n}\n@media (max-width: 960px) {\n  .statement__summary ul {\n    padding-left: 1rem;\n  }\n}\n.bio-container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.bio__title,\n.career__title,\n.education__title,\n.address__title,\n.grants__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.bio__picture {\n  padding-right: 1%;\n  padding-top: 1%;\n  max-width: 24%;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .bio__picture {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .bio__picture {\n    display: inline-block;\n  }\n}\n.bio-text {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding: 1%;\n  display: inline-block;\n  font-family: 'Lato', 'Helvetica';\n}\n@media (min-width: 961px) {\n  .bio-text {\n    max-width: 73%;\n  }\n}\n@media (max-width: 960px) {\n  .bio-text {\n    max-width: 100%;\n  }\n}\n.bio-text__title {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 2em;\n  line-height: .9em;\n}\n.bio-text__position {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.3em;\n  letter-spacing: 2.1px;\n  color: #d35400;\n}\n.bio-text__description {\n  font-size: .95em;\n  line-height: 1.3em;\n  color: #333333;\n}\n.bio-text__description strong {\n  color: black;\n}\n.career,\n.education,\n.grants {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  vertical-align: top;\n  width: 99%;\n}\n.career_size_small,\n.education_size_small {\n  padding-right: 1%;\n}\n@media (max-width: 960px) {\n  .career_size_small,\n  .education_size_small {\n    width: 99%;\n  }\n}\n@media (min-width: 961px) {\n  .career_size_small,\n  .education_size_small {\n    width: 49%;\n  }\n}\n.career-list,\n.diploma-list,\n.grants-list {\n  padding-top: 4%;\n  width: 100%;\n}\n.position,\n.diploma,\n.grant {\n  font-family: 'Lato', 'Helvetica';\n  margin-bottom: 1em;\n  margin-top: 1em;\n}\n.position__column1,\n.diploma__column1,\n.grant__column1 {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding: 2%;\n  display: inline-block;\n  width: 20%;\n  vertical-align: middle;\n  text-align: center;\n}\n.position__column2,\n.diploma__column2,\n.grant__column2 {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  width: 78%;\n  padding: 2%;\n  vertical-align: middle;\n}\n.grant__role {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0px !important;\n}\n.position__date,\n.grant__date {\n  background-color: #2980b9;\n  color: white;\n  padding: 5px;\n  margin-bottom: 2px;\n}\n.diploma__date,\n.diploma__name {\n  background-color: #d35400;\n  color: white;\n  padding: 5px;\n  margin-bottom: 2px;\n}\n.position__name,\n.grant__name,\n.diploma__topic {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.2em;\n}\n.position__institution,\n.position__department,\n.diploma__department,\n.diploma__institution,\n.grant__institution {\n  display: inline-block;\n  padding-right: 5px;\n  font-size: .85em;\n}\n.position__institution,\n.diploma__institution,\n.grant_institution {\n  font-style: italic;\n}\n.position__department,\n.diploma__department,\n.grant__department {\n  color: #1a1a1a;\n}\n.address__map {\n  width: 100%;\n  height: 25em;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n}\n@media (max-width: 960px) {\n  .address__map {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .address__map {\n    display: block;\n  }\n}\n.address {\n  margin-bottom: 8em;\n}\n.calendar {\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n}\n.calendar__day {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 30px;\n  height: 30px;\n  display: inline-block;\n  background-color: #ecf0f1;\n  margin-right: 2px;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Lato', 'Helvetica';\n  text-align: center;\n  font-size: .7em;\n  line-height: 3em;\n  margin-top: 2px;\n}\n.calendar__day_not_working {\n  background-color: #b1c2c6;\n}\n.calendar__day_not_in_month {\n  opacity: 0;\n}\n.calendar__month {\n  width: 224px;\n  vertical-align: top;\n  margin-left: auto;\n}\n@media (max-width: 960px) {\n  .calendar__month {\n    display: block;\n  }\n}\n@media (min-width: 961px) {\n  .calendar__month {\n    display: inline-block;\n  }\n}\n@media (max-width: 960px) {\n  .calendar__month {\n    margin-right: auto;\n  }\n}\n@media (min-width: 961px) {\n  .calendar__month {\n    margin-right: 2%;\n  }\n}\n.calendar__month_name {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  text-align: center;\n}\n.calendar__category_infob {\n  background-color: #ffa76d;\n}\n.calendar__category_blog {\n  background-color: #94c6e7;\n}\n.calendar__day_is_today {\n  font-weight: 700;\n  color: #1abc9c;\n}\n.calendar__tooltip {\n  position: absolute;\n  color: white;\n  background-color: #d35400;\n  border-radius: 5px;\n  display: block;\n  padding: 1em;\n  padding-top: .3em;\n  padding-bottom: .3em;\n  font-size: 1.3em;\n  margin-right: .5em;\n}\n.teaching-page {\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n  font-family: 'Lato', 'Helvetica';\n}\n.teaching-page__title {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 3em;\n  line-height: .9em;\n  padding-top: .5em;\n}\n.teaching-page__year {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Lato', 'Helvetica';\n  letter-spacing: .04em;\n}\n.contacts {\n  margin-top: 1em;\n  margin-bottom: 1em;\n  font-family: 'Lato', 'Helvetica';\n  font-size: .9em;\n  line-height: 1.5em;\n}\n.contacts__detail {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n}\n.contacts__key {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  font-size: .9em;\n  width: 25%;\n  display: inline-block;\n  color: #999999;\n  vertical-align: top;\n}\n.contacts__value {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 74%;\n  font-size: .9em;\n  display: inline-block;\n  color: black;\n  vertical-align: top;\n}\n.lecture-material__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.lecture-material__calendar {\n  margin-top: 1em;\n  margin-bottom: 2em;\n}\n.lecture-material__description {\n  margin-top: 1em;\n  font-size: .9em;\n}\n@media (max-width: 960px) {\n  .lecture-material.only-desktop {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .lecture-material.only-desktop {\n    display: block;\n  }\n}\n.lecture-messages__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.lecture-messages__message {\n  margin-top: 1.5em;\n  vertical-align: top;\n}\n.lecture-messages__date {\n  font-size: .8em;\n  line-height: 1.1111em;\n  display: block;\n  color: #c0392b;\n  margin-right: 1%;\n  vertical-align: top;\n}\n.lecture-messages__text {\n  font-size: .9em;\n  line-height: 1.4em;\n  display: block;\n  vertical-align: top;\n  margin-top: .2rem;\n}\n.lecture-messages__text p {\n  margin-top: 0px;\n}\n/*\n * # Semantic - Table\n * http://github.com/jlukic/semantic-ui/\n *\n *\n * Copyright 2013 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n/*******************************\n             Table\n*******************************/\n/* Prototype */\n.ui.table {\n  width: 100%;\n  border-collapse: collapse;\n}\n/* Table Content */\n.ui.table th,\n.ui.table tr,\n.ui.table td {\n  border-collapse: collapse;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -ms-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-transition: all 0.1s ease-out;\n  -moz-transition: all 0.1s ease-out;\n  transition: all 0.1s ease-out;\n}\n/* Headers */\n.ui.table thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.table tfoot th {\n  background-color: rgba(0, 0, 0, 0.03);\n}\n.ui.table th {\n  cursor: auto;\n  background-color: rgba(0, 0, 0, 0.05);\n  text-align: right;\n  color: rgba(0, 0, 0, 0.8);\n  padding: 0.5em 0.7em;\n  vertical-align: middle;\n}\n.ui.table thead th:first-child {\n  border-radius: 0px 5px 0px 0px;\n}\n.ui.table thead th:last-child {\n  border-radius: 5px 0px 0px 0px;\n}\n.ui.table tfoot th:first-child {\n  border-radius: 0px 0px 5px 0px;\n}\n.ui.table tfoot th:last-child {\n  border-radius: 0px 0px 0px 5px;\n}\n.ui.table tfoot th:only-child {\n  border-radius: 0px 0px 5px 5px;\n}\n/* Table Cells */\n.ui.table td {\n  padding: 0.40em 0.7em;\n  vertical-align: middle;\n}\n/* Footer */\n.ui.table tfoot {\n  border-top: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.table tfoot th {\n  font-weight: normal;\n  font-style: italic;\n}\n/* Table Striping */\n.ui.table tbody tr:nth-child(2n) {\n  background-color: rgba(0, 0, 50, 0.02);\n}\n/* Icons */\n.ui.table > .icon {\n  vertical-align: baseline;\n}\n.ui.table > .icon:only-child {\n  margin: 0em;\n}\n/* Table Segment */\n.ui.table.segment:after {\n  display: none;\n}\n.ui.table.segment.stacked:after {\n  display: block;\n}\n/* Responsive */\n@media only screen and (max-width: 768px) {\n  .ui.table {\n    display: block;\n    padding: 0em;\n  }\n  .ui.table thead,\n  .ui.table tfoot {\n    display: none;\n  }\n  .ui.table tbody {\n    display: block;\n  }\n  .ui.table tr {\n    display: block;\n  }\n  .ui.table tr > td {\n    width: 100% !important;\n    display: block;\n    border: none !important;\n    padding: 0.25em 0.75em;\n    -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05) !important;\n    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05) !important;\n  }\n  .ui.table td:first-child {\n    font-weight: bold;\n    padding-top: 1em;\n  }\n  .ui.table td:last-child {\n    -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n    padding-bottom: 1em;\n  }\n  /* Clear BG Colors */\n  .ui.table tr > td.warning,\n  .ui.table tr > td.error,\n  .ui.table tr > td.active,\n  .ui.table tr > td.positive,\n  .ui.table tr > td.negative {\n    background-color: transparent !important;\n  }\n}\n/*******************************\n             States\n*******************************/\n/*--------------\n      Hover\n---------------*/\n/* Sortable */\n.ui.sortable.table th.disabled:hover {\n  cursor: auto;\n  text-align: right;\n  font-weight: bold;\n  color: #333333;\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.sortable.table thead th:hover {\n  background-color: rgba(0, 0, 0, 0.13);\n  color: rgba(0, 0, 0, 0.8);\n}\n/* Inverted Sortable */\n.ui.inverted.sortable.table thead th:hover {\n  background-color: rgba(255, 255, 255, 0.13);\n  color: #ffffff;\n}\n/*--------------\n    Positive\n---------------*/\n.ui.table tr.positive,\n.ui.table td.positive {\n  -webkit-box-shadow: -2px 0px 0px #119000 inset;\n  box-shadow: -2px 0px 0px #119000 inset;\n}\n.ui.table tr.positive td,\n.ui.table td.positive {\n  background-color: #F2F8F0 !important;\n  color: #119000 !important;\n}\n.ui.celled.table tr.positive:hover td,\n.ui.celled.table tr:hover td.positive,\n.ui.table tr.positive:hover td,\n.ui.table td:hover.positive,\n.ui.table th:hover.positive {\n  background-color: #ECF5E9 !important;\n  color: #119000 !important;\n}\n/*--------------\n     Negative\n---------------*/\n.ui.table tr.negative,\n.ui.table td.negative {\n  -webkit-box-shadow: -2px 0px 0px #CD2929 inset;\n  box-shadow: -2px 0px 0px #CD2929 inset;\n}\n.ui.table tr.negative td,\n.ui.table td.negative {\n  background-color: #F9F4F4;\n  color: #CD2929 !important;\n}\n.ui.celled.table tr.negative:hover td,\n.ui.celled.table tr:hover td.negative,\n.ui.table tr.negative:hover td,\n.ui.table td:hover.negative,\n.ui.table th:hover.negative {\n  background-color: #F2E8E8;\n  color: #CD2929;\n}\n/*--------------\n      Error\n---------------*/\n.ui.table tr.error,\n.ui.table td.error {\n  -webkit-box-shadow: -2px 0px 0px #CD2929 inset;\n  box-shadow: -2px 0px 0px #CD2929 inset;\n}\n.ui.table tr.error td,\n.ui.table td.error,\n.ui.table th.error {\n  background-color: #F9F4F4;\n  color: #CD2929;\n}\n.ui.celled.table tr.error:hover td,\n.ui.celled.table tr:hover td.error,\n.ui.table tr.error:hover td,\n.ui.table td:hover.error,\n.ui.table th:hover.error {\n  background-color: #F2E8E8;\n  color: #CD2929;\n}\n/*--------------\n     Warning\n---------------*/\n.ui.table tr.warning,\n.ui.table td.warning {\n  -webkit-box-shadow: -2px 0px 0px #7D6C00 inset;\n  box-shadow: -2px 0px 0px #7D6C00 inset;\n}\n.ui.table tr.warning td,\n.ui.table td.warning,\n.ui.table th.warning {\n  background-color: #FBF6E9;\n  color: #7D6C00;\n}\n.ui.celled.table tr.warning:hover td,\n.ui.celled.table tr:hover td.warning,\n.ui.table tr.warning:hover td,\n.ui.table td:hover.warning,\n.ui.table th:hover.warning {\n  background-color: #F3EDDC;\n  color: #7D6C00;\n}\n/*--------------\n     Active\n---------------*/\n.ui.table tr.active,\n.ui.table td.active {\n  -webkit-box-shadow: -2px 0px 0px rgba(50, 50, 50, 0.9) inset;\n  box-shadow: -2px 0px 0px rgba(50, 50, 50, 0.9) inset;\n}\n.ui.table tr.active td,\n.ui.table tr td.active {\n  background-color: #E0E0E0;\n  color: rgba(50, 50, 50, 0.9);\n  /* border-color: rgba(0, 0, 0, 0.15) !important; */\n}\n/*--------------\n     Disabled\n---------------*/\n.ui.table tr.disabled td,\n.ui.table tr td.disabled,\n.ui.table tr.disabled:hover td,\n.ui.table tr:hover td.disabled {\n  color: rgba(150, 150, 150, 0.3);\n}\n/*******************************\n          Variations\n*******************************/\n/*--------------\n  Column Count\n---------------*/\n.ui.two.column.table td {\n  width: 50%;\n}\n.ui.three.column.table td {\n  width: 33.3333%;\n}\n.ui.four.column.table td {\n  width: 25%;\n}\n.ui.five.column.table td {\n  width: 20%;\n}\n.ui.six.column.table td {\n  width: 16.66667%;\n}\n.ui.seven.column.table td {\n  width: 14.2857%;\n}\n.ui.eight.column.table td {\n  width: 12.5%;\n}\n.ui.nine.column.table td {\n  width: 11.1111%;\n}\n.ui.ten.column.table td {\n  width: 10%;\n}\n.ui.eleven.column.table td {\n  width: 9.0909%;\n}\n.ui.twelve.column.table td {\n  width: 8.3333%;\n}\n.ui.thirteen.column.table td {\n  width: 7.6923%;\n}\n.ui.fourteen.column.table td {\n  width: 7.1428%;\n}\n.ui.fifteen.column.table td {\n  width: 6.6666%;\n}\n.ui.sixteen.column.table td {\n  width: 6.25%;\n}\n/* Column Width */\n.ui.table th.one.wide,\n.ui.table td.one.wide {\n  width: 6.25%;\n}\n.ui.table th.two.wide,\n.ui.table td.two.wide {\n  width: 12.5%;\n}\n.ui.table th.three.wide,\n.ui.table td.three.wide {\n  width: 18.75%;\n}\n.ui.table th.four.wide,\n.ui.table td.four.wide {\n  width: 25%;\n}\n.ui.table th.five.wide,\n.ui.table td.five.wide {\n  width: 31.25%;\n}\n.ui.table th.six.wide,\n.ui.table td.six.wide {\n  width: 37.5%;\n}\n.ui.table th.seven.wide,\n.ui.table td.seven.wide {\n  width: 43.75%;\n}\n.ui.table th.eight.wide,\n.ui.table td.eight.wide {\n  width: 50%;\n}\n.ui.table th.nine.wide,\n.ui.table td.nine.wide {\n  width: 56.25%;\n}\n.ui.table th.ten.wide,\n.ui.table td.ten.wide {\n  width: 62.5%;\n}\n.ui.table th.eleven.wide,\n.ui.table td.eleven.wide {\n  width: 68.75%;\n}\n.ui.table th.twelve.wide,\n.ui.table td.twelve.wide {\n  width: 75%;\n}\n.ui.table th.thirteen.wide,\n.ui.table td.thirteen.wide {\n  width: 81.25%;\n}\n.ui.table th.fourteen.wide,\n.ui.table td.fourteen.wide {\n  width: 87.5%;\n}\n.ui.table th.fifteen.wide,\n.ui.table td.fifteen.wide {\n  width: 93.75%;\n}\n.ui.table th.sixteen.wide,\n.ui.table td.sixteen.wide {\n  width: 100%;\n}\n/*--------------\n     Celled\n---------------*/\n.ui.celled.table {\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.celled.table tbody tr,\n.ui.celled.table tfoot tr {\n  border: none;\n}\n.ui.celled.table th,\n.ui.celled.table td {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n/* Coupling with segment */\n.ui.celled.table.segment th:first-child,\n.ui.celled.table.segment td:first-child {\n  border-right: none;\n}\n.ui.celled.table.segment th:last-child,\n.ui.celled.table.segment td:last-child {\n  border-left: none;\n}\n/*--------------\n    Sortable\n---------------*/\n.ui.sortable.table thead th {\n  cursor: pointer;\n  white-space: nowrap;\n}\n.ui.sortable.table thead th.sorted,\n.ui.sortable.table thead th.sorted:hover {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.ui.sortable.table thead th:after {\n  display: inline-block;\n  content: '';\n  width: 1em;\n  opacity: 0.8;\n  margin: 0em 0.5em 0em 0em;\n  font-family: 'Icons';\n  font-style: normal;\n  font-weight: normal;\n  text-decoration: inherit;\n}\n.ui.sortable.table thead th.ascending:after {\n  content: '\\25B4';\n}\n.ui.sortable.table thead th.descending:after {\n  content: '\\25BE';\n}\n/*--------------\n    Inverted\n---------------*/\n/* Text Color */\n.ui.inverted.table td {\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.inverted.table th {\n  background-color: rgba(0, 0, 0, 0.15);\n  color: rgba(255, 255, 255, 0.9);\n}\n/* Stripes */\n.ui.inverted.table tbody tr:nth-child(2n) {\n  background-color: rgba(255, 255, 255, 0.06);\n}\n/*--------------\n   Definition\n---------------*/\n.ui.definition.table td:first-child {\n  font-weight: bold;\n}\n/*--------------\n   Collapsing\n---------------*/\n.ui.collapsing.table {\n  width: auto;\n}\n/*--------------\n      Basic\n---------------*/\n.ui.basic.table th {\n  background-color: transparent;\n  padding: 0.5em;\n}\n.ui.basic.table tbody tr {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.basic.table td {\n  padding: 0.8em 0.5em;\n}\n.ui.basic.table tbody tr:nth-child(2n) {\n  background-color: transparent !important;\n}\n/*--------------\n     Padded\n---------------*/\n.ui.padded.table th,\n.ui.padded.table td {\n  padding: 0.8em 1em;\n}\n.ui.compact.table th {\n  padding: 0.3em 0.5em;\n}\n.ui.compact.table td {\n  padding: 0.2em 0.5em;\n}\n/*--------------\n      Sizes\n---------------*/\n/* Small */\n.ui.small.table {\n  font-size: 0.875em;\n}\n/* Standard */\n.ui.table {\n  font-size: 1em;\n}\n/* Large */\n.ui.large.table {\n  font-size: 1.1em;\n}\n/*\n * # Semantic - Segment\n * http://github.com/jlukic/semantic-ui/\n *\n *\n * Copyright 2013 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n/*******************************\n            Segment\n*******************************/\n.ui.segment {\n  position: relative;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);\n  margin: 1em 0em;\n  padding: 1em;\n  border-radius: 5px 5px 5px 5px;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -ms-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.ui.segment:first-child {\n  margin-top: 0em;\n}\n.ui.segment:last-child {\n  margin-bottom: 0em;\n}\n.ui.segment:after {\n  content: '';\n  display: block;\n  height: 0;\n  clear: both;\n  visibility: hidden;\n}\n.ui.vertical.segment {\n  margin: 0em;\n  padding-right: 0em;\n  padding-left: 0em;\n  background-color: transparent;\n  border-radius: 0px;\n  -webkit-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);\n}\n.ui.vertical.segment:first-child {\n  padding-top: 0em;\n}\n.ui.horizontal.segment {\n  margin: 0em;\n  padding-top: 0em;\n  padding-bottom: 0em;\n  background-color: transparent;\n  border-radius: 0px;\n  -webkit-box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.1);\n  box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.1);\n}\n.ui.horizontal.segment:first-child {\n  padding-right: 0em;\n}\n/*-------------------\n    Loose Coupling\n--------------------*/\n.ui.pointing.menu ~ .ui.attached.segment {\n  top: 1px;\n}\n.ui.page.grid.segment .ui.grid .ui.segment.column {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.ui.grid.segment,\n.ui.grid .ui.segment.row,\n.ui.grid .ui.segment.column {\n  border-radius: 0em;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border: none;\n}\n/* No padding on edge content */\n.ui.segment > :first-child {\n  margin-top: 0em;\n}\n.ui.segment > :last-child {\n  margin-bottom: 0em;\n}\n/*******************************\n             Types\n*******************************/\n/*-------------------\n        Piled\n--------------------*/\n.ui.piled.segment {\n  margin: 2em 0em;\n  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  -ms-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  -o-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n}\n.ui.piled.segment:first-child {\n  margin-top: 0em;\n}\n.ui.piled.segment:last-child {\n  margin-bottom: 0em;\n}\n.ui.piled.segment:after,\n.ui.piled.segment:before {\n  background-color: #FFFFFF;\n  visibility: visible;\n  content: \"\";\n  display: block;\n  height: 100%;\n  right: -1px;\n  position: absolute;\n  width: 100%;\n  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);\n}\n.ui.piled.segment:after {\n  -webkit-transform: rotate(-1.2deg);\n  -moz-transform: rotate(-1.2deg);\n  -ms-transform: rotate(-1.2deg);\n  transform: rotate(-1.2deg);\n  top: 0;\n  z-index: -1;\n}\n.ui.piled.segment:before {\n  -webkit-transform: rotate(1.2deg);\n  -moz-transform: rotate(1.2deg);\n  -ms-transform: rotate(1.2deg);\n  transform: rotate(1.2deg);\n  top: 0;\n  z-index: -2;\n}\n/*-------------------\n       Stacked\n--------------------*/\n.ui.stacked.segment {\n  padding-bottom: 1.7em;\n}\n.ui.stacked.segment:after,\n.ui.stacked.segment:before {\n  content: '';\n  position: absolute;\n  bottom: -3px;\n  right: 0%;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: rgba(0, 0, 0, 0.02);\n  width: 100%;\n  height: 5px;\n  visibility: visible;\n}\n.ui.stacked.segment:before {\n  bottom: 0px;\n}\n/* Inverted */\n.ui.stacked.inverted.segment:after,\n.ui.stacked.inverted.segment:before {\n  background-color: rgba(255, 255, 255, 0.1);\n  border-top: 1px solid rgba(255, 255, 255, 0.35);\n}\n/*-------------------\n       Circular\n--------------------*/\n.ui.circular.segment {\n  display: table-cell;\n  padding: 2em;\n  text-align: center;\n  vertical-align: middle;\n  border-radius: 500em;\n}\n/*-------------------\n       Raised\n--------------------*/\n.ui.raised.segment {\n  -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);\n}\n/*******************************\n            States\n*******************************/\n.ui.disabled.segment {\n  opacity: 0.8;\n  color: #DDDDDD;\n}\n/*******************************\n           Variations\n*******************************/\n/*-------------------\n       Basic\n--------------------*/\n.ui.basic.segment {\n  position: relative;\n  background-color: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border-radius: 0px;\n}\n.ui.basic.segment:first-child {\n  padding-top: 0em;\n}\n.ui.basic.segment:last-child {\n  padding-bottom: 0em;\n}\n/*-------------------\n       Fittted\n--------------------*/\n.ui.fitted.segment {\n  padding: 0em;\n}\n/*-------------------\n       Colors\n--------------------*/\n.ui.blue.segment {\n  border-top: 0.2em solid #6ECFF5;\n}\n.ui.green.segment {\n  border-top: 0.2em solid #A1CF64;\n}\n.ui.red.segment {\n  border-top: 0.2em solid #D95C5C;\n}\n.ui.orange.segment {\n  border-top: 0.2em solid #F05940;\n}\n.ui.purple.segment {\n  border-top: 0.2em solid #564F8A;\n}\n.ui.teal.segment {\n  border-top: 0.2em solid #00B5AD;\n}\n/*-------------------\n   Inverted Colors\n--------------------*/\n.ui.inverted.black.segment {\n  background-color: #5C6166 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.blue.segment {\n  background-color: #6ECFF5 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.green.segment {\n  background-color: #A1CF64 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.red.segment {\n  background-color: #D95C5C !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.orange.segment {\n  background-color: #F05940 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.purple.segment {\n  background-color: #564F8A !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.teal.segment {\n  background-color: #00B5AD !important;\n  color: #FFFFFF !important;\n}\n/*-------------------\n       Aligned\n--------------------*/\n.ui.left.aligned.segment {\n  text-align: right;\n}\n.ui.right.aligned.segment {\n  text-align: left;\n}\n.ui.center.aligned.segment {\n  text-align: center;\n}\n.ui.justified.segment {\n  text-align: justify;\n  -webkit-hyphens: auto;\n  -moz-hyphens: auto;\n  -ms-hyphens: auto;\n  hyphens: auto;\n}\n/*-------------------\n       Floated\n--------------------*/\n.ui.floated.segment,\n.ui.left.floated.segment {\n  float: right;\n}\n.ui.right.floated.segment {\n  float: left;\n}\n/*-------------------\n      Inverted\n--------------------*/\n.ui.inverted.segment {\n  border: none;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.ui.inverted.segment .segment {\n  color: rgba(0, 0, 0, 0.7);\n}\n.ui.inverted.segment .inverted.segment {\n  color: #FFFFFF;\n}\n.ui.inverted.segment,\n.ui.primary.inverted.segment {\n  background-color: #222222;\n  color: #FFFFFF;\n}\n/*-------------------\n     Ordinality\n--------------------*/\n.ui.primary.segment {\n  background-color: #FFFFFF;\n  color: #555555;\n}\n.ui.secondary.segment {\n  background-color: #FAF9FA;\n  color: #777777;\n}\n.ui.tertiary.segment {\n  background-color: #EBEBEB;\n  color: #B0B0B0;\n}\n.ui.secondary.inverted.segment {\n  background-color: #555555;\n  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));\n  background-image: -webkit-linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  background-image: -moz-linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  background-image: -webkit-gradient(linear, right top, right bottom, from(rgba(0, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));\n  background-image: linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  color: #FAFAFA;\n}\n.ui.tertiary.inverted.segment {\n  background-color: #555555;\n  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));\n  background-image: -webkit-linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  background-image: -moz-linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  background-image: -webkit-gradient(linear, right top, right bottom, from(rgba(0, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));\n  background-image: linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  color: #EEEEEE;\n}\n/*-------------------\n      Attached\n--------------------*/\n.ui.segment.attached {\n  top: -1px;\n  bottom: -1px;\n  border-radius: 0px;\n  margin: 0em;\n  -webkit-box-shadow: 0px 0px 0px 1px #DDDDDD;\n  box-shadow: 0px 0px 0px 1px #DDDDDD;\n}\n.ui.top.attached.segment {\n  top: 0px;\n  bottom: -1px;\n  margin-top: 1em;\n  margin-bottom: 0em;\n  border-radius: 5px 5px 0px 0px;\n}\n.ui.segment.top.attached:first-child {\n  margin-top: 0em;\n}\n.ui.segment.bottom.attached {\n  top: -1px;\n  bottom: 0px;\n  margin-top: 0em;\n  margin-bottom: 1em;\n  border-radius: 0px 0px 5px 5px;\n}\n.ui.segment.bottom.attached:last-child {\n  margin-bottom: 0em;\n}\n.table thead tr th div {\n  text-align: center;\n  font-variant: small-caps;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.2rem;\n  font-weight: 300;\n}\n.table__row {\n  height: 1.9rem;\n}\n.table__cell_title {\n  max-width: 400px;\n}\n.table__cell_date {\n  max-width: 100px;\n}\n.table__cell_tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: bottom;\n}\n/* Updated */\n.slider {\n  margin-top: .6rem;\n  border: 2px #c0392b solid;\n  height: .6rem;\n  border-radius: 7px;\n}\n.slider__slider-value {\n  width: 100%;\n  background: #c0392b;\n  height: .6rem;\n}\n.exemd--diagram {\n  box-shadow: none !important;\n  border: none !important;\n}\n.exemd--diagram__dot {\n  height: auto !important;\n}\n@media (max-width: 960px) {\n  .exemd--diagram__dot {\n    max-width: 100% !important;\n  }\n}\n@media (min-width: 961px) {\n  .exemd--diagram__dot {\n    width: auto !important;\n  }\n}\n.projects-page {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.projects-page__title {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.projects-page__project-list {\n  margin-top: 2em;\n}\n.project {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  text-align: center;\n  padding: 1em;\n  margin-top: 1em;\n  overflow: hidden;\n}\n@media (max-width: 960px) {\n  .project {\n    display: inline-block;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    display: inline-block;\n  }\n}\n@media (max-width: 960px) {\n  .project {\n    width: 320px;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    width: 30%;\n  }\n}\n@media (max-width: 960px) {\n  .project {\n    margin-right: 0%;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    margin-right: 3%;\n  }\n}\n.project__image {\n  width: 100%;\n  height: auto;\n  border: 1px #d8d8d8 solid;\n}\n@media (max-width: 960px) {\n  .project__image {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .project__image {\n    display: block;\n  }\n}\n.project__name {\n  text-align: left;\n  font-family: 'Francois One';\n  font-size: 1.5em;\n  line-height: 1.5em;\n  margin-top: .5em;\n  color: #d35400;\n}\n.project__description {\n  font-family: 'Lato', 'Helvetica';\n  font-size: 0.9em;\n  text-align: left;\n  min-height: 4em;\n}\n.videos-page {\n  font-family: 'Lato', 'Helvetica';\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.videos-page__title {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.videos-page__video-list {\n  margin-top: 2em;\n}\n.video {\n  display: inline-block;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  width: 100%;\n  height: auto;\n  padding: 1em;\n  margin-right: 1%;\n  margin-top: 1em;\n  overflow: hidden;\n  margin-bottom: 1em;\n}\n.video__iframe {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .video__iframe {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .video__iframe {\n    width: 512px;\n  }\n}\n@media (max-width: 960px) {\n  .video__iframe {\n    height: auto;\n  }\n}\n@media (min-width: 961px) {\n  .video__iframe {\n    height: 312px;\n  }\n}\n.video__data {\n  display: inline-block;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: top;\n}\n@media (max-width: 960px) {\n  .video__data {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .video__data {\n    width: 30%;\n  }\n}\n@media (max-width: 960px) {\n  .video__data {\n    margin-left: 0em;\n  }\n}\n@media (min-width: 961px) {\n  .video__data {\n    margin-left: 1em;\n  }\n}\n.video__title {\n  font-family: 'Francois One';\n  font-size: 1.3em;\n  line-height: 1.5;\n}\n.video__recorded-on {\n  color: #666666;\n}\n.video__language {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n}\niframe.youtube {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 100%;\n  padding-left: 5rem;\n  padding-right: 5rem;\n}\n", ""]);
+	exports.push([module.id, "/* Absolute measures */\nbody,\nhtml {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n}\n.site_wrapper {\n  min-height: 100%;\n}\n.site_container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: white;\n}\n@media (min-width: 961px) {\n  .site_container {\n    padding-left: 250px;\n  }\n}\n.sidebar {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #1e2222;\n  height: 100%;\n}\n@media (min-width: 961px) {\n  .sidebar {\n    width: 250px;\n    position: fixed;\n    top: 0px;\n    margin: 0px 0px;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar {\n    width: 100%;\n  }\n}\n.well {\n  padding-top: 10rem;\n  padding-bottom: 10rem;\n}\nhtml,\nbody {\n  height: 100%;\n  width: 100%;\n  margin: 0 0;\n}\n.cf:after,\n.cf:before,\n.lecture-messages__date:after,\n.lecture-messages__date:before,\n.lecture-messages__text:after,\n.lecture-messages__text:before {\n  content: '';\n  display: table;\n}\n.cf:after,\n.lecture-messages__date:after,\n.lecture-messages__text:after {\n  clear: both;\n}\n.cf,\n.sidebar,\n.sidebar__name,\n.sidebar__address,\n.sidebar__picture,\n.lecture-messages__date,\n.lecture-messages__text {\n  zoom: 1;\n}\n.sidebar__name {\n  font-family: 'Lato', 'Helvetica';\n  color: #ffffff;\n  font-size: 1.48em;\n  font-weight: 300;\n  line-height: 1.5em;\n}\n@media (max-width: 960px) {\n  .sidebar__name {\n    text-align: center;\n    padding-left: 0%;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__name {\n    text-align: center;\n    padding-left: 0%;\n  }\n}\n.sidebar__address {\n  font-family: 'Lato', 'Helvetica';\n  font-size: 1.15em;\n  line-height: 1.5em;\n  text-align: center;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  color: #bdc3c7;\n  letter-spacing: 1px;\n}\n.sidebar__picture {\n  margin-top: 1.3em;\n  margin-bottom: 1.3em;\n  margin-left: auto;\n  margin-right: auto;\n  width: 8em;\n  height: 8em;\n  border-radius: 4em;\n  background-size: 8em;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__picture {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__picture {\n    display: block;\n  }\n}\n.sidebar__link_list {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  list-style-type: none;\n}\n@media (min-width: 961px) {\n  .sidebar__link_list {\n    margin-top: 3em;\n    padding-left: 0;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__link_list {\n    margin-top: 1em;\n    padding-left: 0;\n    text-align: center;\n  }\n}\n.sidebar__link_item {\n  color: #ecf0f1;\n  padding-bottom: 0.45em;\n  padding-top: 0.45em;\n  background-color: #1e2222;\n}\n@media (min-width: 961px) {\n  .sidebar__link_item {\n    display: block;\n    padding-left: 5%;\n    width: 95%;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__link_item {\n    display: inline-block;\n    width: 36px;\n  }\n}\n.sidebar__link_item:hover {\n  color: #f5f7f7;\n  background-color: #2d3232;\n}\n.sidebar__link_item__icon__inner {\n  color: #1e2222 !important;\n}\n.sidebar__link_item__icon {\n  display: inline-block;\n  min-width: 1.2em;\n  padding-right: 5%;\n  vertical-align: middle;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__link_item__icon {\n    font-size: 1.08em;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__link_item__icon {\n    font-size: 1.2em;\n  }\n}\n.sidebar__link_item__name {\n  font-family: 'Lato', 'Helvetica';\n  margin-left: 5%;\n  font-size: .9em;\n  vertical-align: middle;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n@media (max-width: 960px) {\n  .sidebar__link_item__name {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .sidebar__link_item__name {\n    display: inline-block;\n  }\n}\n.sidebar__bottom {\n  bottom: 1em;\n  position: absolute;\n  width: 100%;\n}\n@media (min-width: 961px) {\n  .sidebar__bottom {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .sidebar__bottom {\n    display: none;\n  }\n}\n.sidebar__bottom__button {\n  display: inline-block;\n  color: #94aab0;\n  width: 32%;\n  text-align: center;\n  font-size: 1.2em;\n}\n.sidebar__bottom__button:hover {\n  color: white;\n}\n.posts {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n@media (max-width: 960px) {\n  .posts {\n    padding-top: 0px;\n  }\n}\n@media (min-width: 961px) {\n  .posts {\n    padding-top: 3em;\n  }\n}\n@media (max-width: 960px) {\n  .posts {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .posts {\n    width: 90%;\n  }\n}\n.post-preview {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  color: inherit;\n  text-decoration: none;\n}\n@media (max-width: 960px) {\n  .post-preview {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview {\n    margin-bottom: 0em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    margin-bottom: 3em;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview {\n    height: 75px;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview {\n    height: auto;\n  }\n}\n.post-preview__image {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: auto;\n  width: 15%;\n  display: inline-block;\n  background-color: white;\n  vertical-align: top;\n}\n.post-preview__desc-column {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: auto;\n  display: inline-block;\n  background-color: white;\n  padding-left: 20px;\n  vertical-align: top;\n  margin-top: -14px;\n}\n.post-preview__title {\n  font-family: 'Francois One';\n  font-size: 2em;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  color: black;\n}\n@media (max-width: 960px) {\n  .post-preview__title {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__title {\n    display: block;\n  }\n}\n.post-preview__subtitle {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n@media (max-width: 960px) {\n  .post-preview__subtitle {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__subtitle {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview__subtitle {\n    font-size: 1em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__subtitle {\n    font-size: 0.95em;\n  }\n}\n.post-preview__description {\n  font-family: 'Lato', 'Helvetica';\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n@media (max-width: 960px) {\n  .post-preview__description {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__description {\n    display: block;\n  }\n}\n@media (max-width: 960px) {\n  .post-preview__description {\n    font-size: 1em;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__description {\n    font-size: 0.95em;\n  }\n}\n.post-preview__date {\n  display: inline-block;\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post-preview__date {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__date {\n    display: inline-block;\n  }\n}\n.post-preview__category {\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post-preview__category {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview__category {\n    display: inline-block;\n  }\n}\n.tags {\n  padding-left: 0.5em;\n}\n@media (max-width: 960px) {\n  .tags {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .tags {\n    display: inline-block;\n  }\n}\n.tags__tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n}\n.post-preview__date-value {\n  display: inline-block;\n}\n.post-preview__category-value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n.post-preview__description-text {\n  vertical-align: top;\n  display: inline-block;\n}\n/* This code is tested with latest version of Firefox and Chrome */\n.box,\n.post-preview__image {\n  background-color: #fff;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25), 0 0 50px rgba(0, 0, 0, 0.1) inset;\n  border-radius: 0% 0% 25% Infinity% 0% 3% 3%;\n}\n.post-preview-mobile {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  margin-top: 0px !important;\n  padding-top: 0px;\n  color: inherit;\n  text-decoration: none;\n}\n@media (max-width: 960px) {\n  .post-preview-mobile {\n    display: block;\n  }\n}\n@media (min-width: 961px) {\n  .post-preview-mobile {\n    display: none;\n  }\n}\n.post-preview-mobile__description {\n  padding-top: 0.8rem;\n  padding-bottom: 0.8rem;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding-left: 20px;\n  padding-right: 20px;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  background-color: white;\n  overflow-wrap: break-word;\n  word-wrap: break-word;\n}\n.post-preview-mobile__title {\n  font-family: 'Francois One';\n  font-size: 1.1rem;\n  font-weight: 500;\n  margin-bottom: .2rem;\n}\n.post-preview-mobile__small-date {\n  font-family: 'Francois One';\n  font-size: .9em;\n  font-weight: 500;\n  border-radius: 5px;\n  color: #d35400;\n  text-align: left;\n  display: inline-block;\n  display: none;\n  vertical-align: top;\n}\n.post-preview-mobile__small-description {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  line-height: 1.2em;\n  vertical-align: top;\n  display: block;\n  overflow: hidden;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.post_container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n  padding-top: 3em;\n}\n.post_container__post__title {\n  font-family: 'Francois One';\n  font-weight: 300;\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n}\n@media (max-width: 960px) {\n  .post_container__post__title {\n    font-size: 1.7em;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__title {\n    font-size: 2.2em;\n  }\n}\n.post_container__post__subtitle {\n  font-family: 'Lato', 'Helvetica';\n  font-weight: 300;\n  font-size: 1em;\n  line-height: 1.5em;\n  margin-top: 10px;\n}\n.post_container__post__date {\n  display: inline-block;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post_container__post__date {\n    font-size: 0.9rem;\n  }\n}\n.post_container__post__category {\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n}\n@media (max-width: 960px) {\n  .post_container__post__category {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__category {\n    display: inline-block;\n  }\n}\n.post_container__post__tags {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  height: 100%;\n  padding-left: 0.5em;\n  border-right: 2px solid rgba(30, 34, 34, 0.1);\n  padding-right: 0.5em;\n  vertical-align: bottom;\n}\n@media (max-width: 960px) {\n  .post_container__post__tags {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .post_container__post__tags {\n    display: inline-block;\n  }\n}\n.post_container__post__tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: bottom;\n}\n.post_container__post__date_value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n.post_container__post__category_value {\n  margin-left: 0.5em;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .post_text ul {\n    padding-left: 1rem;\n  }\n}\n@media (max-width: 960px) {\n  .post_text ol {\n    padding-left: 1.5rem;\n  }\n}\n.post_text p code,\n.post_text ul code,\n.post_text ol code {\n  font-family: 'Ubuntu Mono' !important;\n  border-radius: 5px;\n  color: #334145;\n  background-color: #f3f3f3;\n  padding: .2em;\n  padding-left: .4em;\n  padding-right: .4em;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n}\n.post_text p code pre,\n.post_text ul code pre,\n.post_text ol code pre {\n  background: #f8f8f8;\n}\n.post_text pre code {\n  border-radius: 5px;\n  padding: 1em;\n  background-color: white;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  background: #f8f8f8;\n}\n.post_text pre > code {\n  line-height: 27px;\n  font-family: 'Ubuntu Mono';\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  white-space: pre-wrap;\n  /* css-3 */\n  white-space: -moz-pre-wrap;\n  /* Mozilla, since 1999 */\n  white-space: -pre-wrap;\n  /* Opera 4-6 */\n  white-space: -o-pre-wrap;\n  /* Opera 7 */\n  word-wrap: break-word;\n  /* Internet Explorer 5.5+ */\n}\n.post_text img {\n  display: block;\n  max-width: 80%;\n  height: auto;\n  margin-left: auto;\n  margin-right: auto;\n  border-radius: 5px;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n}\n.post_text table {\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  background-color: #fbfbfb;\n  font-size: .8em;\n  padding: .5em;\n  margin: auto;\n}\n.post_text table td,\n.post_text table th {\n  padding-left: 0.7em;\n  padding-right: 0.7em;\n  padding-top: 0.05em;\n  padding-bottom: 0.05em;\n  border: none;\n}\n.post_text table th {\n  line-height: 2em;\n  color: #2980b9;\n  text-align: left;\n}\n.post_text table tbody tr:hover {\n  background-color: #f3f3f3;\n}\n.post_text .footnote {\n  margin: 0;\n  font-size: .8em;\n  padding-top: 1em;\n}\n.post_text .footnote sup {\n  color: #d35400;\n  margin-right: .5em;\n}\n.post_text .footnote a {\n  margin-left: 1em;\n}\n.post_text hr {\n  width: 20%;\n  margin-top: 6em;\n  margin-left: 0;\n}\n.post_text blockquote {\n  background: #f2f2f2;\n  margin: 0;\n  padding: 20px;\n  border-radius: 5px;\n}\n.post_text blockquote p {\n  margin: 0;\n}\n.share_buttons__message {\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .share_buttons__message {\n    display: none;\n  }\n}\n.share_buttons__share_reddit,\n.share_buttons__share_twitter,\n.share_buttons__share_github,\n.share_buttons {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  padding-left: 0.5em;\n}\n.share_buttons__share_reddit {\n  color: #d35400;\n}\n.share_buttons__share_twitter {\n  color: #2980b9;\n}\n.post_text {\n  font-family: 'Lato', 'Helvetica';\n  line-height: 1.6;\n  margin-top: 2em;\n  margin-bottom: 10em;\n}\n@media (max-width: 960px) {\n  .post_text {\n    font-size: 1rem;\n  }\n}\n@media (min-width: 961px) {\n  .post_text {\n    font-size: 1.2rem;\n  }\n}\n.publications {\n  background-color: white;\n  font-family: 'Lato', 'Helvetica';\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.publications__header {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.publications__container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 3em;\n}\n.publication {\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  margin-bottom: 3em;\n  padding: 1em;\n  line-height: 1.2em;\n}\n.publication__title {\n  font-weight: 300;\n  line-height: 1.2em;\n  font-size: 1.2em;\n}\n@media (max-width: 960px) {\n  .publication__title {\n    font-size: 0.8rem;\n    line-height: 1rem;\n  }\n}\n.publication__authors {\n  margin-top: 2em;\n  font-size: .8em;\n}\n@media (max-width: 960px) {\n  .publication__authors {\n    font-size: 0.6rem;\n    line-height: 1rem;\n  }\n}\n.publication__authors__myname {\n  font-weight: 700;\n}\n.publication__authors__myname,\n.publication__authors__name {\n  display: inline-block;\n  margin-right: 1em;\n}\n@media (max-width: 960px) {\n  .publication__authors__myname,\n  .publication__authors__name {\n    margin-right: 0.6em;\n  }\n}\n.publication__authors__name {\n  color: rgba(0, 0, 0, 0.5);\n}\n.publication__info {\n  font-size: 1em;\n}\n@media (max-width: 960px) {\n  .publication__category {\n    display: none !important;\n  }\n}\n.publication__category--conference {\n  margin-left: 0.5em;\n  background-color: #2ecc71;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--journal {\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--book {\n  margin-left: 0.5em;\n  background-color: #8e44ad;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--bookchapter {\n  margin-left: 0.5em;\n  background-color: #c0392b;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--workshop {\n  margin-left: 0.5em;\n  background-color: #7f8c8d;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__category--patent {\n  margin-left: 0.5em;\n  background-color: #f39c12;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n  display: inline-block;\n  margin-right: 0.5em;\n}\n.publication__name {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  border-right: 1px rgba(0, 0, 0, 0.2) solid;\n}\n.publication__date {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  border-right: 1px rgba(0, 0, 0, 0.2) solid;\n}\n.publication__pages {\n  display: inline-block;\n  font-size: .8em;\n  margin-right: 0.5em;\n  padding-right: 0.5em;\n  color: #808080 !important;\n}\n.publication__href {\n  text-align: right;\n}\n.publication__href__doi {\n  display: inline-block;\n}\n.publication__href__doi__icon {\n  color: #b3b3b3;\n  display: inline-block;\n  min-width: 1.2em;\n  font-size: 1.2em;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.publication__href__doi__icon-dl {\n  color: #2ecc71;\n  display: inline-block;\n  min-width: 1.2em;\n  font-size: 1.2em;\n  text-align: center;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.statement__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.statement__summary {\n  line-height: 1.5em;\n}\n@media (max-width: 960px) {\n  .statement__summary ul {\n    padding-left: 1rem;\n  }\n}\n.bio-container {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.bio__title,\n.career__title,\n.education__title,\n.address__title,\n.grants__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.bio__picture {\n  padding-right: 1%;\n  padding-top: 1%;\n  max-width: 24%;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .bio__picture {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .bio__picture {\n    display: inline-block;\n  }\n}\n.bio-text {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding: 1%;\n  display: inline-block;\n  font-family: 'Lato', 'Helvetica';\n}\n@media (min-width: 961px) {\n  .bio-text {\n    max-width: 73%;\n  }\n}\n@media (max-width: 960px) {\n  .bio-text {\n    max-width: 100%;\n  }\n}\n.bio-text__title {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 2em;\n  line-height: .9em;\n}\n.bio-text__position {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.3em;\n  letter-spacing: 2.1px;\n  color: #d35400;\n}\n.bio-text__description {\n  font-size: .95em;\n  line-height: 1.3em;\n  color: #333333;\n}\n.bio-text__description strong {\n  color: black;\n}\n.career,\n.education,\n.grants {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  vertical-align: top;\n  width: 99%;\n}\n.career_size_small,\n.education_size_small {\n  padding-right: 1%;\n}\n@media (max-width: 960px) {\n  .career_size_small,\n  .education_size_small {\n    width: 99%;\n  }\n}\n@media (min-width: 961px) {\n  .career_size_small,\n  .education_size_small {\n    width: 49%;\n  }\n}\n.career-list,\n.diploma-list,\n.grants-list {\n  padding-top: 4%;\n  width: 100%;\n}\n.position,\n.diploma,\n.grant {\n  font-family: 'Lato', 'Helvetica';\n  margin-bottom: 1em;\n  margin-top: 1em;\n}\n.position__column1,\n.diploma__column1,\n.grant__column1 {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  padding: 2%;\n  display: inline-block;\n  width: 20%;\n  vertical-align: middle;\n  text-align: center;\n}\n.position__column2,\n.diploma__column2,\n.grant__column2 {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n  width: 78%;\n  padding: 2%;\n  vertical-align: middle;\n}\n.grant__role {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0px !important;\n}\n.position__date,\n.grant__date {\n  background-color: #2980b9;\n  color: white;\n  padding: 5px;\n  margin-bottom: 2px;\n}\n.diploma__date,\n.diploma__name {\n  background-color: #d35400;\n  color: white;\n  padding: 5px;\n  margin-bottom: 2px;\n}\n.position__name,\n.grant__name,\n.diploma__topic {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.2em;\n}\n.position__institution,\n.position__department,\n.diploma__department,\n.diploma__institution,\n.grant__institution {\n  display: inline-block;\n  padding-right: 5px;\n  font-size: .85em;\n}\n.position__institution,\n.diploma__institution,\n.grant_institution {\n  font-style: italic;\n}\n.position__department,\n.diploma__department,\n.grant__department {\n  color: #1a1a1a;\n}\n.address__map {\n  width: 100%;\n  height: 25em;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n}\n@media (max-width: 960px) {\n  .address__map {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .address__map {\n    display: block;\n  }\n}\n.address {\n  margin-bottom: 8em;\n}\n.calendar {\n  width: 100%;\n  margin-left: auto;\n  margin-right: auto;\n}\n.calendar__day {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 30px;\n  height: 30px;\n  display: inline-block;\n  background-color: #ecf0f1;\n  margin-right: 2px;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Lato', 'Helvetica';\n  text-align: center;\n  font-size: .7em;\n  line-height: 3em;\n  margin-top: 2px;\n}\n.calendar__day_not_working {\n  background-color: #b1c2c6;\n}\n.calendar__day_not_in_month {\n  opacity: 0;\n}\n.calendar__month {\n  width: 224px;\n  vertical-align: top;\n  margin-left: auto;\n}\n@media (max-width: 960px) {\n  .calendar__month {\n    display: block;\n  }\n}\n@media (min-width: 961px) {\n  .calendar__month {\n    display: inline-block;\n  }\n}\n@media (max-width: 960px) {\n  .calendar__month {\n    margin-right: auto;\n  }\n}\n@media (min-width: 961px) {\n  .calendar__month {\n    margin-right: 2%;\n  }\n}\n.calendar__month_name {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  text-align: center;\n}\n.calendar__category_infob {\n  background-color: #ffa76d;\n}\n.calendar__category_blog {\n  background-color: #94c6e7;\n}\n.calendar__day_is_today {\n  font-weight: 700;\n  color: #1abc9c;\n}\n.calendar__tooltip {\n  position: absolute;\n  color: white;\n  background-color: #d35400;\n  border-radius: 5px;\n  display: block;\n  padding: 1em;\n  padding-top: .3em;\n  padding-bottom: .3em;\n  font-size: 1.3em;\n  margin-right: .5em;\n}\n.teaching-page {\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n  font-family: 'Lato', 'Helvetica';\n}\n.teaching-page__title {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 3em;\n  line-height: .9em;\n  padding-top: .5em;\n}\n.teaching-page__year {\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Lato', 'Helvetica';\n  letter-spacing: .04em;\n}\n.contacts {\n  margin-top: 1em;\n  margin-bottom: 1em;\n  font-family: 'Lato', 'Helvetica';\n  font-size: .9em;\n  line-height: 1.5em;\n}\n.contacts__detail {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n}\n.contacts__key {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  font-size: .9em;\n  width: 25%;\n  display: inline-block;\n  color: #999999;\n  vertical-align: top;\n}\n.contacts__value {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 74%;\n  font-size: .9em;\n  display: inline-block;\n  color: black;\n  vertical-align: top;\n}\n.lecture-material__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.lecture-material__calendar {\n  margin-top: 1em;\n  margin-bottom: 2em;\n}\n.lecture-material__description {\n  margin-top: 1em;\n  font-size: .9em;\n}\n@media (max-width: 960px) {\n  .lecture-material.only-desktop {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .lecture-material.only-desktop {\n    display: block;\n  }\n}\n.lecture-messages__title {\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.lecture-messages__message {\n  margin-top: 1.5em;\n  vertical-align: top;\n}\n.lecture-messages__date {\n  font-size: .8em;\n  line-height: 1.1111em;\n  display: block;\n  color: #c0392b;\n  margin-right: 1%;\n  vertical-align: top;\n}\n.lecture-messages__text {\n  font-size: .9em;\n  line-height: 1.4em;\n  display: block;\n  vertical-align: top;\n  margin-top: .2rem;\n}\n.lecture-messages__text p {\n  margin-top: 0px;\n}\n/*\n * # Semantic - Table\n * http://github.com/jlukic/semantic-ui/\n *\n *\n * Copyright 2013 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n/*******************************\n             Table\n*******************************/\n/* Prototype */\n.ui.table {\n  width: 100%;\n  border-collapse: collapse;\n}\n/* Table Content */\n.ui.table th,\n.ui.table tr,\n.ui.table td {\n  border-collapse: collapse;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -ms-box-sizing: border-box;\n  box-sizing: border-box;\n  -webkit-transition: all 0.1s ease-out;\n  -moz-transition: all 0.1s ease-out;\n  transition: all 0.1s ease-out;\n}\n/* Headers */\n.ui.table thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.table tfoot th {\n  background-color: rgba(0, 0, 0, 0.03);\n}\n.ui.table th {\n  cursor: auto;\n  background-color: rgba(0, 0, 0, 0.05);\n  text-align: right;\n  color: rgba(0, 0, 0, 0.8);\n  padding: 0.5em 0.7em;\n  vertical-align: middle;\n}\n.ui.table thead th:first-child {\n  border-radius: 0px 5px 0px 0px;\n}\n.ui.table thead th:last-child {\n  border-radius: 5px 0px 0px 0px;\n}\n.ui.table tfoot th:first-child {\n  border-radius: 0px 0px 5px 0px;\n}\n.ui.table tfoot th:last-child {\n  border-radius: 0px 0px 0px 5px;\n}\n.ui.table tfoot th:only-child {\n  border-radius: 0px 0px 5px 5px;\n}\n/* Table Cells */\n.ui.table td {\n  padding: 0.40em 0.7em;\n  vertical-align: middle;\n}\n/* Footer */\n.ui.table tfoot {\n  border-top: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.table tfoot th {\n  font-weight: normal;\n  font-style: italic;\n}\n/* Table Striping */\n.ui.table tbody tr:nth-child(2n) {\n  background-color: rgba(0, 0, 50, 0.02);\n}\n/* Icons */\n.ui.table > .icon {\n  vertical-align: baseline;\n}\n.ui.table > .icon:only-child {\n  margin: 0em;\n}\n/* Table Segment */\n.ui.table.segment:after {\n  display: none;\n}\n.ui.table.segment.stacked:after {\n  display: block;\n}\n/* Responsive */\n@media only screen and (max-width: 768px) {\n  .ui.table {\n    display: block;\n    padding: 0em;\n  }\n  .ui.table thead,\n  .ui.table tfoot {\n    display: none;\n  }\n  .ui.table tbody {\n    display: block;\n  }\n  .ui.table tr {\n    display: block;\n  }\n  .ui.table tr > td {\n    width: 100% !important;\n    display: block;\n    border: none !important;\n    padding: 0.25em 0.75em;\n    -webkit-box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05) !important;\n    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.05) !important;\n  }\n  .ui.table td:first-child {\n    font-weight: bold;\n    padding-top: 1em;\n  }\n  .ui.table td:last-child {\n    -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n    padding-bottom: 1em;\n  }\n  /* Clear BG Colors */\n  .ui.table tr > td.warning,\n  .ui.table tr > td.error,\n  .ui.table tr > td.active,\n  .ui.table tr > td.positive,\n  .ui.table tr > td.negative {\n    background-color: transparent !important;\n  }\n}\n/*******************************\n             States\n*******************************/\n/*--------------\n      Hover\n---------------*/\n/* Sortable */\n.ui.sortable.table th.disabled:hover {\n  cursor: auto;\n  text-align: right;\n  font-weight: bold;\n  color: #333333;\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.sortable.table thead th:hover {\n  background-color: rgba(0, 0, 0, 0.13);\n  color: rgba(0, 0, 0, 0.8);\n}\n/* Inverted Sortable */\n.ui.inverted.sortable.table thead th:hover {\n  background-color: rgba(255, 255, 255, 0.13);\n  color: #ffffff;\n}\n/*--------------\n    Positive\n---------------*/\n.ui.table tr.positive,\n.ui.table td.positive {\n  -webkit-box-shadow: -2px 0px 0px #119000 inset;\n  box-shadow: -2px 0px 0px #119000 inset;\n}\n.ui.table tr.positive td,\n.ui.table td.positive {\n  background-color: #F2F8F0 !important;\n  color: #119000 !important;\n}\n.ui.celled.table tr.positive:hover td,\n.ui.celled.table tr:hover td.positive,\n.ui.table tr.positive:hover td,\n.ui.table td:hover.positive,\n.ui.table th:hover.positive {\n  background-color: #ECF5E9 !important;\n  color: #119000 !important;\n}\n/*--------------\n     Negative\n---------------*/\n.ui.table tr.negative,\n.ui.table td.negative {\n  -webkit-box-shadow: -2px 0px 0px #CD2929 inset;\n  box-shadow: -2px 0px 0px #CD2929 inset;\n}\n.ui.table tr.negative td,\n.ui.table td.negative {\n  background-color: #F9F4F4;\n  color: #CD2929 !important;\n}\n.ui.celled.table tr.negative:hover td,\n.ui.celled.table tr:hover td.negative,\n.ui.table tr.negative:hover td,\n.ui.table td:hover.negative,\n.ui.table th:hover.negative {\n  background-color: #F2E8E8;\n  color: #CD2929;\n}\n/*--------------\n      Error\n---------------*/\n.ui.table tr.error,\n.ui.table td.error {\n  -webkit-box-shadow: -2px 0px 0px #CD2929 inset;\n  box-shadow: -2px 0px 0px #CD2929 inset;\n}\n.ui.table tr.error td,\n.ui.table td.error,\n.ui.table th.error {\n  background-color: #F9F4F4;\n  color: #CD2929;\n}\n.ui.celled.table tr.error:hover td,\n.ui.celled.table tr:hover td.error,\n.ui.table tr.error:hover td,\n.ui.table td:hover.error,\n.ui.table th:hover.error {\n  background-color: #F2E8E8;\n  color: #CD2929;\n}\n/*--------------\n     Warning\n---------------*/\n.ui.table tr.warning,\n.ui.table td.warning {\n  -webkit-box-shadow: -2px 0px 0px #7D6C00 inset;\n  box-shadow: -2px 0px 0px #7D6C00 inset;\n}\n.ui.table tr.warning td,\n.ui.table td.warning,\n.ui.table th.warning {\n  background-color: #FBF6E9;\n  color: #7D6C00;\n}\n.ui.celled.table tr.warning:hover td,\n.ui.celled.table tr:hover td.warning,\n.ui.table tr.warning:hover td,\n.ui.table td:hover.warning,\n.ui.table th:hover.warning {\n  background-color: #F3EDDC;\n  color: #7D6C00;\n}\n/*--------------\n     Active\n---------------*/\n.ui.table tr.active,\n.ui.table td.active {\n  -webkit-box-shadow: -2px 0px 0px rgba(50, 50, 50, 0.9) inset;\n  box-shadow: -2px 0px 0px rgba(50, 50, 50, 0.9) inset;\n}\n.ui.table tr.active td,\n.ui.table tr td.active {\n  background-color: #E0E0E0;\n  color: rgba(50, 50, 50, 0.9);\n  /* border-color: rgba(0, 0, 0, 0.15) !important; */\n}\n/*--------------\n     Disabled\n---------------*/\n.ui.table tr.disabled td,\n.ui.table tr td.disabled,\n.ui.table tr.disabled:hover td,\n.ui.table tr:hover td.disabled {\n  color: rgba(150, 150, 150, 0.3);\n}\n/*******************************\n          Variations\n*******************************/\n/*--------------\n  Column Count\n---------------*/\n.ui.two.column.table td {\n  width: 50%;\n}\n.ui.three.column.table td {\n  width: 33.3333%;\n}\n.ui.four.column.table td {\n  width: 25%;\n}\n.ui.five.column.table td {\n  width: 20%;\n}\n.ui.six.column.table td {\n  width: 16.66667%;\n}\n.ui.seven.column.table td {\n  width: 14.2857%;\n}\n.ui.eight.column.table td {\n  width: 12.5%;\n}\n.ui.nine.column.table td {\n  width: 11.1111%;\n}\n.ui.ten.column.table td {\n  width: 10%;\n}\n.ui.eleven.column.table td {\n  width: 9.0909%;\n}\n.ui.twelve.column.table td {\n  width: 8.3333%;\n}\n.ui.thirteen.column.table td {\n  width: 7.6923%;\n}\n.ui.fourteen.column.table td {\n  width: 7.1428%;\n}\n.ui.fifteen.column.table td {\n  width: 6.6666%;\n}\n.ui.sixteen.column.table td {\n  width: 6.25%;\n}\n/* Column Width */\n.ui.table th.one.wide,\n.ui.table td.one.wide {\n  width: 6.25%;\n}\n.ui.table th.two.wide,\n.ui.table td.two.wide {\n  width: 12.5%;\n}\n.ui.table th.three.wide,\n.ui.table td.three.wide {\n  width: 18.75%;\n}\n.ui.table th.four.wide,\n.ui.table td.four.wide {\n  width: 25%;\n}\n.ui.table th.five.wide,\n.ui.table td.five.wide {\n  width: 31.25%;\n}\n.ui.table th.six.wide,\n.ui.table td.six.wide {\n  width: 37.5%;\n}\n.ui.table th.seven.wide,\n.ui.table td.seven.wide {\n  width: 43.75%;\n}\n.ui.table th.eight.wide,\n.ui.table td.eight.wide {\n  width: 50%;\n}\n.ui.table th.nine.wide,\n.ui.table td.nine.wide {\n  width: 56.25%;\n}\n.ui.table th.ten.wide,\n.ui.table td.ten.wide {\n  width: 62.5%;\n}\n.ui.table th.eleven.wide,\n.ui.table td.eleven.wide {\n  width: 68.75%;\n}\n.ui.table th.twelve.wide,\n.ui.table td.twelve.wide {\n  width: 75%;\n}\n.ui.table th.thirteen.wide,\n.ui.table td.thirteen.wide {\n  width: 81.25%;\n}\n.ui.table th.fourteen.wide,\n.ui.table td.fourteen.wide {\n  width: 87.5%;\n}\n.ui.table th.fifteen.wide,\n.ui.table td.fifteen.wide {\n  width: 93.75%;\n}\n.ui.table th.sixteen.wide,\n.ui.table td.sixteen.wide {\n  width: 100%;\n}\n/*--------------\n     Celled\n---------------*/\n.ui.celled.table {\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.celled.table tbody tr,\n.ui.celled.table tfoot tr {\n  border: none;\n}\n.ui.celled.table th,\n.ui.celled.table td {\n  border: 1px solid rgba(0, 0, 0, 0.1);\n}\n/* Coupling with segment */\n.ui.celled.table.segment th:first-child,\n.ui.celled.table.segment td:first-child {\n  border-right: none;\n}\n.ui.celled.table.segment th:last-child,\n.ui.celled.table.segment td:last-child {\n  border-left: none;\n}\n/*--------------\n    Sortable\n---------------*/\n.ui.sortable.table thead th {\n  cursor: pointer;\n  white-space: nowrap;\n}\n.ui.sortable.table thead th.sorted,\n.ui.sortable.table thead th.sorted:hover {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n.ui.sortable.table thead th:after {\n  display: inline-block;\n  content: '';\n  width: 1em;\n  opacity: 0.8;\n  margin: 0em 0.5em 0em 0em;\n  font-family: 'Icons';\n  font-style: normal;\n  font-weight: normal;\n  text-decoration: inherit;\n}\n.ui.sortable.table thead th.ascending:after {\n  content: '\\25B4';\n}\n.ui.sortable.table thead th.descending:after {\n  content: '\\25BE';\n}\n/*--------------\n    Inverted\n---------------*/\n/* Text Color */\n.ui.inverted.table td {\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.inverted.table th {\n  background-color: rgba(0, 0, 0, 0.15);\n  color: rgba(255, 255, 255, 0.9);\n}\n/* Stripes */\n.ui.inverted.table tbody tr:nth-child(2n) {\n  background-color: rgba(255, 255, 255, 0.06);\n}\n/*--------------\n   Definition\n---------------*/\n.ui.definition.table td:first-child {\n  font-weight: bold;\n}\n/*--------------\n   Collapsing\n---------------*/\n.ui.collapsing.table {\n  width: auto;\n}\n/*--------------\n      Basic\n---------------*/\n.ui.basic.table th {\n  background-color: transparent;\n  padding: 0.5em;\n}\n.ui.basic.table tbody tr {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.03);\n}\n.ui.basic.table td {\n  padding: 0.8em 0.5em;\n}\n.ui.basic.table tbody tr:nth-child(2n) {\n  background-color: transparent !important;\n}\n/*--------------\n     Padded\n---------------*/\n.ui.padded.table th,\n.ui.padded.table td {\n  padding: 0.8em 1em;\n}\n.ui.compact.table th {\n  padding: 0.3em 0.5em;\n}\n.ui.compact.table td {\n  padding: 0.2em 0.5em;\n}\n/*--------------\n      Sizes\n---------------*/\n/* Small */\n.ui.small.table {\n  font-size: 0.875em;\n}\n/* Standard */\n.ui.table {\n  font-size: 1em;\n}\n/* Large */\n.ui.large.table {\n  font-size: 1.1em;\n}\n/*\n * # Semantic - Segment\n * http://github.com/jlukic/semantic-ui/\n *\n *\n * Copyright 2013 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n/*******************************\n            Segment\n*******************************/\n.ui.segment {\n  position: relative;\n  background-color: #FFFFFF;\n  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);\n  margin: 1em 0em;\n  padding: 1em;\n  border-radius: 5px 5px 5px 5px;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -ms-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.ui.segment:first-child {\n  margin-top: 0em;\n}\n.ui.segment:last-child {\n  margin-bottom: 0em;\n}\n.ui.segment:after {\n  content: '';\n  display: block;\n  height: 0;\n  clear: both;\n  visibility: hidden;\n}\n.ui.vertical.segment {\n  margin: 0em;\n  padding-right: 0em;\n  padding-left: 0em;\n  background-color: transparent;\n  border-radius: 0px;\n  -webkit-box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);\n}\n.ui.vertical.segment:first-child {\n  padding-top: 0em;\n}\n.ui.horizontal.segment {\n  margin: 0em;\n  padding-top: 0em;\n  padding-bottom: 0em;\n  background-color: transparent;\n  border-radius: 0px;\n  -webkit-box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.1);\n  box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.1);\n}\n.ui.horizontal.segment:first-child {\n  padding-right: 0em;\n}\n/*-------------------\n    Loose Coupling\n--------------------*/\n.ui.pointing.menu ~ .ui.attached.segment {\n  top: 1px;\n}\n.ui.page.grid.segment .ui.grid .ui.segment.column {\n  padding-top: 2rem;\n  padding-bottom: 2rem;\n}\n.ui.grid.segment,\n.ui.grid .ui.segment.row,\n.ui.grid .ui.segment.column {\n  border-radius: 0em;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border: none;\n}\n/* No padding on edge content */\n.ui.segment > :first-child {\n  margin-top: 0em;\n}\n.ui.segment > :last-child {\n  margin-bottom: 0em;\n}\n/*******************************\n             Types\n*******************************/\n/*-------------------\n        Piled\n--------------------*/\n.ui.piled.segment {\n  margin: 2em 0em;\n  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  -ms-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  -o-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);\n}\n.ui.piled.segment:first-child {\n  margin-top: 0em;\n}\n.ui.piled.segment:last-child {\n  margin-bottom: 0em;\n}\n.ui.piled.segment:after,\n.ui.piled.segment:before {\n  background-color: #FFFFFF;\n  visibility: visible;\n  content: \"\";\n  display: block;\n  height: 100%;\n  right: -1px;\n  position: absolute;\n  width: 100%;\n  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);\n}\n.ui.piled.segment:after {\n  -webkit-transform: rotate(-1.2deg);\n  -moz-transform: rotate(-1.2deg);\n  -ms-transform: rotate(-1.2deg);\n  transform: rotate(-1.2deg);\n  top: 0;\n  z-index: -1;\n}\n.ui.piled.segment:before {\n  -webkit-transform: rotate(1.2deg);\n  -moz-transform: rotate(1.2deg);\n  -ms-transform: rotate(1.2deg);\n  transform: rotate(1.2deg);\n  top: 0;\n  z-index: -2;\n}\n/*-------------------\n       Stacked\n--------------------*/\n.ui.stacked.segment {\n  padding-bottom: 1.7em;\n}\n.ui.stacked.segment:after,\n.ui.stacked.segment:before {\n  content: '';\n  position: absolute;\n  bottom: -3px;\n  right: 0%;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: rgba(0, 0, 0, 0.02);\n  width: 100%;\n  height: 5px;\n  visibility: visible;\n}\n.ui.stacked.segment:before {\n  bottom: 0px;\n}\n/* Inverted */\n.ui.stacked.inverted.segment:after,\n.ui.stacked.inverted.segment:before {\n  background-color: rgba(255, 255, 255, 0.1);\n  border-top: 1px solid rgba(255, 255, 255, 0.35);\n}\n/*-------------------\n       Circular\n--------------------*/\n.ui.circular.segment {\n  display: table-cell;\n  padding: 2em;\n  text-align: center;\n  vertical-align: middle;\n  border-radius: 500em;\n}\n/*-------------------\n       Raised\n--------------------*/\n.ui.raised.segment {\n  -webkit-box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);\n  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.1);\n}\n/*******************************\n            States\n*******************************/\n.ui.disabled.segment {\n  opacity: 0.8;\n  color: #DDDDDD;\n}\n/*******************************\n           Variations\n*******************************/\n/*-------------------\n       Basic\n--------------------*/\n.ui.basic.segment {\n  position: relative;\n  background-color: transparent;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n  border-radius: 0px;\n}\n.ui.basic.segment:first-child {\n  padding-top: 0em;\n}\n.ui.basic.segment:last-child {\n  padding-bottom: 0em;\n}\n/*-------------------\n       Fittted\n--------------------*/\n.ui.fitted.segment {\n  padding: 0em;\n}\n/*-------------------\n       Colors\n--------------------*/\n.ui.blue.segment {\n  border-top: 0.2em solid #6ECFF5;\n}\n.ui.green.segment {\n  border-top: 0.2em solid #A1CF64;\n}\n.ui.red.segment {\n  border-top: 0.2em solid #D95C5C;\n}\n.ui.orange.segment {\n  border-top: 0.2em solid #F05940;\n}\n.ui.purple.segment {\n  border-top: 0.2em solid #564F8A;\n}\n.ui.teal.segment {\n  border-top: 0.2em solid #00B5AD;\n}\n/*-------------------\n   Inverted Colors\n--------------------*/\n.ui.inverted.black.segment {\n  background-color: #5C6166 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.blue.segment {\n  background-color: #6ECFF5 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.green.segment {\n  background-color: #A1CF64 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.red.segment {\n  background-color: #D95C5C !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.orange.segment {\n  background-color: #F05940 !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.purple.segment {\n  background-color: #564F8A !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.teal.segment {\n  background-color: #00B5AD !important;\n  color: #FFFFFF !important;\n}\n/*-------------------\n       Aligned\n--------------------*/\n.ui.left.aligned.segment {\n  text-align: right;\n}\n.ui.right.aligned.segment {\n  text-align: left;\n}\n.ui.center.aligned.segment {\n  text-align: center;\n}\n.ui.justified.segment {\n  text-align: justify;\n  -webkit-hyphens: auto;\n  -moz-hyphens: auto;\n  -ms-hyphens: auto;\n  hyphens: auto;\n}\n/*-------------------\n       Floated\n--------------------*/\n.ui.floated.segment,\n.ui.left.floated.segment {\n  float: right;\n}\n.ui.right.floated.segment {\n  float: left;\n}\n/*-------------------\n      Inverted\n--------------------*/\n.ui.inverted.segment {\n  border: none;\n  -webkit-box-shadow: none;\n  box-shadow: none;\n}\n.ui.inverted.segment .segment {\n  color: rgba(0, 0, 0, 0.7);\n}\n.ui.inverted.segment .inverted.segment {\n  color: #FFFFFF;\n}\n.ui.inverted.segment,\n.ui.primary.inverted.segment {\n  background-color: #222222;\n  color: #FFFFFF;\n}\n/*-------------------\n     Ordinality\n--------------------*/\n.ui.primary.segment {\n  background-color: #FFFFFF;\n  color: #555555;\n}\n.ui.secondary.segment {\n  background-color: #FAF9FA;\n  color: #777777;\n}\n.ui.tertiary.segment {\n  background-color: #EBEBEB;\n  color: #B0B0B0;\n}\n.ui.secondary.inverted.segment {\n  background-color: #555555;\n  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));\n  background-image: -webkit-linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  background-image: -moz-linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  background-image: -webkit-gradient(linear, right top, right bottom, from(rgba(0, 255, 255, 0.3)), to(rgba(255, 255, 255, 0.3)));\n  background-image: linear-gradient(rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%);\n  color: #FAFAFA;\n}\n.ui.tertiary.inverted.segment {\n  background-color: #555555;\n  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));\n  background-image: -webkit-linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  background-image: -moz-linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  background-image: -webkit-gradient(linear, right top, right bottom, from(rgba(0, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.6)));\n  background-image: linear-gradient(rgba(0, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%);\n  color: #EEEEEE;\n}\n/*-------------------\n      Attached\n--------------------*/\n.ui.segment.attached {\n  top: -1px;\n  bottom: -1px;\n  border-radius: 0px;\n  margin: 0em;\n  -webkit-box-shadow: 0px 0px 0px 1px #DDDDDD;\n  box-shadow: 0px 0px 0px 1px #DDDDDD;\n}\n.ui.top.attached.segment {\n  top: 0px;\n  bottom: -1px;\n  margin-top: 1em;\n  margin-bottom: 0em;\n  border-radius: 5px 5px 0px 0px;\n}\n.ui.segment.top.attached:first-child {\n  margin-top: 0em;\n}\n.ui.segment.bottom.attached {\n  top: -1px;\n  bottom: 0px;\n  margin-top: 0em;\n  margin-bottom: 1em;\n  border-radius: 0px 0px 5px 5px;\n}\n.ui.segment.bottom.attached:last-child {\n  margin-bottom: 0em;\n}\n.table thead tr th div {\n  text-align: center;\n  font-variant: small-caps;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  font-size: 1.2rem;\n  font-weight: 300;\n}\n.table__row {\n  height: 1.9rem;\n}\n.table__cell_title {\n  max-width: 400px;\n}\n.table__cell_date {\n  max-width: 100px;\n}\n.table__cell_tag {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #d35400;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: bottom;\n}\n/* Updated */\n.slider {\n  margin-top: .6rem;\n  border: 2px #c0392b solid;\n  height: .6rem;\n  border-radius: 7px;\n}\n.slider__slider-value {\n  width: 100%;\n  background: #c0392b;\n  height: .6rem;\n}\n.exemd--diagram {\n  box-shadow: none !important;\n  border: none !important;\n}\n.exemd--diagram__dot {\n  height: auto !important;\n}\n@media (max-width: 960px) {\n  .exemd--diagram__dot {\n    max-width: 100% !important;\n  }\n}\n@media (min-width: 961px) {\n  .exemd--diagram__dot {\n    width: auto !important;\n  }\n}\n.projects-page {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.projects-page__title {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.projects-page__project-list {\n  margin-top: 2em;\n}\n.project {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  text-align: center;\n  padding: 1em;\n  margin-top: 1em;\n  overflow: hidden;\n}\n@media (max-width: 960px) {\n  .project {\n    display: inline-block;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    display: inline-block;\n  }\n}\n@media (max-width: 960px) {\n  .project {\n    width: 320px;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    width: 30%;\n  }\n}\n@media (max-width: 960px) {\n  .project {\n    margin-right: 0%;\n  }\n}\n@media (min-width: 961px) {\n  .project {\n    margin-right: 3%;\n  }\n}\n.project__image {\n  width: 100%;\n  height: auto;\n  border: 1px #d8d8d8 solid;\n}\n@media (max-width: 960px) {\n  .project__image {\n    display: none;\n  }\n}\n@media (min-width: 961px) {\n  .project__image {\n    display: block;\n  }\n}\n.project__name {\n  text-align: left;\n  font-family: 'Francois One';\n  font-size: 1.5em;\n  line-height: 1.5em;\n  margin-top: .5em;\n  color: #d35400;\n}\n.project__description {\n  font-family: 'Lato', 'Helvetica';\n  font-size: 0.9em;\n  text-align: left;\n  min-height: 4em;\n}\n.videos-page {\n  font-family: 'Lato', 'Helvetica';\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  width: 90%;\n  max-width: 800px;\n  margin-left: auto;\n  margin-right: auto;\n}\n.videos-page__title {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: block;\n  padding-top: 1em;\n  font-variant: small-caps;\n  font-weight: 300;\n  text-transform: lowercase;\n  font-family: 'Francois One';\n  border-bottom: 1px rgba(94, 121, 128, 0.2) solid;\n  padding-bottom: .2em;\n  font-size: 2em;\n}\n.videos-page__video-list {\n  margin-top: 2em;\n}\n.video {\n  display: inline-block;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  background-color: #fbfbfb;\n  box-shadow: rgba(0, 0, 0, 0.06) 0 0 10px;\n  border: 1px solid #d8d8d8;\n  width: 100%;\n  height: auto;\n  padding: 1em;\n  margin-right: 1%;\n  margin-top: 1em;\n  overflow: hidden;\n  margin-bottom: 1em;\n}\n.video__iframe {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  display: inline-block;\n}\n@media (max-width: 960px) {\n  .video__iframe {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .video__iframe {\n    width: 512px;\n  }\n}\n@media (max-width: 960px) {\n  .video__iframe {\n    height: auto;\n  }\n}\n@media (min-width: 961px) {\n  .video__iframe {\n    height: 312px;\n  }\n}\n.video__data {\n  display: inline-block;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  vertical-align: top;\n}\n@media (max-width: 960px) {\n  .video__data {\n    width: 100%;\n  }\n}\n@media (min-width: 961px) {\n  .video__data {\n    width: 30%;\n  }\n}\n@media (max-width: 960px) {\n  .video__data {\n    margin-left: 0em;\n  }\n}\n@media (min-width: 961px) {\n  .video__data {\n    margin-left: 1em;\n  }\n}\n.video__title {\n  font-family: 'Francois One';\n  font-size: 1.3em;\n  line-height: 1.5;\n}\n.video__recorded-on {\n  color: #666666;\n}\n.video__language {\n  display: inline-block;\n  margin-left: 0.5em;\n  background-color: #2980b9;\n  font-size: .9em;\n  padding-top: 0em;\n  padding-bottom: 0.25em;\n  padding-left: 0.4em;\n  padding-right: 0.4em;\n  border-radius: 4px;\n  line-height: 1.1em;\n  font-variant: small-caps;\n  font-weight: 500;\n  text-transform: lowercase;\n  color: white;\n  margin-left: 0;\n}\niframe.youtube {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 100%;\n  padding-left: 5rem;\n  padding-right: 5rem;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 643 */
+/* 644 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(644);
+	var content = __webpack_require__(645);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(629)(content, {});
+	var update = __webpack_require__(630)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -117894,10 +117998,10 @@
 	}
 
 /***/ },
-/* 644 */
+/* 645 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(628)();
+	exports = module.exports = __webpack_require__(629)();
 	// imports
 
 

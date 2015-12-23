@@ -1,11 +1,11 @@
 ---
-title: Tutorial on Template Haskell 
+title: Tutorial on Template Haskell
 date: 2014-02-24 10:52:21
 
 layout: post
-category : blog 
-tags : ["haskell", "digital signal processing"] 
-description : Template Haskell promises to be the next "big thing" for parallel code generation. In this short blog post, I'll guide you through some very simple examples showing the power of Template Haskell.
+category : blog
+tags : ["haskell", "digital signal processing"]
+description : Template Haskell promises to be the next 'big thing' for parallel code generation. In this short blog post, I'll guide you through some very simple examples showing the power of Template Haskell.
 ---
 
 *Note: This is part 1 of small tutorial on Template Haskell I wrote on my blog; the tutorial is composed of [part1](http://www.vittoriozaccaria.net/blog/2014/02/24/towards-template-programming-with-haskell.html), [part 2](http://www.vittoriozaccaria.net/blog/2014/03/12/implementing-a-simple-dsp-filter-library-with-template-haskell.html) and [part 3](http://www.vittoriozaccaria.net/blog/2014/03/21/symbolically-optimize-dsp-filters-with-template-haskell.html)*.
@@ -14,7 +14,7 @@ Template Haskell promises to be the next "big thing" for parallel code
 generation. It allows to algorithmically generate and manipulate Haskell programs, much like LISP macros. With *quasi-quotation*, it even allows to define other languages whose syntax can be manipulated.
 
 In this short blog post, I'll guide you through some very simple examples showing the power of Template Haskell.
-Originally I struggled a lot in putting up a working example, so I hope this could be of help to anyone of you starting out on this. 
+Originally I struggled a lot in putting up a working example, so I hope this could be of help to anyone of you starting out on this.
 
 Pre-requirements
 ==============
@@ -33,10 +33,10 @@ Let's define a module with a function that computes the symbolic power of an exp
 
 [^1]: Taken from DSL 'Implementation in MetaOCaml, Template Haskell, and C++', (Czarnecki1 et al., 2003).
 
-Let's call our module `A`. This module will import Template Haskell and not much else: 
+Let's call our module `A`. This module will import Template Haskell and not much else:
 
     module A where
-     
+
     import Language.Haskell.TH
     import Language.Haskell.TH.Syntax
 
@@ -57,13 +57,13 @@ When `n` is 0, the function returns the AST for the literal `1`, by using Templa
     if n==0
         then [| 1 |]
 
-The above should be interpreted as: *if `n` is 0, then return an AST that when evaluated at run-time 
+The above should be interpreted as: *if `n` is 0, then return an AST that when evaluated at run-time
 is 1.* If `n` is not 0, then we must build, with a (compile-time) recursion, the expression tree:
 
         else [| $x * $(expand_power (n-1) x ) |]
 
-First of all, we are building an AST for a multiplication so the value returned is a quoted value. The dollar sign 
-is the *splice* operator; `$x` allows to take the AST passed as parameter `x` and splice it into the bigger AST as the first operand 
+First of all, we are building an AST for a multiplication so the value returned is a quoted value. The dollar sign
+is the *splice* operator; `$x` allows to take the AST passed as parameter `x` and splice it into the bigger AST as the first operand
 of operator `*`. Splicing allows to evaluate at compile time expressions that will return an AST, so we can invoke
 recursively `expand_power` to provide the representation of the sub-expression.
 
@@ -79,7 +79,7 @@ should be the formal parameter `x` of the closure we are building. Scoping works
 Using the function generator
 ==============
 
-To use `mk_power` and generate a program at *compile-time*, we have to 
+To use `mk_power` and generate a program at *compile-time*, we have to
 write another module (due to the 'limitations' of the current implementation of template Haskell). This will be our `main.hs` program. It will use `mk_power` to instantiate a specialized power function:
 
     module Main where
@@ -102,15 +102,15 @@ So that we can print the generated code:
 
 Most importantly, you can also execute that code in the same program. In fact, we can render `mk_power` with the `$` operator:
 
-    power3 = $(mk_power 3)  
+    power3 = $(mk_power 3)
 
-and use it as a normal power function. 
+and use it as a normal power function.
 
 
 Building and running the program
 ==============
 
-If you build the program: 
+If you build the program:
 
     ghc --make -XTemplateHaskell main.hs -o main
 
@@ -118,7 +118,7 @@ And run it:
 
     ./main
 
-You get: 
+You get:
 
     \x_0 -> x_0 GHC.Num.* (x_0 GHC.Num.* (x_0 GHC.Num.* 1))
 
@@ -127,5 +127,4 @@ which is the Haskell code for the generated function.
 Conclusions
 ===========
 
-Template Haskell opens a whole new world for the creation of embedded DSLs. In this example, we could have optimized `(x_0 GHC.Num.* 1)` to `x_0` programmatically but much more complex DSLs could apply domain specific optimizations to enhance or adapt the code at run-time. 
-
+Template Haskell opens a whole new world for the creation of embedded DSLs. In this example, we could have optimized `(x_0 GHC.Num.* 1)` to `x_0` programmatically but much more complex DSLs could apply domain specific optimizations to enhance or adapt the code at run-time.

@@ -68,7 +68,7 @@ function getStageConfig(stageConfig) {
     _.set(stageConfig, "output.path", __dirname);
     _.set(stageConfig, "output.publicPath", '/website-light');
     _.set(stageConfig, "resolve.alias.site-config", __dirname + "/data/site-stage.json");
-    _.set(stageConfig, "plugins", [htmlPlugin]);
+    _.set(stageConfig, "plugins", [htmlPlugin, uglifier, compressor]);
     return stageConfig
 }
 
